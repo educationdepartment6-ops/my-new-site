@@ -1,18 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Search, CheckCircle2, XCircle, ShieldCheck, ShieldAlert, Loader2, RefreshCw } from 'lucide-react';
+import { Users, Search, CheckCircle2, XCircle, ShieldCheck, ShieldAlert, Loader2, RefreshCw, UploadCloud } from 'lucide-react';
+import { safeApiFetch } from '../utils/api';
 
 export default function AdminCustomers() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all');
+  const [syncStatus, setSyncStatus] = useState(null);
 
   const fetchCustomers = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/customers');
-      const data = await res.json();
-      setCustomers(Array.isArray(data) ? data : []);
+      // 1. Sync any client-side accounts stored in this browser to the server database
+      try {
+        const clientUsersRaw = localStorage.getItem('mogwrld_client_users');
+        if (clientUsersRaw) {
+          const clientUsers = JSON.parse(clientUsersRaw);
+          if (Array.isArray(clientUsers) && clientUsers.length > 0) {
+            const syncRes = await safeApiFetch('/api/auth/sync-client-users', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ users: clientUsers })
+            });
+            if (syncRes && syncRes.added > 0) {
+              setSyncStatus(`Synced ${syncRes.added} new customer account(s) to database.`);
+            }
+          }
+        }
+      } catch (_) {}
+
+      // 2. Fetch server customers
+      const res = await safeApiFetch('/api/admin/customers');
+      let list = Array.isArray(res) ? res : [];
+
+      // 3. Merge with localStorage client users to guarantee they always appear
+      try {
+        const clientUsersRaw = localStorage.getItem('mogwrld_client_users');
+        if (clientUsersRaw) {
+          const clientUsers = JSON.parse(clientUsersRaw);
+          if (Array.isArray(clientUsers)) {
+            for (const cu of clientUsers) {
+              if (cu && cu.email && !list.some((existing) => existing.email?.toLowerCase() === cu.email.toLowerCase())) {
+                list.unshift({
+                  id: cu.id || ('usr_' + Date.now()),
+                  name: cu.name || cu.email.split('@')[0],
+                  email: cu.email,
+                  phone: cu.phone || null,
+                  role: cu.role || 'customer',
+                  emailVerified: true,
+                  disabled: false,
+                  createdAt: cu.created_at || new Date().toISOString(),
+                  orderCount: 0
+                });
+              }
+            }
+          }
+        }
+      } catch (_) {}
+
+      setCustomers(list);
     } catch (err) {
       console.error(err);
     } finally {
@@ -27,16 +74,14 @@ export default function AdminCustomers() {
   const handleToggleStatus = async (customer) => {
     const nextDisabled = !customer.disabled;
     try {
-      const res = await fetch(`/api/admin/customers/${customer.id}/status`, {
+      await safeApiFetch(`/api/admin/customers/${customer.id}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ disabled: nextDisabled })
       });
-      if (res.ok) {
-        setCustomers((prev) =>
-          prev.map((c) => (c.id === customer.id ? { ...c, disabled: nextDisabled } : c))
-        );
-      }
+      setCustomers((prev) =>
+        prev.map((c) => (c.id === customer.id ? { ...c, disabled: nextDisabled } : c))
+      );
     } catch (err) {
       alert(err.message);
     }
@@ -68,14 +113,31 @@ export default function AdminCustomers() {
           </p>
         </div>
 
-        <button
-          onClick={fetchCustomers}
-          className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
-          title="Refresh"
-        >
-          <RefreshCw className="w-4 h-4" />
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={fetchCustomers}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 text-xs font-mono transition-colors cursor-pointer"
+            title="Sync Accounts from Client & Server"
+          >
+            <UploadCloud className="w-3.5 h-3.5" />
+            <span>Sync Accounts</span>
+          </button>
+          <button
+            onClick={fetchCustomers}
+            className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
+            title="Refresh"
+          >
+            <RefreshCw className="w-4 h-4" />
+          </button>
+        </div>
       </div>
+
+      {syncStatus && (
+        <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs flex items-center gap-2 animate-fade-in font-mono">
+          <CheckCircle2 className="w-4 h-4 shrink-0" />
+          <span>{syncStatus}</span>
+        </div>
+      )}
 
       {/* Filter and Search Bar */}
       <div className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4">

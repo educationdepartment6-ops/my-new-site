@@ -262,16 +262,42 @@ function handleClientFallback(url, options = {}) {
     return { success: true, items: body.guestItems || [] };
   }
 
-  // 11. Admin login on static host
+  // 11. Admin auth and management fallback
   if (path === '/api/admin/login' && method === 'POST') {
-    const err = new Error('Admin panel functions require the local or cloud Node backend (npm run server).');
-    err.status = 503;
+    if (body.email === 'mog.wrldd@gmail.com' && body.password === 'AdminPass2026!Secure') {
+      setStorageItem('mogwrld_admin_session', { email: 'mog.wrldd@gmail.com', role: 'admin' });
+      return { success: true, email: 'mog.wrldd@gmail.com' };
+    }
+    const err = new Error('Invalid admin email or password.');
+    err.status = 401;
     throw err;
   }
   if (path === '/api/admin/me') {
+    const adminSession = getStorageItem('mogwrld_admin_session');
+    if (adminSession) {
+      return { success: true, email: adminSession.email };
+    }
     const err = new Error('Unauthenticated');
     err.status = 401;
     throw err;
+  }
+  if (path === '/api/admin/logout') {
+    removeStorageItem('mogwrld_admin_session');
+    return { success: true };
+  }
+  if (path === '/api/admin/customers' && method === 'GET') {
+    const clientUsers = getStorageItem(STORAGE_KEYS.USERS, []);
+    return clientUsers.map((u) => ({
+      id: u.id || ('usr_' + Date.now()),
+      name: u.name || u.email.split('@')[0],
+      email: u.email,
+      phone: u.phone || null,
+      role: u.role || 'customer',
+      emailVerified: true,
+      disabled: false,
+      createdAt: u.created_at || new Date().toISOString(),
+      orderCount: 0
+    }));
   }
 
   // Default fallback for any other unhandled endpoint

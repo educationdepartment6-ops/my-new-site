@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: mogwrld-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: ADMIN_EMAIL
+        value: mog.wrldd@gmail.com
+      - key: ADMIN_PASSWORD_HASH
+        value: $2b$12$7X3wlorYm03TEI0dDkijqOLQLIbaqnCy9EQupRq/UYNksXOVSTfLe
+      - key: SESSION_SECRET
+        generateValue: true

@@ -613,13 +613,14 @@ function createCustomer(data) {
   db.prepare(`
     INSERT INTO users (
       id, name, email, phone, password_hash, role, email_verified, disabled, created_at, last_login_at
-    ) VALUES (?, ?, ?, ?, ?, 'customer', 0, 0, ?, NULL)
+    ) VALUES (?, ?, ?, ?, ?, 'customer', ?, 0, ?, NULL)
   `).run(
     id,
     data.name.trim(),
     email,
     data.phone ? data.phone.trim() : null,
     data.passwordHash,
+    data.emailVerified ? 1 : 0,
     now
   );
 

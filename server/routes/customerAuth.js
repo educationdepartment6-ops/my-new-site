@@ -333,4 +333,30 @@ router.post('/reset-password', (req, res) => {
   });
 });
 
+// Client user sync endpoint (syncs offline/client registrations into SQLite database)
+router.post('/sync-client-users', (req, res) => {
+  const { users } = req.body || {};
+  let added = 0;
+  if (Array.isArray(users)) {
+    for (const u of users) {
+      if (u && u.email) {
+        const cleanEmail = u.email.trim().toLowerCase();
+        const existing = db.getUserByEmail(cleanEmail);
+        if (!existing) {
+          const passwordHash = u._password ? bcrypt.hashSync(u._password, 12) : bcrypt.hashSync('Customer2026!', 12);
+          db.createCustomer({
+            name: (u.name || cleanEmail.split('@')[0]).trim(),
+            email: cleanEmail,
+            phone: u.phone ? u.phone.trim() : null,
+            passwordHash,
+            emailVerified: true
+          });
+          added++;
+        }
+      }
+    }
+  }
+  res.json({ success: true, added });
+});
+
 module.exports = router;
