@@ -10,7 +10,8 @@ import {
   LogOut,
   ExternalLink,
   Shield,
-  Loader2
+  Loader2,
+  FileCheck
 } from 'lucide-react';
 
 export default function AdminLayout() {
@@ -56,6 +57,7 @@ export default function AdminLayout() {
   const navItems = [
     { name: 'Products', path: '/admin/products', icon: Package },
     { name: 'Categories', path: '/admin/categories', icon: Layers },
+    { name: 'COA Reports', path: '/admin/coa', icon: FileCheck },
     { name: 'Image Studio', path: '/admin/images', icon: ImageIcon },
     { name: 'Requisitions', path: '/admin/orders', icon: ShoppingBag },
     { name: 'Customers', path: '/admin/customers', icon: Users },

@@ -148,6 +148,24 @@ db.exec(`
     updated_at TEXT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
   );
+
+  CREATE TABLE IF NOT EXISTS coa_records (
+    id TEXT PRIMARY KEY,
+    product_id TEXT,
+    product_name TEXT NOT NULL,
+    category TEXT NOT NULL,
+    strength TEXT NOT NULL,
+    batch_number TEXT NOT NULL,
+    test_date TEXT NOT NULL,
+    lab TEXT NOT NULL,
+    pdf_url TEXT NOT NULL,
+    file_size TEXT NOT NULL,
+    page_count INTEGER NOT NULL DEFAULT 1,
+    is_visible INTEGER NOT NULL DEFAULT 1,
+    in_catalog INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+  );
 `);
 
 // Auto-seed from JSON files if database is empty
@@ -225,6 +243,7 @@ function seedDatabase() {
 }
 
 seedDatabase();
+seedCOARecords();
 
 // Sync SQLite back to src/data/products.json and dist/src/data/products.json
 function syncToJson() {
@@ -604,10 +623,24 @@ function clearLoginAttempts(identifier) {
 // CUSTOMER AUTH & USER MANAGEMENT
 // ==============================================================================
 
+function normalizeIndianPhone(phone) {
+  if (!phone || typeof phone !== 'string') return null;
+  const clean = phone.trim().replace(/[\s\-\(\)\.]/g, '');
+  if (/^\+91[6-9]\d{9}$/.test(clean)) return clean;
+  if (/^91[6-9]\d{9}$/.test(clean)) return '+' + clean;
+  if (/^[6-9]\d{9}$/.test(clean)) return '+91' + clean;
+  return null;
+}
+
 function createCustomer(data) {
   const id = `usr_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
   const now = new Date().toISOString();
   const email = data.email.trim().toLowerCase();
+  const normalizedPhone = normalizeIndianPhone(data.phone);
+
+  if (!normalizedPhone) {
+    throw new Error('A valid 10-digit Indian mobile number is required (starts with 6, 7, 8, or 9).');
+  }
 
   // ALWAYS force role = 'customer' on server regardless of payload
   db.prepare(`
@@ -618,7 +651,7 @@ function createCustomer(data) {
     id,
     data.name.trim(),
     email,
-    data.phone ? data.phone.trim() : null,
+    normalizedPhone,
     data.passwordHash,
     data.emailVerified ? 1 : 0,
     now
@@ -696,9 +729,17 @@ function updateCustomerProfile(userId, { name, phone }) {
   const existing = getUserById(userId);
   if (!existing) throw new Error('User not found');
 
+  let normalizedPhone = existing.phone;
+  if (phone !== undefined) {
+    normalizedPhone = normalizeIndianPhone(phone);
+    if (!normalizedPhone) {
+      throw new Error('A valid 10-digit Indian mobile number is required and cannot be blank.');
+    }
+  }
+
   db.prepare('UPDATE users SET name = ?, phone = ? WHERE id = ?').run(
     name ? name.trim() : existing.name,
-    phone !== undefined ? (phone ? phone.trim() : null) : existing.phone,
+    normalizedPhone,
     userId
   );
   return getUserById(userId);
@@ -846,6 +887,168 @@ function setCustomerDisabledStatus(userId, disabled, adminEmail) {
   logActivity(adminEmail, 'CUSTOMER_STATUS', `Set customer '${user.email}' status to ${disabled ? 'DISABLED' : 'ENABLED'}`);
 }
 
+function createCustomerFromAdmin(data, adminEmail) {
+  const normalizedPhone = normalizeIndianPhone(data.phone);
+  if (!normalizedPhone) {
+    throw new Error('A valid 10-digit Indian mobile number is required.');
+  }
+  const cleanEmail = data.email.trim().toLowerCase();
+  const existing = getUserByEmail(cleanEmail);
+  if (existing) {
+    throw new Error('An account with this email already exists.');
+  }
+  const bcrypt = require('bcryptjs');
+  const tempPasswordHash = data.password ? bcrypt.hashSync(data.password, 12) : bcrypt.hashSync('Customer2026!', 12);
+  const id = `usr_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+  const now = new Date().toISOString();
+
+  db.prepare(`
+    INSERT INTO users (
+      id, name, email, phone, password_hash, role, email_verified, disabled, created_at, last_login_at
+    ) VALUES (?, ?, ?, ?, ?, 'customer', 1, 0, ?, NULL)
+  `).run(
+    id,
+    data.name ? data.name.trim() : 'Customer',
+    cleanEmail,
+    normalizedPhone,
+    tempPasswordHash,
+    now
+  );
+
+  logActivity(adminEmail, 'CREATE_CUSTOMER', `Created customer '${cleanEmail}' with phone ${normalizedPhone}`);
+  return getUserById(id);
+}
+
+function updateCustomerFromAdmin(userId, data, adminEmail) {
+  const existing = getUserById(userId);
+  if (!existing) throw new Error('Customer not found');
+
+  let normalizedPhone = existing.phone;
+  if (data.phone !== undefined) {
+    normalizedPhone = normalizeIndianPhone(data.phone);
+    if (!normalizedPhone) {
+      throw new Error('A valid 10-digit Indian mobile number is required.');
+    }
+  }
+
+  db.prepare('UPDATE users SET name = ?, phone = ? WHERE id = ?').run(
+    data.name ? data.name.trim() : existing.name,
+    normalizedPhone,
+    userId
+  );
+
+  logActivity(adminEmail, 'UPDATE_CUSTOMER', `Updated customer '${existing.email}' profile (phone: ${normalizedPhone})`);
+  return getUserById(userId);
+}
+
+// ==============================================================================
+// COA MANAGEMENT
+// ==============================================================================
+
+function getAllCOARecords() {
+  return db.prepare('SELECT * FROM coa_records ORDER BY created_at DESC').all();
+}
+
+function getCOARecordById(id) {
+  return db.prepare('SELECT * FROM coa_records WHERE id = ?').get(id);
+}
+
+function createCOARecord(data) {
+  const now = new Date().toISOString();
+  db.prepare(`
+    INSERT INTO coa_records (
+      id, product_id, product_name, category, strength, batch_number,
+      test_date, lab, pdf_url, file_size, page_count, is_visible, in_catalog, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    data.id,
+    data.productId || null,
+    data.productName,
+    data.category,
+    data.strength,
+    data.batchNumber,
+    data.testDate,
+    data.lab,
+    data.pdfUrl,
+    data.fileSize,
+    data.pageCount || 1,
+    data.isVisible !== undefined ? data.isVisible : 1,
+    data.inCatalog !== undefined ? data.inCatalog : 1,
+    now,
+    now
+  );
+  return getCOARecordById(data.id);
+}
+
+function updateCOARecord(id, data) {
+  const existing = getCOARecordById(id);
+  if (!existing) throw new Error('COA record not found');
+  const now = new Date().toISOString();
+  db.prepare(`
+    UPDATE coa_records SET
+      batch_number = ?,
+      test_date = ?,
+      strength = ?,
+      lab = ?,
+      is_visible = ?,
+      updated_at = ?
+    WHERE id = ?
+  `).run(
+    data.batchNumber ? data.batchNumber.trim() : existing.batch_number,
+    data.testDate ? data.testDate.trim() : existing.test_date,
+    data.strength ? data.strength.trim() : existing.strength,
+    data.lab ? data.lab.trim() : existing.lab,
+    data.isVisible !== undefined ? (data.isVisible ? 1 : 0) : existing.is_visible,
+    now,
+    id
+  );
+  return getCOARecordById(id);
+}
+
+function deleteCOARecord(id) {
+  db.prepare('DELETE FROM coa_records WHERE id = ?').run(id);
+}
+
+function seedCOARecords() {
+  try {
+    const count = db.prepare('SELECT COUNT(*) as count FROM coa_records').get().count;
+    if (count > 0) return;
+    const jsonPath = path.join(__dirname, '..', 'src', 'data', 'coa_records.json');
+    if (fs.existsSync(jsonPath)) {
+      const list = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+      const now = new Date().toISOString();
+      const insert = db.prepare(`
+        INSERT INTO coa_records (
+          id, product_id, product_name, category, strength, batch_number,
+          test_date, lab, pdf_url, file_size, page_count, is_visible, in_catalog, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      for (const item of list) {
+        insert.run(
+          item.id,
+          item.productId || null,
+          item.productName,
+          item.category,
+          item.strength,
+          item.batchNumber,
+          item.testDate,
+          item.lab,
+          item.pdfUrl,
+          item.fileSize,
+          item.pageCount || 1,
+          item.isVisible ? 1 : 0,
+          item.inCatalog ? 1 : 0,
+          now,
+          now
+        );
+      }
+      console.log(`[DB] Successfully seeded ${list.length} COA records into SQLite.`);
+    }
+  } catch (err) {
+    console.error('[DB] Error seeding COA records:', err);
+  }
+}
+
 module.exports = {
   db,
   getAllProducts,
@@ -889,5 +1092,15 @@ module.exports = {
   getCustomerCart,
   saveCustomerCart,
   getAllCustomersForAdmin,
-  setCustomerDisabledStatus
+  setCustomerDisabledStatus,
+  createCustomerFromAdmin,
+  updateCustomerFromAdmin,
+  normalizeIndianPhone,
+  // COA functions
+  getAllCOARecords,
+  getCOARecordById,
+  createCOARecord,
+  updateCOARecord,
+  deleteCOARecord,
+  seedCOARecords
 };

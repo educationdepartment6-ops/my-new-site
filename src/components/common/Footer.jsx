@@ -62,6 +62,11 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
+                <Link to="/coa" className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors font-medium">
+                  Lab Reports (COA)
+                </Link>
+              </li>
+              <li>
                 <Link to="/faq" className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors">
                   Frequently Asked Questions
                 </Link>

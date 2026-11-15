@@ -7,6 +7,7 @@ import VariantSelector from '../components/product/VariantSelector';
 import ProductCard from '../components/product/ProductCard';
 import productsData from '../data/products.json';
 import legacyRedirects from '../data/legacy_redirects.json';
+import coaRecords from '../data/coa_records.json';
 import { useCartStore } from '../store/useCartStore';
 import { useCurrencyStore } from '../store/useCurrencyStore';
 import { formatPrice } from '../utils/pricing';
@@ -50,6 +51,18 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
   const [isAdded, setIsAdded] = useState(false);
+
+  // Find matching verified COA for this product and selected variant
+  const matchedCoa = React.useMemo(() => {
+    if (!product || !selectedVariant) return null;
+    return coaRecords.find((c) => {
+      if (c.productId !== product.id || !c.isVisible || c.inCatalog === false) return false;
+      const cleanCoaStr = c.strength.toLowerCase().replace(/\s+/g, '');
+      const cleanVarLabel = (selectedVariant.label || '').toLowerCase().replace(/\s+/g, '');
+      const cleanVarStr = (selectedVariant.strength || '').toLowerCase().replace(/\s+/g, '');
+      return cleanVarLabel.includes(cleanCoaStr.split('/')[0]) || cleanVarStr.includes(cleanCoaStr.split('/')[0]);
+    });
+  }, [product, selectedVariant]);
 
   // Sync state if URL query param changes
   useEffect(() => {
@@ -145,29 +158,27 @@ export default function ProductDetailPage() {
 
               <div className="relative z-10 text-center">
                 <span className="badge-ruo mb-1.5 inline-block" title="Sold for research purposes only.">Research Use</span>
-                <div className="text-xs font-mono text-[var(--ink-muted)]">
-                  Lot Batch: <span className="text-[var(--ink)] font-semibold">{selectedVariant.batchNumber || 'MW-2026-CERT'}</span>
-                </div>
+                {matchedCoa && (
+                  <div className="text-xs font-mono text-[var(--ink-muted)]">
+                    Batch: <span className="text-[var(--ink)] font-semibold">{matchedCoa.batchNumber}</span>
+                  </div>
+                )}
               </div>
 
-              {/* Batch COA Download Action */}
-              <div className="relative z-10 mt-8 w-full">
-                <a
-                  href={product.coaUrl || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    if (!product.coaUrl) {
-                      e.preventDefault();
-                      alert(`Certificates of Analysis for batch ${selectedVariant.batchNumber || 'MW-2026'} can be searched in our COA library.`);
-                    }
-                  }}
-                  className="w-full py-2.5 px-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-xs font-semibold text-[var(--ink)] hover:bg-[var(--surface-subtle)] transition-colors flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <Download className="w-3.5 h-3.5 text-[var(--chrome)]" />
-                  <span>Download Batch COA (PDF)</span>
-                </a>
-              </div>
+              {/* Batch COA Action - Strictly displayed ONLY when exact verified COA match exists */}
+              {matchedCoa && (
+                <div className="relative z-10 mt-6 w-full">
+                  <a
+                    href={matchedCoa.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-xs font-semibold text-[var(--ink)] hover:bg-[var(--surface-subtle)] transition-colors flex items-center justify-center gap-2 shadow-sm"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>View Lab Report (Batch #{matchedCoa.batchNumber})</span>
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 
@@ -348,6 +359,18 @@ export default function ProductDetailPage() {
             >
               Analytical Specifications
             </button>
+            {matchedCoa && (
+              <button
+                onClick={() => setActiveTab('coa')}
+                className={`py-3.5 px-6 text-xs sm:text-sm font-heading font-semibold transition-colors shrink-0 ${
+                  activeTab === 'coa'
+                    ? 'border-b-2 border-[var(--ink)] text-[var(--ink)]'
+                    : 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
+                }`}
+              >
+                Lab Report (COA)
+              </button>
+            )}
           </div>
 
           <div className="p-6 sm:p-8 text-xs sm:text-sm leading-relaxed text-[var(--ink-muted)]">
@@ -399,6 +422,51 @@ export default function ProductDetailPage() {
                     <dd className="text-[var(--ink)] font-semibold">{product.casNumber || 'Investigational (N/A)'}</dd>
                   </div>
                 </dl>
+              </div>
+            )}
+
+            {activeTab === 'coa' && matchedCoa && (
+              <div className="space-y-4 max-w-2xl">
+                <h3 className="font-heading font-bold text-base text-[var(--ink)]">
+                  Certificate of Analysis — Batch #{matchedCoa.batchNumber}
+                </h3>
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+                  <div className="p-3 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)]">
+                    <dt className="text-[var(--chrome)] uppercase mb-1">Compound & Strength</dt>
+                    <dd className="text-[var(--ink)] font-semibold">{matchedCoa.productName} ({matchedCoa.strength})</dd>
+                  </div>
+                  <div className="p-3 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)]">
+                    <dt className="text-[var(--chrome)] uppercase mb-1">Batch / Lot #</dt>
+                    <dd className="text-[var(--ink)] font-semibold">{matchedCoa.batchNumber}</dd>
+                  </div>
+                  <div className="p-3 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)]">
+                    <dt className="text-[var(--chrome)] uppercase mb-1">Testing Date</dt>
+                    <dd className="text-[var(--ink)] font-semibold">{matchedCoa.testDate}</dd>
+                  </div>
+                  <div className="p-3 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)]">
+                    <dt className="text-[var(--chrome)] uppercase mb-1">Accredited Laboratory</dt>
+                    <dd className="text-[var(--ink)] font-semibold">{matchedCoa.lab}</dd>
+                  </div>
+                </dl>
+                <div className="flex items-center gap-3 pt-2">
+                  <a
+                    href={matchedCoa.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl border border-[var(--border)] bg-[var(--ink)] text-[var(--surface)] text-xs font-semibold"
+                  >
+                    <FileText className="w-4 h-4" />
+                    <span>View Full Report (PDF)</span>
+                  </a>
+                  <a
+                    href={matchedCoa.pdfUrl}
+                    download
+                    className="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-[var(--ink)] hover:bg-[var(--surface-subtle)] text-xs font-semibold"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>Download PDF ({matchedCoa.fileSize})</span>
+                  </a>
+                </div>
               </div>
             )}
           </div>

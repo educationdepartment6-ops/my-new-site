@@ -15,7 +15,13 @@ import { safeApiFetch } from '../utils/api';
 const checkoutSchema = z.object({
   fullName: z.string().min(2, 'Full name is required'),
   email: z.string().email('Valid institutional email is required'),
-  phone: z.string().min(8, 'Valid contact number is required'),
+  phone: z.string().refine((val) => {
+    if (!val) return false;
+    const clean = val.trim().replace(/[\s\-\(\)\.]/g, '');
+    return /^(?:\+91)?[6-9]\d{9}$/.test(clean) || /^91[6-9]\d{9}$/.test(clean);
+  }, {
+    message: 'Please enter a valid 10-digit Indian mobile number (e.g. 9876543210 or +91 9876543210)',
+  }),
   institution: z.string().min(2, 'Company or organization name is required'),
   address: z.string().min(5, 'Physical delivery address is required'),
   city: z.string().min(2, 'City is required'),
@@ -220,12 +226,12 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-[var(--ink-muted)] mb-1 font-medium">Phone Number *</label>
+                  <label className="block text-[var(--ink-muted)] mb-1 font-medium">Mobile Number *</label>
                   <input
                     {...register('phone')}
                     type="tel"
-                    placeholder="+1 (555) 019-2834"
-                    className="w-full p-2.5 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-[var(--ink)] outline-none focus:border-[var(--ink)]"
+                    placeholder="9876543210 or +91 9876543210"
+                    className="w-full p-2.5 rounded-xl border border-[var(--border)] bg-[var(--surface)] text-[var(--ink)] outline-none focus:border-[var(--ink)] font-mono"
                   />
                   {errors.phone && <p className="text-red-500 text-[11px] mt-1">{errors.phone.message}</p>}
                 </div>

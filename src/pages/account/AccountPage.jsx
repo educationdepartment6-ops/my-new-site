@@ -68,12 +68,33 @@ export default function AccountPage() {
     e.preventDefault();
     setProfileSaving(true);
     setProfileMsg(null);
+
+    const cleanPhone = phone.trim().replace(/[\s\-\(\)\.]/g, '');
+    let normalizedPhone = null;
+    if (/^\+91[6-9]\d{9}$/.test(cleanPhone)) {
+      normalizedPhone = cleanPhone;
+    } else if (/^91[6-9]\d{9}$/.test(cleanPhone)) {
+      normalizedPhone = '+' + cleanPhone;
+    } else if (/^[6-9]\d{9}$/.test(cleanPhone)) {
+      normalizedPhone = '+91' + cleanPhone;
+    }
+
+    if (!normalizedPhone) {
+      setProfileSaving(false);
+      setProfileMsg({
+        type: 'error',
+        text: 'A valid 10-digit Indian mobile number is mandatory (starts with 6-9) and cannot be left blank.'
+      });
+      return;
+    }
+
     try {
       const data = await safeApiFetch('/api/account/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), phone: phone.trim() })
+        body: JSON.stringify({ name: name.trim(), phone: normalizedPhone })
       });
+      setPhone(data.user.phone);
       updateUser({ name: data.user.name, phone: data.user.phone });
       setProfileMsg({ type: 'success', text: 'Profile updated successfully.' });
     } catch (err) {
@@ -245,14 +266,16 @@ export default function AccountPage() {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-400 mb-1 font-mono">Contact Phone Number</label>
+                  <label className="block text-zinc-400 mb-1 font-mono">Mobile Number *</label>
                   <input
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    required
+                    placeholder="9876543210 or +91 9876543210"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 focus:outline-none focus:border-emerald-500"
+                    className="w-full p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 focus:outline-none focus:border-emerald-500 font-mono"
                   />
+                  <p className="text-[11px] text-zinc-500 mt-1">10-digit Indian mobile number (mandatory for shipping & delivery).</p>
                 </div>
 
                 <div className="pt-2">

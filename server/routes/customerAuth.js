@@ -41,6 +41,13 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ error: 'Please provide a valid email address.' });
   }
 
+  const normalizedPhone = db.normalizeIndianPhone(phone);
+  if (!normalizedPhone) {
+    return res.status(400).json({
+      error: 'Please enter a valid 10-digit Indian mobile number (e.g. 9876543210).'
+    });
+  }
+
   // Password rule: >= 8 chars, letter + number
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
   if (!password || typeof password !== 'string' || !passwordRegex.test(password)) {

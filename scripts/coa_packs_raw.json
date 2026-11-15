@@ -1,0 +1,170 @@
+[
+  {
+    "pack_index": 1,
+    "start_page": 1,
+    "end_page": 1,
+    "total_pack_pages": 1,
+    "extracted": {
+      "sample_name": "A0D-9604",
+      "batch_no": "2025248",
+      "cert_pages": "10",
+      "submitter": "广州柏诺生物科技有限公司 analytical request 1. Peptide content by HPLC/CLND:",
+      "strength": "5 mg"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 1/10\nSample name\nA0D-9604\nBatch No.\n2025248\nSample No.\n01\nSequence\nTyr-Leu-Arg-Ile-Val-Gln-Cys-Arg-Ser-Val-Glu-Gly-Ser-Cys-\nGly-Phe Disulfide bridge Cys7-Cys14\nManufacturing\nNA\ndate\nSubmitter of\n广州柏诺生物科技有限公司\nanalytical request\n1. Peptide content by HPLC/CLND:\n1.1 HPLC Instrument:\n:dwnd\nAgilent 1200 Series, Quat Pump G1311A\nSampler:\nAgilent 1260 Series, Hip ALS G1367E\nDegasser:\nAgilent 1200 Series, Degasser G1379B\nDetectors:\nAgilent 1200 Series, VWD G1314B\nNitrogen detector Antek 8060\n1.2 HPLC conditions:\nEluents:\nA - MilliQ water\nB - isopropanol\nD - 1% TFA in MilliQ water\nFlow rate:\n1 mL/min\nGradient:\nTime\nA (%)\nB (%)\nD (%)\n90\n10\n90\n10\n10\n80\n10\n10\n10\n80\n10\n11\n90\n10\n15\n90\n10\nColumn:\nARI0N 5μ C4-BI0 300 A, 4.6 × 100 mm\nSerial No 221258\n1.3 Sample preparation:\nThe whole amount of AOD-9604 (5 mg) was dissolved in 1 mL of DMSO.\nInjection:\n1.0 μL\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 2,
+    "start_page": 2,
+    "end_page": 72,
+    "total_pack_pages": 71,
+    "extracted": {
+      "sample_name": "Unknown",
+      "batch_no": "Unknown",
+      "cert_pages": "Unknown",
+      "submitter": "Unknown",
+      "strength": "Unknown"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 2/10\n1.4 Chromatograms and calibration curve:\nInstrumentcLND-2Sequence:250505\nPage 1 of 2\nChromatogramandResults\nInjection Details\nInjection Name.\nRun Time (min):\nAOD-9604PO-2025248fr1\n16.00\nP1:D8\nVial Number.\nInjection Volume.\n1.00\nInjection Type:\nUnknown\nChannel:\nCLND_Analog\nCalibration Level:\nWavelength:\nAspartVio long 9min\nInstument Method:\nBandwidth:\nn.a.\nDilution Factor.\nProcessing Method.\nAspart V20\n1.0000\nSample Weight.\n05.5.25 15:59\nInjection Date/Time:\n1.0000\nChromatogram\n250505#21\nAOD-9604 PO-2025248 fr1\nCLND_Analog\n220\n200\n1-Compound Y-6.392\n1753\n150\n125\n100\n75\n503\n25\nFo\n-20 3\n0.0\n10.0\n2.0\n4.0\n0'9\n12.0\n8.0\n14.0\n16.0\nTime [min]\nIntegration Results\nNo.\nPeak Name\nArea\nHeight\nRetention Time\nAmount\nConcentration\nEvaluation\nmin\nmV\"min\nug N\nmg N/mL\n6.392\n29.244\n177.126\n0.8467\nCompound Y\n0.8467\nvalid\nCompound X\nn.a.\nn.a.\nn.a.\nna.\nn.a.\nn.a.\nn.a.\nCompound Y\n14.578\n2.011\n3.976\n0.1947\n0.1947\nnot valid\nCompound Y\n14.915\n1.631\n4.030\n0.1856\n0.1856\nnot valid\nTotal:\n1.23\n32.887\n185.132\n1.23\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 3,
+    "start_page": 73,
+    "end_page": 121,
+    "total_pack_pages": 49,
+    "extracted": {
+      "sample_name": "GHK-Cu",
+      "batch_no": "2025240",
+      "cert_pages": "12",
+      "submitter": "广州柏诺生物科技有限公司 analytical request 1. Peptide content by HPLC/CLND:",
+      "strength": "50 mg"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 1/12\nSample name\nGHK-Cu\nBatch No.\n2025240\nSample No.\nNA\nSequence\nGly-His-Lys (Cu2+ salt)\nManufacturing\ndate\nSubmitter of\n广州柏诺生物科技有限公司\nanalytical request\n1. Peptide content by HPLC/CLND:\n1.1 HPLC Instrument:\n:dnd\nAgilent 1200 Series, Quat Pump G1311A\nSampler:\nAgilent 1260 Series, Hip ALS G1367E\nDegasser:\nAgilent 1200 Series, Degasser G1379B\nDetectors:\nAgilent 1200 Series, VWD G1314B\nNitrogen detector Antek 8060\n1.2 HPLC conditions:\nEluents:\nA - MilliQ water\nB - isopropanol\nD - 1% TFA in MilliQ water\nFlow rate:\n1 mL/min\nGradient:\nTime\nA (%)\nB (%)\nD (%)\n90\n10\n90\n10\n10\n80\n10\n10\n10\n80\n10\n11\n90\n10\n15\n90\n10\nColumn:\nARI0N 5μ C4-BI0 300 A, 4.6 x 100 mm\nSerial No 221258\n1.3 Sample preparation:\nThe whole amount of GHK-Cu (50 mg) was dissolved in 10 mL of MilliQ water.\nInjection:\n2 μL\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 4,
+    "start_page": 122,
+    "end_page": 187,
+    "total_pack_pages": 66,
+    "extracted": {
+      "sample_name": "Ipamorelin",
+      "batch_no": "2025246",
+      "cert_pages": "10",
+      "submitter": "广州柏诺生物科技有限公司 analytical request 1. Peptide content by HPLC/CLND:",
+      "strength": "5 mg"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 1/10\nSample name\nIpamorelin\nBatch No.\n2025246\nSample No.\n01\nSequence\nAib-His-D-2Nal-D-Phe-Lys-NH2\nManufacturing\nNA\ndate\nSubmitter of\n广州柏诺生物科技有限公司\nanalytical request\n1. Peptide content by HPLC/CLND:\n1.1 HPLC Instrument:\n:dnd\nAgilent 1200 Series, Quat Pump G1311A\nSampler:\nAgilent 1260 Series, Hip ALS G1367E\nDegasser:\nAgilent 1200 Series, Degasser G1379B\nDetectors:\nAgilent 1200 Series, VWD G1314B\nNitrogen detector Antek 8060\n1.2 HPLC conditions:\nEluents:\nA - MilliQ water\nB - isopropanol\nD - 1% TFA in MilliQ water\nFlow rate:\n1 mL/min\nGradient:\nTime\nA (%)\nB (%)\nD (%)\n90\n10\n90\n10\n10\n80\n10\n10\n80\n10\n10\n11\n90\n10\n15\n90\n10\nColumn:\nARI0N 5μ C4-BI0 300 A, 4.6 x 100 mm\nSerial No 221258\n1.3 Sample preparation:\nThe whole amount of Ipamorelin (5 mg) was dissolved in 1 mL of DMsO.\nInjection:\n2.0 μL\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 5,
+    "start_page": 188,
+    "end_page": 189,
+    "total_pack_pages": 2,
+    "extracted": {
+      "sample_name": "PT-141",
+      "batch_no": "2025233",
+      "cert_pages": "8",
+      "submitter": "广州柏诺生物科技有限公司 analytical request 1. Peptide content by HPLC/CLND:",
+      "strength": "10 mg"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 1/8\nSample name\nPT-141\nBatch No.\n2025233\nSample No.\n01\nSequence\nAc-Nle-cyclo[Asp-His-D-Phe-Arg-Trp-Lys]-OH\nManufacturing\nNA\ndate\nSubmitter of\n广州柏诺生物科技有限公司\nanalytical request\n1. Peptide content by HPLC/CLND:\n1.1 HPLC Instrument:\n:dnd\nAgilent 1200 Series, Quat Pump G1311A\nSampler:\nAgilent 1260 Series, Hip ALS G1367E\nDegasser:\nAgilent 1200 Series, Degasser G1379B\nDetectors:\nAgilent 1200 Series, VWD G1314B\nNitrogen detector Antek 8060\n1.2 HPLC conditions:\nEluents:\nA - MilliQ water\nB - isopropanol\nD - 1% TFA in MilliQ water\nFlow rate:\n1 mL/min\nGradient:\nTime\nA (%)\nB (%)\nD (%)\n90\n10\n90\n10\n10\n80\n10\n10\n10\n80\n10\n11\n90\n10\n15\n90\n10\nColumn:\nARI0N 5μ C4-BI0 300 A, 4.6 x 100 mm\nSerial No 221258\n1.3 Sample preparation:\nThe whole amount of PT-141 (10 mg) was dissolved in 2 mL of DMSO.\nInjection:\n2.0 μL\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 6,
+    "start_page": 190,
+    "end_page": 197,
+    "total_pack_pages": 8,
+    "extracted": {
+      "sample_name": "Unknown",
+      "batch_no": "Unknown",
+      "cert_pages": "Unknown",
+      "submitter": "Unknown",
+      "strength": "Unknown"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 3/8\nInstrumenitCLND-2Sequencer250320\nPage 1 of 2\nChromatogram and Results\nInjection Details\nPT-141 (PO-2025233) frc2\nRun Time (min):\nInjection Name:\n16.00\nVial Number.\nP1:D3\nInjection Volume:\n2.00\nUnknown\nChannel:\nInjection Type:\nCLND_Analog\nCalibration Level:\nWavelength:\nAspartV10 long 9min\nInstrument Method:\nBandwidth:\nn.a.\nProcessing Method:\nDilution Factor.\nAspart V20\n1.0000\nInjection Date/Time.:\n20.3.25 15:24\nSample Weight.\n1.0000\nChromatogram\n250320#16 [manually integrated]\nPT-141 (PO-2025233) frc2\nCLND_Analog\n450\n400-\n1 - Compound X -6.985\n200\n100\n0-\n-50\n2.0\n8.0\n4.0\n6.0\n10.0\n12.0\n14.0\n16.0\nTime [min]\nIntegration Results\nNo.\nArea\nHeight\nAmount\nPeak Name\nRetention Time\nConcentration\nEvaluation\nmV'min\nmin\nug N\nmg N/mL\nn.a.\nCompound Y\nn.a.\nn.a.\nn.a.\nn.a.\nn.a.\nn.a.\nCompound X\n62.422\n6.985\n1.6270\n372.272\n0.8135\nvalid\nTotal:\n62.422\n1.63\n372.272\n0.81\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 7,
+    "start_page": 198,
+    "end_page": 269,
+    "total_pack_pages": 72,
+    "extracted": {
+      "sample_name": "PINEALON",
+      "batch_no": "2025266",
+      "cert_pages": "10",
+      "submitter": "广州柏诺生物科技有限公司 analytical request 1. Peptide content by HPLC/CLND:",
+      "strength": "10 mg"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 1/10\nSample name\nPINEALON\nBatch No.\n2025266\nSample No.\n01\nSequence\nGlu-Asp-Arg\nManufacturing\nNA\ndate\nSubmitter of\n广州柏诺生物科技有限公司\nanalytical request\n1. Peptide content by HPLC/CLND:\n1.1 HPLC Instrument:\n:dwnd\nAgilent 1200 Series, Quat Pump G1311A\nSampler:\nAgilent 1260 Series, Hip ALS G1367E\nDegasser:\nAgilent 1200 Series, Degasser G1379B\nDetectors:\nAgilent 1200 Series, VWD G1314B\nNitrogen detector Antek 8060\n1.2 HPLC conditions:\nEluents:\nA - MilliQ water\nB - isopropanol\nD - 1% TFA in MilliQ water\nFlow rate:\n1 mL/min\nGradient:\nTime\nA (%)\nB (%)\nD (%)\n90\n10\n90\n10\n10\n80\n10\n10\n10\n80\n10\n11\n90\n10\n15\n90\n10\nColumn:\nARI0N 5μ C4-BI0 300 A, 4.6 x 100 mm\nSerial No 221258\n1.3 Sample preparation:\nThe whole amount of PINEALON (10 mg) was dissolved in 10 mL of MiliQ water.\nInjection:\n8.0 μL\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 8,
+    "start_page": 270,
+    "end_page": 270,
+    "total_pack_pages": 1,
+    "extracted": {
+      "sample_name": "Tesamorelin",
+      "batch_no": "2026203",
+      "cert_pages": "8",
+      "submitter": "analytical request Co., Ltd. 1. Peptide content by HPLC/CLND:",
+      "strength": "5 mg"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 1/8\nSample name\nTesamorelin\nBatch No.\n2026203\nSample No.\n01\nSequence\nTrans-3-Hexenoyl-Tyr-Ala-Asp-Ala-Ile-Phe-Thr-Asn-Ser-Tyr-\nArg-Lys-Val-Leu-Gly-Gln-Leu-Ser-Ala-Arg-Lys-Leu-Leu-Gln-\nAsp-Ile-Met-Ser-Arg-Gln-Gln-Gly-Glu-Ser-Asn-Gln-Glu-Arg-\nGly-Ala-Arg-Ala-Arg-Leu-NH2\nManufacturing\ndate\n广州柏诺生物科技有限公司\nSubmitter of\nanalytical request\nCo., Ltd.\n1. Peptide content by HPLC/CLND:\n1.1 HPLC Instrument:\n:dwnd\nAgilent 1200 Series, Quat Pump G1311A\nSampler:\nAgilent 1260 Series, Hip ALS G1367E\nDegasser:\nAgilent 1200 Series, Degasser G1379B\nDetectors:\nAgilent 1200 Series, VWD G1314B\nNitrogen detector Antek 8060\n1.2 HPLC conditions:\nEluents:\nA - MilliQ water\nB - isopropanol\nD - 1% TFA in MilliQ water\nFlow rate:\n1 mL/min\nGradient:\nTime\nB (%)\nA (%)\nD (%)\n90\n10\n90\n10\n10\n80\n10\n10\n10\n80\n10\n11\n90\n10\n15\n90\n10\nColumn:\nARI0N 5μ C4-BI0 300 A, 4.6 × 100 mm\nSerial No 221258\n1.3 Sample preparation:\nThe whole amount of Tesamorelin (5 mg) was dissolved in 1 mL of DMSO.\nInjection:\n2.0 μL\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 9,
+    "start_page": 271,
+    "end_page": 271,
+    "total_pack_pages": 1,
+    "extracted": {
+      "sample_name": "Unknown",
+      "batch_no": "Unknown",
+      "cert_pages": "Unknown",
+      "submitter": "Unknown",
+      "strength": "Unknown"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 2/8\n1.4 Chromatograms and calibration curve:\nInstrument:CLND-2 Sequence:240516\nPage 1 of 2\nChromatogramand Results\nInjection Details\nInjection Name:\nRun Time (min):\nTesamorelin (PO-2024203) frc1\n16.00\nVial Number.\nP1:C2\nInjection Volume:\n2.00\nChannel:\nInjection Type:\nUnknown\nCLND_Analog\nCalibration Level:\nWavelength:\nInstrument Method:\nAspartV10 long 9min\nBandwidth:\nn.a.\nProcessing Method:\nAspart V20\nDilution Factor:\n1.0000\nInjection Date/Time:\nSample Weight:\n16.5.24 14:38\n1.0000\nChromatogram\n240516#12\nTesamorelin(PO-2024203)frc1\nCLND_Analog\n300\n1-CompoundX-7.328\n250\n200-\nResponse [mV]\n150-\n100-\nF0S\n-50J\n0.0\n2.0\n10.0\n12.0\n14.0\n4.0\n6.0\n8.0\n16.0\nTime [min]\nIntegration Results\nNo.\nArea\nHeight\nAmount\nPeak Name\nRetention Time\nConcentration\nEvaluation\nmV*min\nmV\nmin\nug N\nmg N/mL\nCompound Y\nn.a.\nn.a.\nn.a.\nn.a.\nn.a.\nn.a.\nn.a.\nCompound X\n7.328\n48.061\n270.161\n1.6457\n0.8228\nvalid\n1.65\nTotal:\n48.061\n270.161\n0.82\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 10,
+    "start_page": 272,
+    "end_page": 303,
+    "total_pack_pages": 32,
+    "extracted": {
+      "sample_name": "Unknown",
+      "batch_no": "Unknown",
+      "cert_pages": "Unknown",
+      "submitter": "Unknown",
+      "strength": "Unknown"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 3/8\nInstrument:CLND-2Sequence260516\nPage 1 of 2\nChromatogramandResults\nInjection Details\nInjection Name:\nTesamorelin(PO-2026203)frc2\nRun Time (min):\n16.00\nVial Number:\nP1:C2\nInjection Volume:\n2.00\nChannel:\nInjection Type:\nUnknown\nCLND_Analog\nCalibration Level:\nWavelength:\nInstrument Method:\nAspartV10 long 9min\nBandwidth:\nn.a.\nProcessing Method:\nDilution Factor:\nAspart V20\n1.0000\nInjection Date/Time:\n13.04.26 15:12\nSample Weight:\n1.0000\nChromatogram\n260516#13\nTesamorelin(PO-2026203)frc2\nCLND_Analog\n300\n11-CompoundX-7.335\n250-\n200-\nResponse [mV]\n150\n100\n-50J\n0'0\n2.0\n6.0\n8.0\n10.0\n12.0\n14.0\n4.0\n16.0\nTime [min]\nIntegration Results\nNo.\nPeak Name\nRetention Time\nHeight\nArea\nAmount\nConcentration\nEvaluation\nmin\nmV*min\nmV\nugN\nmg N/mL\nn.a.\nCompound Y\nn.a.\nn.a.\nn.a.\nn.a.\nn.a.\nn.a.\nCompoundX\n7335\n47.564\n262.366\n1.6300\n0.8150\nvalid\nTotal:\n1.63\n47.564\n262.366\n0.81\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 11,
+    "start_page": 304,
+    "end_page": 305,
+    "total_pack_pages": 2,
+    "extracted": {
+      "sample_name": "Thymosin beta-4",
+      "batch_no": "2025238",
+      "cert_pages": "10",
+      "submitter": "analytical request 1. Peptide content by HPLC/CLND: 1.1 HPLC Instrument:",
+      "strength": "10 mg"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 1/10\nSample name\nThymosin beta-4\nBatch No.\n2025238\nSample No.\nNA\nSequence\nAc-Ser-Asp-Lys-Pro-Asp-Met-Ala-Glu-Ile-Glu-Lys-Phe-Asp-\nLys-Ser-Lys-Leu-Lys-Lys-Thr-Glu-Thr-Gln-Glu-Lys-Asn-Pro-\nLeu-Pro-Ser-Lys-Glu-Thr-Ile-Glu-Gln-Glu-Lys-Gln-Ala-Gly-Glu-\nSer\nManufacturing\ndate\n广州柏诺生物科技有限公司\nSubmitter of\nanalytical request\n1. Peptide content by HPLC/CLND:\n1.1 HPLC Instrument:\n:dnd\nAgilent 1200 Series, Quat Pump G1311A\nSampler:\nAgilent 1260 Series, Hip ALS G1367E\nDegasser:\nAgilent 1200 Series, Degasser G1379B\nDetectors:\nAgilent 1200 Series, VWD G1314B\nNitrogen detector Antek 8060\n1.2 HPLC conditions:\nEluents:\nA - MilliQ water\nB - isopropanol\nD - 1% TFA in MilliQ water\nFlow rate:\n1 mL/min\nGradient:\nTime\nB (%)\nA (%)\nD (%)\n90\n10\n90\n10\n10\n10\n80\n10\n80\n11\n10\n10\n12\n90\n10\n16\n90\n10\nColumn:\nARI0N 5μ C4-BI0 300 A, 4.6 × 100 mm\nSerial No 221258\n1.3 Sample preparation:\nThe whole amount of Thymosin beta-4 (10 mg) was dissolved in 2 mL of H20.\nInjection:\n2 μL\n广州柏诺生物科技有限公司"
+  },
+  {
+    "pack_index": 12,
+    "start_page": 306,
+    "end_page": 315,
+    "total_pack_pages": 10,
+    "extracted": {
+      "sample_name": "Unknown",
+      "batch_no": "Unknown",
+      "cert_pages": "Unknown",
+      "submitter": "Unknown",
+      "strength": "Unknown"
+    },
+    "full_text": "广州柏诺生物科技有限公司\nANALYTICAL CERTIFICATE\nPage 3/10\nInstrument:CLND-2 Sequence:250320\nPage 1 of 2\nChromatogram and Results\nInjection Details\nInjection Name:\nRun Time (min):\nThymosin Bota-4 (PO2025238) frc2\n16.00\nVial Number.\nP1:D4\nInjection Volume:\n2.00\nInjection Type:\nUnknown\nChannel:\nCLND_Analog\nCalibration Level:\nWavelength:\nInstrument Method:\nAspartV10 long 9min\nBandwidth:\nn.a.\nProcessing Method:\nDilution Factor.\nAspart V20\n1.0000\n20.3.25 15:02\nSample Weight:\nIniection Date/Time:\n1.0000\nChromatogram\n250320#15\nThymosin Beta-4 (PO2025238) frc2\nCLND_Analog\n500\n1-Compound Y - 5.562\n400-\n300-\n200\n100\n-50\n0.0\n2.0\n4.0\n08\n10.0\n12.0\n6.0\n14.0\n16.0\nTime [min]\nIntegration Results\nRetention Time\nNo.\nPeak Name\nArea\nAmount\nConcentration\nHeight\nEvaluation\nmV'min\nmin\nug n\nmg N/mL\n5.562\n63.192\n1.6462\n0.8231\nCompound Y\n412.347\nvalid\n0.a.\nCompound X\nn.a.\nn.a.\nOa.\n0.a.\nna.\nTotal:\n1.65\n63.192\n412.347\n0.82\n广州柏诺生物科技有限公司"
+  }
+]

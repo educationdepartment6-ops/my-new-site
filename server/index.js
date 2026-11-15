@@ -16,6 +16,7 @@ const logRoutes = require('./routes/logs');
 const customerAuthRoutes = require('./routes/customerAuth');
 const customerAccountRoutes = require('./routes/customerAccount');
 const adminCustomerRoutes = require('./routes/adminCustomers');
+const adminCOARoutes = require('./routes/adminCOA');
 const { csrfProtection } = require('./auth');
 
 const app = express();
@@ -54,11 +55,13 @@ app.use('/api/admin/orders', orderRoutes);
 app.use('/api/admin/images', imageRoutes);
 app.use('/api/admin/logs', logRoutes);
 app.use('/api/admin/customers', adminCustomerRoutes);
+app.use('/api/admin/coa', adminCOARoutes);
 
 // Public API Routes
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/coa', adminCOARoutes);
 
 // Static assets
 const distDir = path.join(__dirname, '..', 'dist');

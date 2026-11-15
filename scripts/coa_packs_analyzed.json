@@ -1,0 +1,243 @@
+[
+  {
+    "pack_id": 1,
+    "sample_name": "AOD-9604",
+    "batch_number": "2025248",
+    "page_range": "1-72 (72 pages)",
+    "strength": "5 mg",
+    "labs": [
+      "Analytical Certificate Lab (CLND/HPLC)",
+      "Eurofins Environment Testing (Slovakia / Reg. No. 749/S-406)"
+    ],
+    "dates": [
+      "2026.4.21"
+    ],
+    "submitter_info": "Submitter of | 广州柏诺生物科技有限公司 | analytical request",
+    "privacy_findings": [
+      "Phone on p.4: 7408\n109.8871",
+      "Email on p.7: 214nm@4.8nm",
+      "Phone on p.7: 2.302\n1124607",
+      "Email on p.11: RegistrationEnviroSK@etcee.eurofins.com",
+      "Phone on p.11: 2025-0001455",
+      "Email on p.13: admin@particlepeptides.com",
+      "Client detail on p.13: Client:",
+      "Phone on p.15: 21014112659",
+      "Phone on p.15: 20964130075",
+      "Phone on p.15: 20953770781",
+      "Phone on p.15: 21054109114",
+      "Phone on p.15: 21033770144",
+      "Phone on p.15: 20994233588",
+      "Phone on p.15: 1769250264899"
+    ],
+    "matched_product": {
+      "id": "aod-9604",
+      "name": "AOD 9604",
+      "category": "weight-loss",
+      "variants": [
+        "2mg / vial",
+        "5mg / vial",
+        "10mg / vial"
+      ]
+    }
+  },
+  {
+    "pack_id": 2,
+    "sample_name": "GHK-Cu",
+    "batch_number": "2025240",
+    "page_range": "73-121 (49 pages)",
+    "strength": "50 mg",
+    "labs": [
+      "Analytical Certificate Lab (CLND/HPLC)",
+      "Eurofins Environment Testing (Slovakia / Reg. No. 749/S-406)"
+    ],
+    "dates": [
+      "2026.4.21"
+    ],
+    "submitter_info": "Submitter of | 广州柏诺生物科技有限公司 | analytical request",
+    "privacy_findings": [
+      "Phone on p.80: 1.008\n3733679",
+      "Phone on p.81: 1.001\n3253381",
+      "Email on p.85: RegistrationEnviroSK@etcee.eurofins.com",
+      "Phone on p.85: 2025-0001405",
+      "Email on p.87: admin@particlepeptides.com",
+      "Phone on p.87: 421 9173817",
+      "Client detail on p.87: Client:"
+    ],
+    "matched_product": {
+      "id": "ghk-cu",
+      "name": "GHK-CU",
+      "category": "beauty-skin",
+      "variants": [
+        "50mg / vial",
+        "100mg / vial"
+      ]
+    }
+  },
+  {
+    "pack_id": 3,
+    "sample_name": "Ipamorelin",
+    "batch_number": "2025246",
+    "page_range": "122-187 (66 pages)",
+    "strength": "5 mg",
+    "labs": [
+      "Analytical Certificate Lab (CLND/HPLC)",
+      "Eurofins Environment Testing (Slovakia / Reg. No. 749/S-406)"
+    ],
+    "dates": [
+      "2026.4.21"
+    ],
+    "submitter_info": "Submitter of | 广州柏诺生物科技有限公司 | analytical request",
+    "privacy_findings": [
+      "Email on p.128: ChannelDescriptionPDACh1214nm@4.8nm",
+      "Phone on p.128: 1718733\n1482",
+      "Email on p.132: RegistrationEnviroSK@etcee.eurofins.com",
+      "Phone on p.132: 2025-0001500",
+      "Email on p.134: admin@particlepeptides.com",
+      "Client detail on p.134: Client:",
+      "Phone on p.136: 21014112659",
+      "Phone on p.136: 20964130075",
+      "Phone on p.136: 20953770781",
+      "Phone on p.136: 21054109114",
+      "Phone on p.136: 21033770144",
+      "Phone on p.136: 20994233588",
+      "Phone on p.136: 1764341988871"
+    ],
+    "matched_product": {
+      "id": "ipamorelin",
+      "name": "Ipamorelin",
+      "category": "muscle-growth",
+      "variants": [
+        "2mg / vial",
+        "5mg / vial",
+        "10mg / vial"
+      ]
+    }
+  },
+  {
+    "pack_id": 4,
+    "sample_name": "PT-141",
+    "batch_number": "2025233",
+    "page_range": "188-197 (10 pages)",
+    "strength": "10 mg",
+    "labs": [
+      "Analytical Certificate Lab (CLND/HPLC)",
+      "Eurofins Environment Testing (Slovakia / Reg. No. 749/S-406)"
+    ],
+    "dates": [
+      "2026.4.21"
+    ],
+    "submitter_info": "Submitter of | 广州柏诺生物科技有限公司 | analytical request",
+    "privacy_findings": [
+      "Phone on p.191: 7408\n107.9731",
+      "Email on p.194: ChannelDescriptionPDACh1214nm@4.8nm",
+      "Phone on p.194: 2.693\n1514170",
+      "Email on p.196: RegistrationEnviroSK@etcee.eurofins.com",
+      "Phone on p.196: 2025-0000998",
+      "Client detail on p.196: Customer:"
+    ],
+    "matched_product": {
+      "id": "pt-141",
+      "name": "PT 141",
+      "category": "sexual-health-fertility",
+      "variants": [
+        "10mg / vial"
+      ]
+    }
+  },
+  {
+    "pack_id": 5,
+    "sample_name": "PINEALON",
+    "batch_number": "2025266",
+    "page_range": "198-269 (72 pages)",
+    "strength": "10 mg",
+    "labs": [
+      "Analytical Certificate Lab (CLND/HPLC)",
+      "Eurofins Environment Testing (Slovakia / Reg. No. 749/S-406)"
+    ],
+    "dates": [
+      "2026.4.21"
+    ],
+    "submitter_info": "Submitter of | 广州柏诺生物科技有限公司 | analytical request",
+    "privacy_findings": [
+      "Phone on p.204: 1.649\n4046135",
+      "Email on p.208: muzila@particlepeptides.com",
+      "Phone on p.208: +421917381743",
+      "Client detail on p.208: Client:",
+      "Email on p.212: RegistrationEnviroSK@etcee.eurofins.com",
+      "Phone on p.212: 2025-0002570"
+    ],
+    "matched_product": {
+      "id": null,
+      "name": "NO DIRECT MATCH IN CATALOG",
+      "category": null,
+      "variants": []
+    }
+  },
+  {
+    "pack_id": 6,
+    "sample_name": "Tesamorelin",
+    "batch_number": "2026203",
+    "page_range": "270-303 (34 pages)",
+    "strength": "5 mg",
+    "labs": [
+      "Analytical Certificate Lab (CLND/HPLC)",
+      "Eurofins Environment Testing (Slovakia / Reg. No. 749/S-406)"
+    ],
+    "dates": [],
+    "submitter_info": "Submitter of | analytical request | Co., Ltd.",
+    "privacy_findings": [
+      "Phone on p.276: 2813\n1371751",
+      "Email on p.278: RegistrationEnviroSK@etcee.eurofins.com",
+      "Phone on p.278: 2024-0004810",
+      "Client detail on p.278: Customer:",
+      "Email on p.280: CSPharmaSK@eurofins.sk",
+      "Email on p.282: CSPharmaSK@eurofins.sk",
+      "Email on p.283: muzila@particlepeptides.com",
+      "Client detail on p.283: Client:"
+    ],
+    "matched_product": {
+      "id": "tesamorelin",
+      "name": "Tesamorelin",
+      "category": "muscle-growth",
+      "variants": [
+        "2mg / vial",
+        "5mg / vial",
+        "10mg / vial",
+        "20mg / vial"
+      ]
+    }
+  },
+  {
+    "pack_id": 7,
+    "sample_name": "Thymosin beta-4",
+    "batch_number": "2025238",
+    "page_range": "304-315 (12 pages)",
+    "strength": "10 mg",
+    "labs": [
+      "Analytical Certificate Lab (CLND/HPLC)",
+      "Eurofins Environment Testing (Slovakia / Reg. No. 749/S-406)"
+    ],
+    "dates": [
+      "2026.4.21"
+    ],
+    "submitter_info": "Submitter of | analytical request",
+    "privacy_findings": [
+      "Phone on p.307: 7408\n107.9731",
+      "Email on p.310: ChannelDescriptionPDACh1214nm@4.8nm",
+      "Phone on p.310: 1.920\n1413133",
+      "Email on p.314: RegistrationEnviroSK@etcee.eurofins.com",
+      "Phone on p.314: 2025-0000980",
+      "Client detail on p.314: Customer:"
+    ],
+    "matched_product": {
+      "id": "tb-500-thymosin-b4-acetate",
+      "name": "TB 500(Thymosin B4 AceTate)",
+      "category": "recovery-healing",
+      "variants": [
+        "2mg / vial",
+        "5mg / vial",
+        "10mg / vial"
+      ]
+    }
+  }
+]

@@ -7,6 +7,7 @@ import AgeGateModal from './components/common/AgeGateModal';
 import ScrollToTop from './components/common/ScrollToTop';
 import LoadingScreen from './components/common/LoadingScreen';
 import { useCustomerAuthStore } from './store/useCustomerAuthStore';
+import PhoneVerificationGate from './components/auth/PhoneVerificationGate';
 
 // Direct import for homepage to ensure zero-CLS hydration
 import HomePage from './pages/HomePage';
@@ -45,6 +46,7 @@ const AdminImages = lazy(() => import('./admin/AdminImages'));
 const AdminOrders = lazy(() => import('./admin/AdminOrders'));
 const AdminCustomers = lazy(() => import('./admin/AdminCustomers'));
 const AdminAccount = lazy(() => import('./admin/AdminAccount'));
+const AdminCOA = lazy(() => import('./admin/AdminCOA'));
 
 function PageLoader() {
   return (
@@ -84,6 +86,7 @@ export default function App() {
             <Route path="images" element={<AdminImages />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="customers" element={<AdminCustomers />} />
+            <Route path="coa" element={<AdminCOA />} />
             <Route path="account" element={<AdminAccount />} />
           </Route>
           <Route path="*" element={<Navigate to="/admin/login" replace />} />
@@ -109,14 +112,14 @@ export default function App() {
             <Route path="/product/:slug" element={<ProductDetailPage />} />
             <Route path="/coa" element={<COALibraryPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/checkout" element={<PhoneVerificationGate><CheckoutPage /></PhoneVerificationGate>} />
             <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route path="/account" element={<AccountPage />} />
+            <Route path="/account" element={<PhoneVerificationGate><AccountPage /></PhoneVerificationGate>} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/quality" element={<QualityPage />} />
             <Route path="/faq" element={<FAQPage />} />

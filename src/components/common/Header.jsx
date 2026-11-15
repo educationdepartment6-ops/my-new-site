@@ -23,6 +23,7 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Shop', path: '/shop' },
+    { name: 'Lab Reports', path: '/coa' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -89,6 +90,15 @@ export default function Header() {
                 </div>
               )}
             </div>
+
+            <NavLink
+              to="/coa"
+              className={({ isActive }) =>
+                `transition-colors hover:text-[var(--chrome)] ${isActive ? 'text-[var(--ink)] font-bold' : 'text-[var(--ink-muted)]'}`
+              }
+            >
+              Lab Reports
+            </NavLink>
 
             <NavLink
               to="/about"

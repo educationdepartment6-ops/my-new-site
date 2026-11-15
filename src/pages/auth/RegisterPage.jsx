@@ -28,6 +28,21 @@ export default function RegisterPage() {
     e.preventDefault();
     setError('');
 
+    const cleanPhone = phone.trim().replace(/[\s\-\(\)\.]/g, '');
+    let normalizedPhone = null;
+    if (/^\+91[6-9]\d{9}$/.test(cleanPhone)) {
+      normalizedPhone = cleanPhone;
+    } else if (/^91[6-9]\d{9}$/.test(cleanPhone)) {
+      normalizedPhone = '+' + cleanPhone;
+    } else if (/^[6-9]\d{9}$/.test(cleanPhone)) {
+      normalizedPhone = '+91' + cleanPhone;
+    }
+
+    if (!normalizedPhone) {
+      setError('Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.');
+      return;
+    }
+
     if (!isPasswordValid) {
       setError('Password must be at least 8 characters long and contain both letters and numbers.');
       return;
@@ -52,7 +67,7 @@ export default function RegisterPage() {
         body: JSON.stringify({
           name: name.trim(),
           email: email.trim(),
-          phone: phone.trim() || undefined,
+          phone: normalizedPhone,
           password,
           confirmPassword,
           agreeTerms
@@ -188,17 +203,19 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="block text-zinc-400 mb-1 font-mono font-medium">Phone Number (Optional)</label>
+                <label className="block text-zinc-400 mb-1 font-mono font-medium">Mobile Number *</label>
                 <div className="relative">
                   <Phone className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    required
+                    placeholder="9876543210 or +91 9876543210"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors"
                   />
                 </div>
+                <p className="text-[10px] text-zinc-500 mt-1 font-mono">10-digit Indian mobile number (e.g. 9876543210)</p>
               </div>
 
               <div>
