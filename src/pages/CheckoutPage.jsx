@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { ShieldAlert, Lock, CheckCircle2, CreditCard, Building2, FlaskConical, Loader2 } from 'lucide-react';
+import { ShieldAlert, Lock, CheckCircle2, CreditCard, Building2, FlaskConical, Loader2, AlertCircle } from 'lucide-react';
 import SEO from '../seo/SEO';
 import Breadcrumbs from '../components/common/Breadcrumbs';
 import { useCartStore } from '../store/useCartStore';
@@ -11,6 +11,7 @@ import { useCurrencyStore } from '../store/useCurrencyStore';
 import { useCustomerAuthStore } from '../store/useCustomerAuthStore';
 import { formatPrice } from '../utils/pricing';
 import { safeApiFetch } from '../utils/api';
+import { openRazorpayCheckout } from '../utils/razorpay';
 
 const checkoutSchema = z.object({
   fullName: z.string().min(2, 'Full name is required'),
@@ -41,6 +42,7 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [paymentError, setPaymentError] = useState('');
   const subtotal = getSubtotal(currency);
 
   const {
@@ -124,37 +126,79 @@ export default function CheckoutPage() {
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    let orderId = `MW-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 900 + 100)}`;
-    try {
-      const result = await safeApiFetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customer: data,
-          items,
-          total: subtotal,
-          currency,
-        }),
-      });
-      if (result && result.orderId) {
-        orderId = result.orderId;
-      }
-    } catch (err) {
-      console.warn('Requisition stored locally:', err);
+    setPaymentError('');
+
+    // Normalize phone number to Indian format
+    const cleanPhone = (data.phone || '').trim().replace(/[\s\-\(\)\.]/g, '');
+    let normalizedPhone = cleanPhone;
+    if (/^[6-9]\d{9}$/.test(cleanPhone)) {
+      normalizedPhone = '+91' + cleanPhone;
+    } else if (/^91[6-9]\d{9}$/.test(cleanPhone)) {
+      normalizedPhone = '+' + cleanPhone;
     }
+    const customerData = { ...data, phone: normalizedPhone };
 
-    const orderSummary = {
-      orderId,
-      customer: data,
-      items,
-      total: subtotal,
-      currency,
-      timestamp: new Date().toISOString(),
-    };
+    // Calculate total amount in paise (minimum 100 paise)
+    const totalPaise = Math.max(100, Math.round((currency === 'INR' ? subtotal : subtotal * 86.5) * 100));
+    const receiptId = `rcpt_${Date.now().toString().slice(-8)}`;
 
-    clearCart();
-    navigate('/order-confirmation', { state: { order: orderSummary } });
-    setIsSubmitting(false);
+    try {
+      await openRazorpayCheckout({
+        amountPaise: totalPaise,
+        currency: 'INR',
+        receipt: receiptId,
+        customer: customerData,
+        onSuccess: async (paymentResult) => {
+          let orderId = `MW-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 900 + 100)}`;
+          try {
+            const result = await safeApiFetch('/api/orders', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                customer: customerData,
+                items,
+                total: subtotal,
+                currency,
+                status: 'Paid',
+                paymentId: paymentResult.payment_id,
+                razorpayOrderId: paymentResult.order_id
+              }),
+            });
+            if (result && result.orderId) {
+              orderId = result.orderId;
+            }
+          } catch (err) {
+            console.warn('Order persisted locally:', err);
+          }
+
+          const orderSummary = {
+            orderId,
+            customer: customerData,
+            items,
+            total: subtotal,
+            currency,
+            paymentId: paymentResult.payment_id,
+            paymentStatus: 'Paid (Razorpay Standard Web Checkout)',
+            timestamp: new Date().toISOString(),
+          };
+
+          clearCart();
+          navigate('/order-confirmation', { state: { order: orderSummary } });
+          setIsSubmitting(false);
+        },
+        onError: (err) => {
+          setIsSubmitting(false);
+          setPaymentError(err.message || 'Payment processing failed. Please try again.');
+        },
+        onDismiss: () => {
+          setIsSubmitting(false);
+          setPaymentError('Payment window was closed. Your transaction was not completed.');
+        }
+      });
+    } catch (err) {
+      setIsSubmitting(false);
+      setPaymentError(err.message || 'Unable to initialize Razorpay checkout.');
+    }
   };
 
   return (
@@ -386,23 +430,39 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
+              {paymentError && (
+                <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-start gap-2 animate-fade-in">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
+                  <span className="leading-relaxed">{paymentError}</span>
+                </div>
+              )}
+
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 px-6 rounded-xl bg-[var(--ink)] text-[var(--bg)] font-heading font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-xl"
+                className="w-full py-4 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-heading font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/10 cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? (
-                  <span>Processing your order...</span>
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-black" />
+                    <span>Connecting to Razorpay...</span>
+                  </>
                 ) : (
                   <>
-                    <Lock className="w-4 h-4" />
-                    <span>Place Order</span>
+                    <CreditCard className="w-4 h-4" />
+                    <span>Pay {formatPrice(subtotal, currency)} with Razorpay</span>
                   </>
                 )}
               </button>
 
-              <div className="text-[10px] text-[var(--ink-muted)] text-center leading-tight">
-                Your order is packed securely and processed promptly.
+              <div className="flex flex-col items-center gap-1 text-[11px] text-[var(--ink-muted)] text-center leading-tight">
+                <div className="flex items-center gap-2 font-mono">
+                  <Lock className="w-3 h-3 text-emerald-500" />
+                  <span>256-bit SSL Secure Checkout</span>
+                </div>
+                <div className="text-[10px] text-zinc-500 font-sans">
+                  Accepts UPI (GPay, PhonePe, Paytm), Credit/Debit Cards, NetBanking & Wallets
+                </div>
               </div>
             </div>
           </div>

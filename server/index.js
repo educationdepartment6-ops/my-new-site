@@ -17,6 +17,7 @@ const customerAuthRoutes = require('./routes/customerAuth');
 const customerAccountRoutes = require('./routes/customerAccount');
 const adminCustomerRoutes = require('./routes/adminCustomers');
 const adminCOARoutes = require('./routes/adminCOA');
+const razorpayRoutes = require('./routes/razorpay');
 const { csrfProtection } = require('./auth');
 
 const app = express();
@@ -62,6 +63,11 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/coa', adminCOARoutes);
+
+// Razorpay Payment Routes
+app.use('/api/razorpay', razorpayRoutes.router);
+app.post('/api/create-order', razorpayRoutes.createOrderHandler);
+app.post('/api/verify-payment', razorpayRoutes.verifyPaymentHandler);
 
 // Static assets
 const distDir = path.join(__dirname, '..', 'dist');
