@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, Loader2 } from 'lucide-react';
+import { safeApiFetch } from '../utils/api';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -15,16 +16,11 @@ export default function AdminLogin() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/admin/login', {
+      await safeApiFetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim(), password })
       });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Invalid email or password');
-      }
 
       // Successful login
       navigate('/admin/products');

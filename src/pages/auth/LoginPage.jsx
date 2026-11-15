@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import SEO from '../../seo/SEO';
 import { useCustomerAuthStore } from '../../store/useCustomerAuthStore';
+import { safeApiFetch } from '../../utils/api';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -40,7 +41,7 @@ export default function LoginPage() {
 
   const handleResend = async () => {
     try {
-      await fetch('/api/auth/resend-verification', {
+      await safeApiFetch('/api/auth/resend-verification', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim() })

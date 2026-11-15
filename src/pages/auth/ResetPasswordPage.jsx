@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { Lock, Eye, EyeOff, CheckCircle2, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
 import SEO from '../../seo/SEO';
+import { safeApiFetch } from '../../utils/api';
 
 export default function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
@@ -43,14 +44,11 @@ export default function ResetPasswordPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/auth/reset-password', {
+      await safeApiFetch('/api/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token, newPassword, confirmPassword })
       });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Password reset failed.');
 
       setIsSuccess(true);
     } catch (err) {

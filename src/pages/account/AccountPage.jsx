@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { User, KeyRound, MapPin, ShoppingBag, Plus, Trash2, Check, Edit2, Loader2, AlertCircle, LogOut } from 'lucide-react';
 import SEO from '../../seo/SEO';
 import { useCustomerAuthStore } from '../../store/useCustomerAuthStore';
+import { safeApiFetch } from '../../utils/api';
 
 export default function AccountPage() {
   const { user, isAuthenticated, isLoading: authLoading, logout, updateUser } = useCustomerAuthStore();
@@ -50,15 +51,15 @@ export default function AccountPage() {
   useEffect(() => {
     if (activeTab === 'addresses') {
       setAddrLoading(true);
-      fetch('/api/account/addresses')
-        .then((r) => r.json())
+      safeApiFetch('/api/account/addresses')
         .then((data) => setAddresses(Array.isArray(data) ? data : []))
+        .catch(() => setAddresses([]))
         .finally(() => setAddrLoading(false));
     } else if (activeTab === 'orders') {
       setOrdersLoading(true);
-      fetch('/api/account/orders')
-        .then((r) => r.json())
+      safeApiFetch('/api/account/orders')
         .then((data) => setOrders(Array.isArray(data) ? data : []))
+        .catch(() => setOrders([]))
         .finally(() => setOrdersLoading(false));
     }
   }, [activeTab]);
@@ -68,13 +69,11 @@ export default function AccountPage() {
     setProfileSaving(true);
     setProfileMsg(null);
     try {
-      const res = await fetch('/api/account/profile', {
+      const data = await safeApiFetch('/api/account/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name.trim(), phone: phone.trim() })
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to update profile');
       updateUser({ name: data.user.name, phone: data.user.phone });
       setProfileMsg({ type: 'success', text: 'Profile updated successfully.' });
     } catch (err) {
@@ -89,13 +88,11 @@ export default function AccountPage() {
     setPwSaving(true);
     setPwMsg(null);
     try {
-      const res = await fetch('/api/account/change-password', {
+      await safeApiFetch('/api/account/change-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ currentPassword, newPassword, confirmPassword })
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to change password');
       setPwMsg({ type: 'success', text: 'Password updated. Please sign in again with your new password.' });
       setTimeout(() => logout(), 2000);
     } catch (err) {
@@ -110,17 +107,15 @@ export default function AccountPage() {
     try {
       const url = isNewAddr ? '/api/account/addresses' : `/api/account/addresses/${editingAddr.id}`;
       const method = isNewAddr ? 'POST' : 'PUT';
-      const res = await fetch(url, {
+      await safeApiFetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editingAddr)
       });
-      if (res.ok) {
-        setEditingAddr(null);
-        // Reload
-        const refetch = await fetch('/api/account/addresses');
-        setAddresses(await refetch.json());
-      }
+      setEditingAddr(null);
+      // Reload
+      const refetched = await safeApiFetch('/api/account/addresses');
+      setAddresses(Array.isArray(refetched) ? refetched : []);
     } catch (err) {
       alert(err.message);
     }
@@ -129,10 +124,8 @@ export default function AccountPage() {
   const handleDeleteAddress = async (id) => {
     if (!confirm('Are you sure you want to delete this delivery address?')) return;
     try {
-      const res = await fetch(`/api/account/addresses/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        setAddresses((prev) => prev.filter((a) => a.id !== id));
-      }
+      await safeApiFetch(`/api/account/addresses/${id}`, { method: 'DELETE' });
+      setAddresses((prev) => prev.filter((a) => a.id !== id));
     } catch (err) {
       alert(err.message);
     }

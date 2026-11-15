@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import SEO from '../../seo/SEO';
+import { safeApiFetch } from '../../utils/api';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ export default function ForgotPasswordPage() {
     setError('');
 
     try {
-      await fetch('/api/auth/forgot-password', {
+      await safeApiFetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim() })

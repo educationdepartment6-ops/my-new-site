@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
 import SEO from '../../seo/SEO';
+import { safeApiFetch } from '../../utils/api';
 
 export default function VerifyEmailPage() {
   const [searchParams] = useSearchParams();
@@ -17,16 +18,10 @@ export default function VerifyEmailPage() {
       return;
     }
 
-    fetch(`/api/auth/verify-email?token=${encodeURIComponent(token)}`)
-      .then(async (res) => {
-        const data = await res.json();
-        if (res.ok) {
-          setStatus('success');
-          setMessage(data.message || 'Your email address has been successfully verified.');
-        } else {
-          setStatus('error');
-          setMessage(data.error || 'Invalid or expired verification token.');
-        }
+    safeApiFetch(`/api/auth/verify-email?token=${encodeURIComponent(token)}`)
+      .then((data) => {
+        setStatus('success');
+        setMessage(data?.message || 'Your email address has been successfully verified.');
       })
       .catch((err) => {
         setStatus('error');

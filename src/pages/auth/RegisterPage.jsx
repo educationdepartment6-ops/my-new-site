@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Phone, CheckCircle2, AlertCircle, ArrowRight, Eye, EyeOff, Loader2, ShieldCheck } from 'lucide-react';
 import SEO from '../../seo/SEO';
+import { safeApiFetch } from '../../utils/api';
+import { useCustomerAuthStore } from '../../store/useCustomerAuthStore';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -44,7 +46,7 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/auth/register', {
+      await safeApiFetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -57,10 +59,10 @@ export default function RegisterPage() {
         })
       });
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Registration failed. Please verify your details.');
-      }
+      // Sync customer auth state
+      try {
+        useCustomerAuthStore.getState().checkAuth();
+      } catch (_) {}
 
       setIsSuccess(true);
     } catch (err) {
@@ -74,12 +76,11 @@ export default function RegisterPage() {
     setResending(true);
     setResendStatus(null);
     try {
-      const res = await fetch('/api/auth/resend-verification', {
+      await safeApiFetch('/api/auth/resend-verification', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim() })
       });
-      const data = await res.json();
       setResendStatus('Verification link resent. Please check your inbox.');
     } catch (_) {
       setResendStatus('If applicable, a new verification email was sent.');
@@ -125,19 +126,25 @@ export default function RegisterPage() {
             )}
 
             <div className="pt-3 border-t border-zinc-800 flex flex-col gap-2.5">
-              <button
-                onClick={handleResend}
-                disabled={resending}
-                className="w-full py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-200 font-mono transition-colors disabled:opacity-50 cursor-pointer"
+              <Link
+                to="/account"
+                className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs uppercase tracking-wider transition-colors inline-block text-center"
               >
-                {resending ? 'Sending...' : 'Resend Verification Email'}
-              </button>
+                Go to My Account
+              </Link>
               <Link
                 to="/login"
-                className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs uppercase tracking-wider transition-colors inline-block text-center"
+                className="w-full py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-200 font-mono transition-colors inline-block text-center"
               >
                 Go to Sign In
               </Link>
+              <button
+                onClick={handleResend}
+                disabled={resending}
+                className="w-full py-2 rounded-xl text-[11px] text-zinc-400 hover:text-zinc-300 font-mono transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                {resending ? 'Sending...' : 'Resend Verification Email'}
+              </button>
             </div>
           </div>
         ) : (

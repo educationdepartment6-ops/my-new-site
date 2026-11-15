@@ -10,6 +10,7 @@ import { useCartStore } from '../store/useCartStore';
 import { useCurrencyStore } from '../store/useCurrencyStore';
 import { useCustomerAuthStore } from '../store/useCustomerAuthStore';
 import { formatPrice } from '../utils/pricing';
+import { safeApiFetch } from '../utils/api';
 
 const checkoutSchema = z.object({
   fullName: z.string().min(2, 'Full name is required'),
@@ -69,8 +70,7 @@ export default function CheckoutPage() {
       if (user.phone) setValue('phone', user.phone);
 
       // Attempt to load customer's default address
-      fetch('/api/account/addresses')
-        .then((r) => r.json())
+      safeApiFetch('/api/account/addresses')
         .then((addresses) => {
           if (Array.isArray(addresses) && addresses.length > 0) {
             const def = addresses.find((a) => a.is_default) || addresses[0];
@@ -120,7 +120,7 @@ export default function CheckoutPage() {
     setIsSubmitting(true);
     let orderId = `MW-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 900 + 100)}`;
     try {
-      const res = await fetch('/api/orders', {
+      const result = await safeApiFetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -130,9 +130,8 @@ export default function CheckoutPage() {
           currency,
         }),
       });
-      if (res.ok) {
-        const result = await res.json();
-        if (result.orderId) orderId = result.orderId;
+      if (result && result.orderId) {
+        orderId = result.orderId;
       }
     } catch (err) {
       console.warn('Requisition stored locally:', err);

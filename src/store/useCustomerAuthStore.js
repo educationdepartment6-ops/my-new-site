@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { useCartStore } from './useCartStore';
+import { safeApiFetch } from '../utils/api';
 
 export const useCustomerAuthStore = create((set, get) => ({
   user: null,
@@ -8,15 +9,13 @@ export const useCustomerAuthStore = create((set, get) => ({
 
   checkAuth: async () => {
     try {
-      const res = await fetch('/api/auth/me');
-      if (res.ok) {
-        const data = await res.json();
+      const data = await safeApiFetch('/api/auth/me');
+      if (data && data.user) {
         set({ user: data.user, isAuthenticated: true, isLoading: false });
         return data.user;
-      } else {
-        set({ user: null, isAuthenticated: false, isLoading: false });
-        return null;
       }
+      set({ user: null, isAuthenticated: false, isLoading: false });
+      return null;
     } catch (_) {
       set({ user: null, isAuthenticated: false, isLoading: false });
       return null;
@@ -24,15 +23,11 @@ export const useCustomerAuthStore = create((set, get) => ({
   },
 
   login: async (email, password) => {
-    const res = await fetch('/api/auth/login', {
+    const data = await safeApiFetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(data.error || 'Invalid email or password');
-    }
 
     set({ user: data.user, isAuthenticated: true });
 
@@ -40,16 +35,13 @@ export const useCustomerAuthStore = create((set, get) => ({
     try {
       const guestItems = useCartStore.getState().items;
       if (guestItems && guestItems.length > 0) {
-        const mergeRes = await fetch('/api/account/cart/merge', {
+        const cartData = await safeApiFetch('/api/account/cart/merge', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ guestItems })
         });
-        if (mergeRes.ok) {
-          const cartData = await mergeRes.json();
-          if (cartData.items) {
-            useCartStore.setState({ items: cartData.items });
-          }
+        if (cartData && cartData.items) {
+          useCartStore.setState({ items: cartData.items });
         }
       }
     } catch (err) {
@@ -61,7 +53,7 @@ export const useCustomerAuthStore = create((set, get) => ({
 
   logout: async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      await safeApiFetch('/api/auth/logout', { method: 'POST' });
     } catch (_) {}
     set({ user: null, isAuthenticated: false });
   },
