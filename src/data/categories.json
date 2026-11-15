@@ -1,0 +1,142 @@
+{
+  "weight-loss": {
+    "id": 1,
+    "name": "Weight Loss",
+    "slug": "weight-loss",
+    "description": "Investigational GLP-1, GIP, and glucagon receptor agonists, incretin mimetics, and metabolic pathway candidates evaluated in preclinical energy expenditure assays.",
+    "faq": [
+      {
+        "q": "What compounds are studied in weight loss and metabolic research?",
+        "a": "Compounds including Tirzepatide, Semaglutide, Retatrutide, Cagrilintide, and SLU-PP-332 are investigated in vitro and in vivo models for metabolic receptor signaling."
+      },
+      {
+        "q": "How should lyophilized incretin peptides be stored?",
+        "a": "Store desiccated at -20°C. Protect from ultraviolet light and avoid repeated freeze-thaw cycles after reconstitution."
+      }
+    ]
+  },
+  "muscle-growth": {
+    "id": 2,
+    "name": "Muscle & Growth",
+    "slug": "muscle-growth",
+    "description": "Growth hormone releasing hormone (GHRH) analogues, secretagogues, ghrelin receptor agonists (GHS-R1a), and insulin-like growth factors (IGF-1 LR3, MGF).",
+    "faq": [
+      {
+        "q": "What are growth hormone secretagogues?",
+        "a": "Molecules such as Ipamorelin, GHRP-2, GHRP-6, and CJC-1295 that stimulate endogenous somatotropic axis signaling in laboratory research."
+      },
+      {
+        "q": "What is the purity standard for growth factors?",
+        "a": "All peptide sequences are synthesized to ≥98.0% purity verified by analytical reversed-phase HPLC and mass spectrometry."
+      }
+    ]
+  },
+  "recovery-healing": {
+    "id": 3,
+    "name": "Recovery & Healing",
+    "slug": "recovery-healing",
+    "description": "Synthetic peptide sequences including BPC-157, TB-500, KPV, and synergistic dual/triple blends evaluated in cell migration, extracellular matrix remodeling, and angiogenesis.",
+    "faq": [
+      {
+        "q": "What mechanisms are studied with BPC-157 and TB-500?",
+        "a": "These sequences are investigated in laboratory models for interactions with actin filament polymerization, focal adhesion kinase, and VEGF pathways."
+      },
+      {
+        "q": "Are blend formulations verified for stoichiometric accuracy?",
+        "a": "Yes, all multi-peptide blends (BB10, BB20, BBG70, GLOW, KLOW) are verified by chromatographic assay to confirm exact peptide content."
+      }
+    ]
+  },
+  "beauty-skin": {
+    "id": 4,
+    "name": "Beauty & Skin",
+    "slug": "beauty-skin",
+    "description": "Copper-binding complexes (GHK-Cu, AHK-Cu), melanocortin receptor ligands (Melanotan), Glutathione, and neuro-modulatory peptides evaluated in cutaneous and extracellular matrix models.",
+    "faq": [
+      {
+        "q": "How do copper peptides function in cell culture models?",
+        "a": "GHK-Cu and AHK-Cu complexes deliver bioavailable copper ions that serve as essential cofactors in lysyl oxidase and collagen cross-linking enzymatic cascades."
+      },
+      {
+        "q": "Are beauty peptides intended for consumer topical use?",
+        "a": "No. Materials are strictly for laboratory research, cell culture studies, and analytical formulation screening, not for human topical or clinical use."
+      }
+    ]
+  },
+  "anti-aging-energy": {
+    "id": 5,
+    "name": "Anti-Aging & Energy",
+    "slug": "anti-aging-energy",
+    "description": "Mitochondrial-derived peptides (MOTS-c, SS-31), NAD+ cofactors, telomere-associated Epithalon, Thymosin Alpha-1, and FOXO4-DRI senolytic candidates.",
+    "faq": [
+      {
+        "q": "What pathways are explored in cellular longevity research?",
+        "a": "Researchers evaluate AMPK activation, sirtuin deacetylation, cardiolipin stabilization, and targeted elimination of senescent cells."
+      },
+      {
+        "q": "How is NAD+ quality confirmed?",
+        "a": "Analytical HPLC confirms oxidized beta-nicotinamide adenine dinucleotide purity and absence of degraded hydrolytic byproducts."
+      }
+    ]
+  },
+  "sleep": {
+    "id": 6,
+    "name": "Sleep",
+    "slug": "sleep",
+    "description": "Delta sleep-inducing peptide (DSIP) and high-purity Melatonin analogues evaluated in neurochemical signaling, circadian gene modulation, and slow-wave EEG architecture.",
+    "faq": [
+      {
+        "q": "What is Delta Sleep-Inducing Peptide (DSIP)?",
+        "a": "A nonapeptide initially isolated from mammalian hemodialysate, investigated in preclinical models for interactions with central sleep-regulatory centers."
+      }
+    ]
+  },
+  "brain-mood": {
+    "id": 7,
+    "name": "Brain & Mood",
+    "slug": "brain-mood",
+    "description": "Heptapeptide neurotrophic fragments (Semax, Selank) and neuroendocrine peptides (Oxytocin Acetate) studied in neuroplasticity, BDNF expression, and monoamine neurotransmission.",
+    "faq": [
+      {
+        "q": "How do Semax and Selank differ from endogenous fragments?",
+        "a": "Both molecules feature modified C-terminal motifs (Pro-Gly-Pro) conferring enhanced metabolic stability against neutral endopeptidases in aqueous research solutions."
+      }
+    ]
+  },
+  "sexual-health-fertility": {
+    "id": 8,
+    "name": "Sexual Health & Fertility",
+    "slug": "sexual-health-fertility",
+    "description": "Selective melanocortin receptor agonists (PT-141 / Bremelanotide), gonadotropins (HCG, HMG, Gonadorelin), and Kisspeptin-10 hypothalamic signaling peptides.",
+    "faq": [
+      {
+        "q": "What is Kisspeptin-10's role in endocrine research?",
+        "a": "Kisspeptin-10 binds the GPR54 (KISS1R) receptor to trigger pulsatile gonadotropin-releasing hormone (GnRH) secretion in pituitary cell culture assays."
+      }
+    ]
+  },
+  "vitamins-water": {
+    "id": 9,
+    "name": "Vitamins & Water",
+    "slug": "vitamins-water",
+    "description": "Essential metabolic vitamins (B-12 Cyanocobalamin) and laboratory-grade sterile Bacteriostatic Water diluents preserved with 0.9% benzyl alcohol.",
+    "faq": [
+      {
+        "q": "What is the specification of Bacteriostatic Water?",
+        "a": "Sterile USP water for injection with 0.9% (9mg/mL) benzyl alcohol preservative added to inhibit microbial growth in multi-use experimental vials."
+      }
+    ]
+  },
+  "other": {
+    "id": 10,
+    "name": "Other",
+    "slug": "other",
+    "description": "Specialized investigational research peptides including Dermorphin (natural mu-opioid receptor peptide ligand) and Vasoactive Intestinal Peptide (VIP).",
+    "faq": [
+      {
+        "q": "What research areas utilize VIP?",
+        "a": "Vasoactive Intestinal Peptide is an endogenous 28-amino acid neuropeptide investigated in VPAC1/VPAC2 receptor pharmacology, vasodilation, and immune regulation."
+      }
+    ]
+  }
+}

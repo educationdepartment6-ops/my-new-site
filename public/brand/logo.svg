@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 120" width="100%" height="100%">
+  <defs>
+    <!-- Metallic Chrome Gradient -->
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="25%" stop-color="#C9CCD1" />
+      <stop offset="50%" stop-color="#8E9298" />
+      <stop offset="75%" stop-color="#D9DCE0" />
+      <stop offset="100%" stop-color="#5A5E66" />
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="transparent" />
+      <stop offset="20%" stop-color="#8E9298" />
+      <stop offset="50%" stop-color="#C9CCD1" />
+      <stop offset="80%" stop-color="#8E9298" />
+      <stop offset="100%" stop-color="transparent" />
+    </linearGradient>
+    <filter id="subtleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    .letter {
+      font-family: 'Orbitron', 'Exo 2', -apple-system, sans-serif;
+      font-weight: 800;
+      fill: #0B0B0C;
+      letter-spacing: 2px;
+    }
+    .dark .letter {
+      fill: #F4F5F7;
+    }
+  </style>
+
+  <!-- Left thin accent guide -->
+  <line x1="20" y1="60" x2="60" y2="60" stroke="url(#chromeGrad)" stroke-width="1.5" />
+  
+  <!-- 'm' -->
+  <text x="70" y="78" font-size="52" class="letter">m</text>
+
+  <!-- Hexagonal Molecule Icon replacing 'o' -->
+  <g transform="translate(136, 32)">
+    <!-- Hexagon Outer Ring -->
+    <polygon points="26,4 48,16 48,40 26,52 4,40 4,16" 
+             fill="none" 
+             stroke="url(#chromeGrad)" 
+             stroke-width="3" 
+             stroke-linejoin="round" />
+    <!-- Molecular Bonds & Nodes -->
+    <circle cx="26" cy="4" r="3.5" fill="#0B0B0C" stroke="#C9CCD1" stroke-width="1.5" />
+    <circle cx="48" cy="16" r="3.5" fill="#0B0B0C" stroke="#C9CCD1" stroke-width="1.5" />
+    <circle cx="48" cy="40" r="3.5" fill="#0B0B0C" stroke="#C9CCD1" stroke-width="1.5" />
+    <circle cx="26" cy="52" r="3.5" fill="#0B0B0C" stroke="#C9CCD1" stroke-width="1.5" />
+    <circle cx="4" cy="40" r="3.5" fill="#0B0B0C" stroke="#C9CCD1" stroke-width="1.5" />
+    <circle cx="4" cy="16" r="3.5" fill="#0B0B0C" stroke="#C9CCD1" stroke-width="1.5" />
+    <!-- Inner Core & Electron Bonds -->
+    <circle cx="26" cy="28" r="5" fill="url(#chromeGrad)" />
+    <line x1="26" y1="28" x2="26" y2="4" stroke="url(#chromeGrad)" stroke-width="1.5" />
+    <line x1="26" y1="28" x2="48" y2="40" stroke="url(#chromeGrad)" stroke-width="1.5" />
+    <line x1="26" y1="28" x2="4" y2="40" stroke="url(#chromeGrad)" stroke-width="1.5" />
+  </g>
+
+  <!-- 'g' -->
+  <text x="194" y="78" font-size="52" class="letter">g</text>
+
+  <!-- Separator Dot / Node -->
+  <circle cx="242" cy="62" r="3" fill="#8E9298" />
+
+  <!-- 'wrld' -->
+  <text x="256" y="78" font-size="52" class="letter">wrld</text>
+
+  <!-- Right thin accent guide -->
+  <line x1="420" y1="60" x2="520" y2="60" stroke="url(#chromeGrad)" stroke-width="1.5" />
+
+  <!-- Subtle micro subtitle: RESEARCH COMPOUNDS -->
+  <text x="256" y="96" font-family="'Inter', sans-serif" font-size="8.5" font-weight="700" fill="#8E9298" letter-spacing="5">LABORATORY RESEARCH</text>
+
+  <!-- Bottom precision ruler line -->
+  <line x1="70" y1="108" x2="470" y2="108" stroke="url(#lineGrad)" stroke-width="1" />
+</svg>

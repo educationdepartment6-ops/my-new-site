@@ -1,0 +1,174 @@
+[
+  {
+    "slug": "tirzepatide",
+    "name": "Tirzepatide",
+    "skus": [
+      "TR5",
+      "TR10",
+      "TR15",
+      "TR20",
+      "TR30",
+      "TR40",
+      "TR50",
+      "TR60"
+    ],
+    "reason": "Prescription/controlled medicine"
+  },
+  {
+    "slug": "semaglutide",
+    "name": "Semaglutide",
+    "skus": [
+      "SM5",
+      "SM10",
+      "SM15",
+      "SM20",
+      "SM30",
+      "SM40",
+      "SM50"
+    ],
+    "reason": "Prescription/controlled medicine"
+  },
+  {
+    "slug": "cagrilintide-semaglutide",
+    "name": "Cagrilintide + Semaglutide",
+    "skus": [
+      "CS10"
+    ],
+    "reason": "Prescription/controlled medicine"
+  },
+  {
+    "slug": "hgh-191aa",
+    "name": "HGH 191AA",
+    "skus": [
+      "H10",
+      "H12",
+      "H15",
+      "H24",
+      "H36"
+    ],
+    "reason": "Somatropin regulated drug"
+  },
+  {
+    "slug": "hcg",
+    "name": "HCG",
+    "skus": [
+      "HC1000",
+      "HC2000",
+      "HC5000",
+      "HC10000"
+    ],
+    "reason": "Prescription gonadotropin"
+  },
+  {
+    "slug": "hmg",
+    "name": "HMG",
+    "skus": [
+      "HM75"
+    ],
+    "reason": "Prescription menotropin"
+  },
+  {
+    "slug": "gonadorelin",
+    "name": "Gonadorrlin Acetate",
+    "skus": [
+      "GND2"
+    ],
+    "reason": "Prescription GnRH"
+  },
+  {
+    "slug": "oxytocin",
+    "name": "Oxytocin Acetate",
+    "skus": [
+      "OT2",
+      "OT5",
+      "OT10"
+    ],
+    "reason": "Prescription obstetric hormone"
+  },
+  {
+    "slug": "botox",
+    "name": "Botox",
+    "skus": [
+      "100U",
+      "150U",
+      "200U"
+    ],
+    "reason": "Botulinum toxin prescription drug"
+  },
+  {
+    "slug": "pt-141",
+    "name": "PT 141 (Bremelanotide)",
+    "skus": [
+      "P141"
+    ],
+    "reason": "Regulated melanocortin medicine"
+  },
+  {
+    "slug": "melanotan-2",
+    "name": "Melanotan II",
+    "skus": [
+      "ML10"
+    ],
+    "reason": "Restricted melanocortin peptide"
+  },
+  {
+    "slug": "melanotan-1",
+    "name": "Melanotan I (MT-1)",
+    "skus": [
+      "MT1"
+    ],
+    "reason": "Restricted melanocortin peptide"
+  },
+  {
+    "slug": "dermorphin",
+    "name": "Dermorphin",
+    "skus": [
+      "DR5"
+    ],
+    "reason": "Opioid receptor agonist"
+  },
+  {
+    "slug": "tesamorelin",
+    "name": "Tesamorelin",
+    "skus": [
+      "TSM2",
+      "TSM5",
+      "TSM10",
+      "TSM20"
+    ],
+    "reason": "Prescription GHRH analogue"
+  },
+  {
+    "slug": "sermorelin",
+    "name": "Sermorelin Acetate",
+    "skus": [
+      "SMO-5",
+      "SMO-10"
+    ],
+    "reason": "Prescription GHRH analogue"
+  },
+  {
+    "slug": "melatonin",
+    "name": "Melatonin",
+    "skus": [
+      "MT10"
+    ],
+    "reason": "Exempt/pharmaceutical classification"
+  },
+  {
+    "slug": "lemonbottle",
+    "name": "LemonBottle",
+    "skus": [
+      "LB10nnn"
+    ],
+    "reason": "Cosmetic formulation/unverifiable"
+  },
+  {
+    "slug": "xt100u",
+    "name": "XT100u",
+    "skus": [
+      "100iu"
+    ],
+    "reason": "Unidentified/unverifiable entity"
+  }
+]

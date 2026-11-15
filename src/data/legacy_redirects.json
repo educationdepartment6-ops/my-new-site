@@ -1,0 +1,1502 @@
+{
+  "tirzepatide-tr5": {
+    "compoundSlug": "tirzepatide",
+    "strength": "5mg",
+    "sku": "TR5"
+  },
+  "product-1": {
+    "compoundSlug": "tirzepatide",
+    "strength": "5mg",
+    "sku": "TR5"
+  },
+  "tirzepatide-tr10": {
+    "compoundSlug": "tirzepatide",
+    "strength": "10mg",
+    "sku": "TR10"
+  },
+  "product-2": {
+    "compoundSlug": "tirzepatide",
+    "strength": "10mg",
+    "sku": "TR10"
+  },
+  "tirzepatide-tr15": {
+    "compoundSlug": "tirzepatide",
+    "strength": "15mg",
+    "sku": "TR15"
+  },
+  "product-3": {
+    "compoundSlug": "tirzepatide",
+    "strength": "15mg",
+    "sku": "TR15"
+  },
+  "tirzepatide-tr20": {
+    "compoundSlug": "tirzepatide",
+    "strength": "20mg",
+    "sku": "TR20"
+  },
+  "product-4": {
+    "compoundSlug": "tirzepatide",
+    "strength": "20mg",
+    "sku": "TR20"
+  },
+  "tirzepatide-tr30": {
+    "compoundSlug": "tirzepatide",
+    "strength": "30mg",
+    "sku": "TR30"
+  },
+  "product-5": {
+    "compoundSlug": "tirzepatide",
+    "strength": "30mg",
+    "sku": "TR30"
+  },
+  "tirzepatide-tr40": {
+    "compoundSlug": "tirzepatide",
+    "strength": "40mg",
+    "sku": "TR40"
+  },
+  "product-6": {
+    "compoundSlug": "tirzepatide",
+    "strength": "40mg",
+    "sku": "TR40"
+  },
+  "tirzepatide-tr50": {
+    "compoundSlug": "tirzepatide",
+    "strength": "50mg",
+    "sku": "TR50"
+  },
+  "product-7": {
+    "compoundSlug": "tirzepatide",
+    "strength": "50mg",
+    "sku": "TR50"
+  },
+  "tirzepatide-tr60": {
+    "compoundSlug": "tirzepatide",
+    "strength": "60mg",
+    "sku": "TR60"
+  },
+  "product-8": {
+    "compoundSlug": "tirzepatide",
+    "strength": "60mg",
+    "sku": "TR60"
+  },
+  "retatrutide-rt5": {
+    "compoundSlug": "retatrutide",
+    "strength": "5mg",
+    "sku": "RT5"
+  },
+  "product-9": {
+    "compoundSlug": "retatrutide",
+    "strength": "5mg",
+    "sku": "RT5"
+  },
+  "retatrutide-rt10": {
+    "compoundSlug": "retatrutide",
+    "strength": "10mg",
+    "sku": "RT10"
+  },
+  "product-10": {
+    "compoundSlug": "retatrutide",
+    "strength": "10mg",
+    "sku": "RT10"
+  },
+  "retatrutide-rt15": {
+    "compoundSlug": "retatrutide",
+    "strength": "15mg",
+    "sku": "RT15"
+  },
+  "product-11": {
+    "compoundSlug": "retatrutide",
+    "strength": "15mg",
+    "sku": "RT15"
+  },
+  "retatrutide-rt20": {
+    "compoundSlug": "retatrutide",
+    "strength": "20mg",
+    "sku": "RT20"
+  },
+  "product-12": {
+    "compoundSlug": "retatrutide",
+    "strength": "20mg",
+    "sku": "RT20"
+  },
+  "retatrutide-rt30": {
+    "compoundSlug": "retatrutide",
+    "strength": "30mg",
+    "sku": "RT30"
+  },
+  "product-13": {
+    "compoundSlug": "retatrutide",
+    "strength": "30mg",
+    "sku": "RT30"
+  },
+  "retatrutide-rt40": {
+    "compoundSlug": "retatrutide",
+    "strength": "40mg",
+    "sku": "RT40"
+  },
+  "product-14": {
+    "compoundSlug": "retatrutide",
+    "strength": "40mg",
+    "sku": "RT40"
+  },
+  "retatrutide-rt50": {
+    "compoundSlug": "retatrutide",
+    "strength": "50mg",
+    "sku": "RT50"
+  },
+  "product-15": {
+    "compoundSlug": "retatrutide",
+    "strength": "50mg",
+    "sku": "RT50"
+  },
+  "retatrutide-rt60": {
+    "compoundSlug": "retatrutide",
+    "strength": "60mg",
+    "sku": "RT60"
+  },
+  "product-16": {
+    "compoundSlug": "retatrutide",
+    "strength": "60mg",
+    "sku": "RT60"
+  },
+  "ghk-cu-cu50": {
+    "compoundSlug": "ghk-cu",
+    "strength": "50mg",
+    "sku": "CU50"
+  },
+  "product-17": {
+    "compoundSlug": "ghk-cu",
+    "strength": "50mg",
+    "sku": "CU50"
+  },
+  "ghk-cu-cu100": {
+    "compoundSlug": "ghk-cu",
+    "strength": "100mg",
+    "sku": "CU100"
+  },
+  "product-18": {
+    "compoundSlug": "ghk-cu",
+    "strength": "100mg",
+    "sku": "CU100"
+  },
+  "ahk-cu-au50": {
+    "compoundSlug": "ahk-cu",
+    "strength": "50mg",
+    "sku": "AU50"
+  },
+  "product-19": {
+    "compoundSlug": "ahk-cu",
+    "strength": "50mg",
+    "sku": "AU50"
+  },
+  "ahk-cu-au100": {
+    "compoundSlug": "ahk-cu",
+    "strength": "100mg",
+    "sku": "AU100"
+  },
+  "product-20": {
+    "compoundSlug": "ahk-cu",
+    "strength": "100mg",
+    "sku": "AU100"
+  },
+  "semaglutide-sm5": {
+    "compoundSlug": "semaglutide",
+    "strength": "5mg",
+    "sku": "SM5"
+  },
+  "product-21": {
+    "compoundSlug": "semaglutide",
+    "strength": "5mg",
+    "sku": "SM5"
+  },
+  "semaglutide-sm10": {
+    "compoundSlug": "semaglutide",
+    "strength": "10mg",
+    "sku": "SM10"
+  },
+  "product-22": {
+    "compoundSlug": "semaglutide",
+    "strength": "10mg",
+    "sku": "SM10"
+  },
+  "semaglutide-sm15": {
+    "compoundSlug": "semaglutide",
+    "strength": "15mg",
+    "sku": "SM15"
+  },
+  "product-23": {
+    "compoundSlug": "semaglutide",
+    "strength": "15mg",
+    "sku": "SM15"
+  },
+  "semaglutide-sm20": {
+    "compoundSlug": "semaglutide",
+    "strength": "20mg",
+    "sku": "SM20"
+  },
+  "product-24": {
+    "compoundSlug": "semaglutide",
+    "strength": "20mg",
+    "sku": "SM20"
+  },
+  "semaglutide-sm30": {
+    "compoundSlug": "semaglutide",
+    "strength": "30mg",
+    "sku": "SM30"
+  },
+  "product-25": {
+    "compoundSlug": "semaglutide",
+    "strength": "30mg",
+    "sku": "SM30"
+  },
+  "semaglutide-sm40": {
+    "compoundSlug": "semaglutide",
+    "strength": "40mg",
+    "sku": "SM40"
+  },
+  "product-26": {
+    "compoundSlug": "semaglutide",
+    "strength": "40mg",
+    "sku": "SM40"
+  },
+  "semaglutide-sm50": {
+    "compoundSlug": "semaglutide",
+    "strength": "50mg",
+    "sku": "SM50"
+  },
+  "product-27": {
+    "compoundSlug": "semaglutide",
+    "strength": "50mg",
+    "sku": "SM50"
+  },
+  "cagrilintide-cgl5": {
+    "compoundSlug": "cagrilintide",
+    "strength": "5mg",
+    "sku": "CGL5"
+  },
+  "product-28": {
+    "compoundSlug": "cagrilintide",
+    "strength": "5mg",
+    "sku": "CGL5"
+  },
+  "cagrilintide-cgl10": {
+    "compoundSlug": "cagrilintide",
+    "strength": "10mg",
+    "sku": "CGL10"
+  },
+  "product-29": {
+    "compoundSlug": "cagrilintide",
+    "strength": "10mg",
+    "sku": "CGL10"
+  },
+  "tesamorelin-tsm2": {
+    "compoundSlug": "tesamorelin",
+    "strength": "2mg",
+    "sku": "TSM2"
+  },
+  "product-30": {
+    "compoundSlug": "tesamorelin",
+    "strength": "2mg",
+    "sku": "TSM2"
+  },
+  "tesamorelin-tsm5": {
+    "compoundSlug": "tesamorelin",
+    "strength": "5mg",
+    "sku": "TSM5"
+  },
+  "product-31": {
+    "compoundSlug": "tesamorelin",
+    "strength": "5mg",
+    "sku": "TSM5"
+  },
+  "tesamorelin-tsm10": {
+    "compoundSlug": "tesamorelin",
+    "strength": "10mg",
+    "sku": "TSM10"
+  },
+  "product-32": {
+    "compoundSlug": "tesamorelin",
+    "strength": "10mg",
+    "sku": "TSM10"
+  },
+  "tesamorelin-tsm20": {
+    "compoundSlug": "tesamorelin",
+    "strength": "20mg",
+    "sku": "TSM20"
+  },
+  "product-33": {
+    "compoundSlug": "tesamorelin",
+    "strength": "20mg",
+    "sku": "TSM20"
+  },
+  "mots-c-ms5": {
+    "compoundSlug": "mots-c",
+    "strength": "5mg",
+    "sku": "MS5"
+  },
+  "product-34": {
+    "compoundSlug": "mots-c",
+    "strength": "5mg",
+    "sku": "MS5"
+  },
+  "mots-c-ms10": {
+    "compoundSlug": "mots-c",
+    "strength": "10mg",
+    "sku": "MS10"
+  },
+  "product-35": {
+    "compoundSlug": "mots-c",
+    "strength": "10mg",
+    "sku": "MS10"
+  },
+  "mots-c-ms20": {
+    "compoundSlug": "mots-c",
+    "strength": "20mg",
+    "sku": "MS20"
+  },
+  "product-36": {
+    "compoundSlug": "mots-c",
+    "strength": "20mg",
+    "sku": "MS20"
+  },
+  "mots-c-ms30": {
+    "compoundSlug": "mots-c",
+    "strength": "30mg",
+    "sku": "MS30"
+  },
+  "product-37": {
+    "compoundSlug": "mots-c",
+    "strength": "30mg",
+    "sku": "MS30"
+  },
+  "mots-c-ms40": {
+    "compoundSlug": "mots-c",
+    "strength": "40mg",
+    "sku": "MS40"
+  },
+  "product-38": {
+    "compoundSlug": "mots-c",
+    "strength": "40mg",
+    "sku": "MS40"
+  },
+  "aod-9604-2ad": {
+    "compoundSlug": "aod-9604",
+    "strength": "2mg",
+    "sku": "2AD"
+  },
+  "product-39": {
+    "compoundSlug": "aod-9604",
+    "strength": "2mg",
+    "sku": "2AD"
+  },
+  "aod-9604-5ad": {
+    "compoundSlug": "aod-9604",
+    "strength": "5mg",
+    "sku": "5AD"
+  },
+  "product-40": {
+    "compoundSlug": "aod-9604",
+    "strength": "5mg",
+    "sku": "5AD"
+  },
+  "aod-9604-10ad": {
+    "compoundSlug": "aod-9604",
+    "strength": "10mg",
+    "sku": "10AD"
+  },
+  "product-41": {
+    "compoundSlug": "aod-9604",
+    "strength": "10mg",
+    "sku": "10AD"
+  },
+  "nad-5ml-nj100": {
+    "compoundSlug": "nad-5ml",
+    "strength": "100mg",
+    "sku": "NJ100"
+  },
+  "product-42": {
+    "compoundSlug": "nad-5ml",
+    "strength": "100mg",
+    "sku": "NJ100"
+  },
+  "nad-5ml-nj500": {
+    "compoundSlug": "nad-5ml",
+    "strength": "500mg",
+    "sku": "NJ500"
+  },
+  "product-43": {
+    "compoundSlug": "nad-5ml",
+    "strength": "500mg",
+    "sku": "NJ500"
+  },
+  "nad-10ml-nj1000": {
+    "compoundSlug": "nad-10ml",
+    "strength": "1000mg",
+    "sku": "NJ1000"
+  },
+  "product-44": {
+    "compoundSlug": "nad-10ml",
+    "strength": "1000mg",
+    "sku": "NJ1000"
+  },
+  "bpc-157-bc2": {
+    "compoundSlug": "bpc-157",
+    "strength": "2mg",
+    "sku": "BC2"
+  },
+  "product-45": {
+    "compoundSlug": "bpc-157",
+    "strength": "2mg",
+    "sku": "BC2"
+  },
+  "bpc-157-bc5": {
+    "compoundSlug": "bpc-157",
+    "strength": "5mg",
+    "sku": "BC5"
+  },
+  "product-46": {
+    "compoundSlug": "bpc-157",
+    "strength": "5mg",
+    "sku": "BC5"
+  },
+  "bpc-157-bc10": {
+    "compoundSlug": "bpc-157",
+    "strength": "10mg",
+    "sku": "BC10"
+  },
+  "product-47": {
+    "compoundSlug": "bpc-157",
+    "strength": "10mg",
+    "sku": "BC10"
+  },
+  "tb-500-thymosin-b4-acetate-bt2": {
+    "compoundSlug": "tb-500-thymosin-b4-acetate",
+    "strength": "2mg",
+    "sku": "BT2"
+  },
+  "product-48": {
+    "compoundSlug": "tb-500-thymosin-b4-acetate",
+    "strength": "2mg",
+    "sku": "BT2"
+  },
+  "tb-500-thymosin-b4-acetate-bt5": {
+    "compoundSlug": "tb-500-thymosin-b4-acetate",
+    "strength": "5mg",
+    "sku": "BT5"
+  },
+  "product-49": {
+    "compoundSlug": "tb-500-thymosin-b4-acetate",
+    "strength": "5mg",
+    "sku": "BT5"
+  },
+  "tb-500-thymosin-b4-acetate-bt10": {
+    "compoundSlug": "tb-500-thymosin-b4-acetate",
+    "strength": "10mg",
+    "sku": "BT10"
+  },
+  "product-50": {
+    "compoundSlug": "tb-500-thymosin-b4-acetate",
+    "strength": "10mg",
+    "sku": "BT10"
+  },
+  "cjc-1295-dac-cd2": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "2mg",
+    "sku": "CD2"
+  },
+  "product-51": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "2mg",
+    "sku": "CD2"
+  },
+  "cjc-1295-dac-cd5": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "5mg",
+    "sku": "CD5"
+  },
+  "product-52": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "5mg",
+    "sku": "CD5"
+  },
+  "cjc-1295-dac-cd10": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "10mg",
+    "sku": "CD10"
+  },
+  "product-53": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "10mg",
+    "sku": "CD10"
+  },
+  "cjc-1295-dac-cnd2": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "2mg",
+    "sku": "CND2"
+  },
+  "product-54": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "2mg",
+    "sku": "CND2"
+  },
+  "cjc-1295-dac-cnd5": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "5mg",
+    "sku": "CND5"
+  },
+  "product-55": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "5mg",
+    "sku": "CND5"
+  },
+  "cjc-1295-dac-cnd10": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "10mg",
+    "sku": "CND10"
+  },
+  "product-56": {
+    "compoundSlug": "cjc-1295-dac",
+    "strength": "10mg",
+    "sku": "CND10"
+  },
+  "blend-bpc157-5mg-tb500-5mg-bb10": {
+    "compoundSlug": "blend-bpc157-5mg-tb500-5mg",
+    "strength": "(5mg+5mg)",
+    "sku": "BB10"
+  },
+  "product-57": {
+    "compoundSlug": "blend-bpc157-5mg-tb500-5mg",
+    "strength": "(5mg+5mg)",
+    "sku": "BB10"
+  },
+  "blend-bpc157-10mg-tb500-10mg-bb20": {
+    "compoundSlug": "blend-bpc157-10mg-tb500-10mg",
+    "strength": "(10mg+10mg)",
+    "sku": "BB20"
+  },
+  "product-58": {
+    "compoundSlug": "blend-bpc157-10mg-tb500-10mg",
+    "strength": "(10mg+10mg)",
+    "sku": "BB20"
+  },
+  "cjc-1295-no-dac-5mg-ipa5mg-cp10": {
+    "compoundSlug": "cjc-1295-no-dac-5mg-ipa5mg",
+    "strength": "10mg",
+    "sku": "CP10"
+  },
+  "product-59": {
+    "compoundSlug": "cjc-1295-no-dac-5mg-ipa5mg",
+    "strength": "10mg",
+    "sku": "CP10"
+  },
+  "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg-bbg70": {
+    "compoundSlug": "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg",
+    "strength": "(10mg+10mg+50mg)",
+    "sku": "BBG70"
+  },
+  "product-60": {
+    "compoundSlug": "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg",
+    "strength": "(10mg+10mg+50mg)",
+    "sku": "BBG70"
+  },
+  "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg-kpv10mg-glow": {
+    "compoundSlug": "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg-kpv10mg",
+    "strength": "GLOW",
+    "sku": "GLOW"
+  },
+  "product-61": {
+    "compoundSlug": "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg-kpv10mg",
+    "strength": "GLOW",
+    "sku": "GLOW"
+  },
+  "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg-kpv10mg-klow": {
+    "compoundSlug": "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg-kpv10mg",
+    "strength": "KLOW",
+    "sku": "KLOW"
+  },
+  "product-62": {
+    "compoundSlug": "blend-bpc-157-10mg-tb500-10mg-ghk-cu-50mg-kpv10mg",
+    "strength": "KLOW",
+    "sku": "KLOW"
+  },
+  "selank-sk2": {
+    "compoundSlug": "selank",
+    "strength": "2mg",
+    "sku": "SK2"
+  },
+  "product-63": {
+    "compoundSlug": "selank",
+    "strength": "2mg",
+    "sku": "SK2"
+  },
+  "selank-sk5": {
+    "compoundSlug": "selank",
+    "strength": "5mg",
+    "sku": "SK5"
+  },
+  "product-64": {
+    "compoundSlug": "selank",
+    "strength": "5mg",
+    "sku": "SK5"
+  },
+  "selank-sk10": {
+    "compoundSlug": "selank",
+    "strength": "10mg",
+    "sku": "SK10"
+  },
+  "product-65": {
+    "compoundSlug": "selank",
+    "strength": "10mg",
+    "sku": "SK10"
+  },
+  "semax-xa5": {
+    "compoundSlug": "semax",
+    "strength": "5mg",
+    "sku": "XA5"
+  },
+  "product-66": {
+    "compoundSlug": "semax",
+    "strength": "5mg",
+    "sku": "XA5"
+  },
+  "semax-xa10": {
+    "compoundSlug": "semax",
+    "strength": "10mg",
+    "sku": "XA10"
+  },
+  "product-67": {
+    "compoundSlug": "semax",
+    "strength": "10mg",
+    "sku": "XA10"
+  },
+  "epithalon-et10": {
+    "compoundSlug": "epithalon",
+    "strength": "10mg (ET10)",
+    "sku": "ET10"
+  },
+  "product-68": {
+    "compoundSlug": "epithalon",
+    "strength": "10mg (ET10)",
+    "sku": "ET10"
+  },
+  "epithalon-et20": {
+    "compoundSlug": "epithalon",
+    "strength": "10mg (ET20)",
+    "sku": "ET20"
+  },
+  "product-69": {
+    "compoundSlug": "epithalon",
+    "strength": "10mg (ET20)",
+    "sku": "ET20"
+  },
+  "epithalon-et50": {
+    "compoundSlug": "epithalon",
+    "strength": "50mg",
+    "sku": "ET50"
+  },
+  "product-70": {
+    "compoundSlug": "epithalon",
+    "strength": "50mg",
+    "sku": "ET50"
+  },
+  "epithalon-et100": {
+    "compoundSlug": "epithalon",
+    "strength": "100mg",
+    "sku": "ET100"
+  },
+  "product-71": {
+    "compoundSlug": "epithalon",
+    "strength": "100mg",
+    "sku": "ET100"
+  },
+  "pt-141-p141": {
+    "compoundSlug": "pt-141",
+    "strength": "10mg",
+    "sku": "P141"
+  },
+  "product-72": {
+    "compoundSlug": "pt-141",
+    "strength": "10mg",
+    "sku": "P141"
+  },
+  "ipamorelin-ip2": {
+    "compoundSlug": "ipamorelin",
+    "strength": "2mg",
+    "sku": "IP2"
+  },
+  "product-73": {
+    "compoundSlug": "ipamorelin",
+    "strength": "2mg",
+    "sku": "IP2"
+  },
+  "ipamorelin-ip5": {
+    "compoundSlug": "ipamorelin",
+    "strength": "5mg",
+    "sku": "IP5"
+  },
+  "product-74": {
+    "compoundSlug": "ipamorelin",
+    "strength": "5mg",
+    "sku": "IP5"
+  },
+  "ipamorelin-ip10": {
+    "compoundSlug": "ipamorelin",
+    "strength": "10mg",
+    "sku": "IP10"
+  },
+  "product-75": {
+    "compoundSlug": "ipamorelin",
+    "strength": "10mg",
+    "sku": "IP10"
+  },
+  "dsip-ds2": {
+    "compoundSlug": "dsip",
+    "strength": "2mg",
+    "sku": "DS2"
+  },
+  "product-76": {
+    "compoundSlug": "dsip",
+    "strength": "2mg",
+    "sku": "DS2"
+  },
+  "dsip-ds5": {
+    "compoundSlug": "dsip",
+    "strength": "5mg",
+    "sku": "DS5"
+  },
+  "product-77": {
+    "compoundSlug": "dsip",
+    "strength": "5mg",
+    "sku": "DS5"
+  },
+  "dsip-ds10": {
+    "compoundSlug": "dsip",
+    "strength": "10mg",
+    "sku": "DS10"
+  },
+  "product-78": {
+    "compoundSlug": "dsip",
+    "strength": "10mg",
+    "sku": "DS10"
+  },
+  "melanotan-2-ml10": {
+    "compoundSlug": "melanotan-2",
+    "strength": "10mg",
+    "sku": "ML10"
+  },
+  "product-79": {
+    "compoundSlug": "melanotan-2",
+    "strength": "10mg",
+    "sku": "ML10"
+  },
+  "melanotan-1-mt-1-mt1": {
+    "compoundSlug": "melanotan-1-mt-1",
+    "strength": "10mg",
+    "sku": "MT1"
+  },
+  "product-80": {
+    "compoundSlug": "melanotan-1-mt-1",
+    "strength": "10mg",
+    "sku": "MT1"
+  },
+  "ss-31-2s10": {
+    "compoundSlug": "ss-31",
+    "strength": "10mg",
+    "sku": "2S10"
+  },
+  "product-81": {
+    "compoundSlug": "ss-31",
+    "strength": "10mg",
+    "sku": "2S10"
+  },
+  "ss-31-2s50": {
+    "compoundSlug": "ss-31",
+    "strength": "50mg",
+    "sku": "2S50"
+  },
+  "product-82": {
+    "compoundSlug": "ss-31",
+    "strength": "50mg",
+    "sku": "2S50"
+  },
+  "melatonin-mt10": {
+    "compoundSlug": "melatonin",
+    "strength": "10mg",
+    "sku": "MT10"
+  },
+  "product-83": {
+    "compoundSlug": "melatonin",
+    "strength": "10mg",
+    "sku": "MT10"
+  },
+  "melanotan-ii-ml10": {
+    "compoundSlug": "melanotan-ii",
+    "strength": "10mg",
+    "sku": "ML10"
+  },
+  "product-84": {
+    "compoundSlug": "melanotan-ii",
+    "strength": "10mg",
+    "sku": "ML10"
+  },
+  "melanotan-i-mt1": {
+    "compoundSlug": "melanotan-i",
+    "strength": "10mg",
+    "sku": "MT1"
+  },
+  "product-85": {
+    "compoundSlug": "melanotan-i",
+    "strength": "10mg",
+    "sku": "MT1"
+  },
+  "kpv-kp10": {
+    "compoundSlug": "kpv",
+    "strength": "10mg",
+    "sku": "KP10"
+  },
+  "product-86": {
+    "compoundSlug": "kpv",
+    "strength": "10mg",
+    "sku": "KP10"
+  },
+  "glutathione-gtt": {
+    "compoundSlug": "glutathione",
+    "strength": "1500mg",
+    "sku": "GTT"
+  },
+  "product-87": {
+    "compoundSlug": "glutathione",
+    "strength": "600mg",
+    "sku": "GTT"
+  },
+  "product-88": {
+    "compoundSlug": "glutathione",
+    "strength": "1500mg",
+    "sku": "GTT"
+  },
+  "b-12-b12": {
+    "compoundSlug": "b-12",
+    "strength": "10mg",
+    "sku": "B12"
+  },
+  "product-89": {
+    "compoundSlug": "b-12",
+    "strength": "10mg",
+    "sku": "B12"
+  },
+  "lemonbottle-lb10": {
+    "compoundSlug": "lemonbottle",
+    "strength": "10ml",
+    "sku": "LB10柠檬瓶"
+  },
+  "product-90": {
+    "compoundSlug": "lemonbottle",
+    "strength": "10ml",
+    "sku": "LB10柠檬瓶"
+  },
+  "mic-lipo-c-b12-lc216": {
+    "compoundSlug": "mic-lipo-c-b12",
+    "strength": "10mg",
+    "sku": "LC216"
+  },
+  "product-91": {
+    "compoundSlug": "mic-lipo-c-b12",
+    "strength": "10mg",
+    "sku": "LC216"
+  },
+  "l-carn-itine-lc600": {
+    "compoundSlug": "l-carn-itine",
+    "strength": "10mg",
+    "sku": "LC600"
+  },
+  "product-92": {
+    "compoundSlug": "l-carn-itine",
+    "strength": "10mg",
+    "sku": "LC600"
+  },
+  "bac-water-bac3": {
+    "compoundSlug": "bac-water",
+    "strength": "3ml",
+    "sku": "BAC3"
+  },
+  "product-93": {
+    "compoundSlug": "bac-water",
+    "strength": "3ml",
+    "sku": "BAC3"
+  },
+  "bac-water-bac10": {
+    "compoundSlug": "bac-water",
+    "strength": "10ml",
+    "sku": "BAC10"
+  },
+  "product-94": {
+    "compoundSlug": "bac-water",
+    "strength": "10ml",
+    "sku": "BAC10"
+  },
+  "bac-water-wac3": {
+    "compoundSlug": "bac-water",
+    "strength": "3ml",
+    "sku": "WAC3"
+  },
+  "product-95": {
+    "compoundSlug": "bac-water",
+    "strength": "3ml",
+    "sku": "WAC3"
+  },
+  "bac-water-wac10": {
+    "compoundSlug": "bac-water",
+    "strength": "10ml",
+    "sku": "WAC10"
+  },
+  "product-96": {
+    "compoundSlug": "bac-water",
+    "strength": "10ml",
+    "sku": "WAC10"
+  },
+  "5-amino-1mq-5am": {
+    "compoundSlug": "5-amino-1mq",
+    "strength": "5mg",
+    "sku": "5AM"
+  },
+  "product-97": {
+    "compoundSlug": "5-amino-1mq",
+    "strength": "5mg",
+    "sku": "5AM"
+  },
+  "5-amino-1mq-10am": {
+    "compoundSlug": "5-amino-1mq",
+    "strength": "10mg",
+    "sku": "10AM"
+  },
+  "product-98": {
+    "compoundSlug": "5-amino-1mq",
+    "strength": "10mg",
+    "sku": "10AM"
+  },
+  "5-amino-1mq-50am": {
+    "compoundSlug": "5-amino-1mq",
+    "strength": "50mg",
+    "sku": "50AM"
+  },
+  "product-99": {
+    "compoundSlug": "5-amino-1mq",
+    "strength": "50mg",
+    "sku": "50AM"
+  },
+  "hgh-191aa-h10": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "10iu",
+    "sku": "H10"
+  },
+  "product-100": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "10iu",
+    "sku": "H10"
+  },
+  "hgh-191aa-h12": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "12iu",
+    "sku": "H12"
+  },
+  "product-101": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "12iu",
+    "sku": "H12"
+  },
+  "hgh-191aa-h15": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "15iu",
+    "sku": "H15"
+  },
+  "product-102": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "15iu",
+    "sku": "H15"
+  },
+  "hgh-191aa-h24": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "24iu",
+    "sku": "H24"
+  },
+  "product-103": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "24iu",
+    "sku": "H24"
+  },
+  "hgh-191aa-h36": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "36iu",
+    "sku": "H36"
+  },
+  "product-104": {
+    "compoundSlug": "hgh-191aa",
+    "strength": "36iu",
+    "sku": "H36"
+  },
+  "slu-pp-332-332": {
+    "compoundSlug": "slu-pp-332",
+    "strength": "10mg",
+    "sku": "332"
+  },
+  "product-105": {
+    "compoundSlug": "slu-pp-332",
+    "strength": "5mg",
+    "sku": "332"
+  },
+  "product-106": {
+    "compoundSlug": "slu-pp-332",
+    "strength": "10mg",
+    "sku": "332"
+  },
+  "igf-1-lr3-ig01": {
+    "compoundSlug": "igf-1-lr3",
+    "strength": "0.1mg",
+    "sku": "IG01"
+  },
+  "product-107": {
+    "compoundSlug": "igf-1-lr3",
+    "strength": "0.1mg",
+    "sku": "IG01"
+  },
+  "igf-1-lr3-ig1": {
+    "compoundSlug": "igf-1-lr3",
+    "strength": "1mg",
+    "sku": "IG1"
+  },
+  "product-108": {
+    "compoundSlug": "igf-1-lr3",
+    "strength": "1mg",
+    "sku": "IG1"
+  },
+  "ghrp-2-g25": {
+    "compoundSlug": "ghrp-2",
+    "strength": "5mg",
+    "sku": "G25"
+  },
+  "product-109": {
+    "compoundSlug": "ghrp-2",
+    "strength": "5mg",
+    "sku": "G25"
+  },
+  "ghrp-2-g210": {
+    "compoundSlug": "ghrp-2",
+    "strength": "10mg",
+    "sku": "G210"
+  },
+  "product-110": {
+    "compoundSlug": "ghrp-2",
+    "strength": "10mg",
+    "sku": "G210"
+  },
+  "ghrp-2-g215": {
+    "compoundSlug": "ghrp-2",
+    "strength": "15mg",
+    "sku": "G215"
+  },
+  "product-111": {
+    "compoundSlug": "ghrp-2",
+    "strength": "15mg",
+    "sku": "G215"
+  },
+  "ghrp-6-g65": {
+    "compoundSlug": "ghrp-6",
+    "strength": "5mg",
+    "sku": "G65"
+  },
+  "product-112": {
+    "compoundSlug": "ghrp-6",
+    "strength": "5mg",
+    "sku": "G65"
+  },
+  "ghrp-6-g610": {
+    "compoundSlug": "ghrp-6",
+    "strength": "10mg",
+    "sku": "G610"
+  },
+  "product-113": {
+    "compoundSlug": "ghrp-6",
+    "strength": "10mg",
+    "sku": "G610"
+  },
+  "aicar-ar50": {
+    "compoundSlug": "aicar",
+    "strength": "50mg",
+    "sku": "AR50"
+  },
+  "product-114": {
+    "compoundSlug": "aicar",
+    "strength": "50mg",
+    "sku": "AR50"
+  },
+  "hcg-hc1000": {
+    "compoundSlug": "hcg",
+    "strength": "1000iu",
+    "sku": "HC1000"
+  },
+  "product-115": {
+    "compoundSlug": "hcg",
+    "strength": "1000iu",
+    "sku": "HC1000"
+  },
+  "hcg-hc2000": {
+    "compoundSlug": "hcg",
+    "strength": "2000iu",
+    "sku": "HC2000"
+  },
+  "product-116": {
+    "compoundSlug": "hcg",
+    "strength": "2000iu",
+    "sku": "HC2000"
+  },
+  "hcg-hc5000": {
+    "compoundSlug": "hcg",
+    "strength": "5000iu",
+    "sku": "HC5000"
+  },
+  "product-117": {
+    "compoundSlug": "hcg",
+    "strength": "5000iu",
+    "sku": "HC5000"
+  },
+  "hcg-hc10000": {
+    "compoundSlug": "hcg",
+    "strength": "10000iu",
+    "sku": "HC10000"
+  },
+  "product-118": {
+    "compoundSlug": "hcg",
+    "strength": "10000iu",
+    "sku": "HC10000"
+  },
+  "hmg-hm75": {
+    "compoundSlug": "hmg",
+    "strength": "75iu",
+    "sku": "HM75"
+  },
+  "product-119": {
+    "compoundSlug": "hmg",
+    "strength": "75iu",
+    "sku": "HM75"
+  },
+  "botox-100u": {
+    "compoundSlug": "botox",
+    "strength": "100u",
+    "sku": "100U"
+  },
+  "product-120": {
+    "compoundSlug": "botox",
+    "strength": "100u",
+    "sku": "100U"
+  },
+  "botox-150u": {
+    "compoundSlug": "botox",
+    "strength": "150u",
+    "sku": "150U"
+  },
+  "product-121": {
+    "compoundSlug": "botox",
+    "strength": "150u",
+    "sku": "150U"
+  },
+  "botox-200u": {
+    "compoundSlug": "botox",
+    "strength": "200u",
+    "sku": "200U"
+  },
+  "product-122": {
+    "compoundSlug": "botox",
+    "strength": "200u",
+    "sku": "200U"
+  },
+  "xt100u-100iu": {
+    "compoundSlug": "xt100u",
+    "strength": "100u",
+    "sku": "100iu"
+  },
+  "product-123": {
+    "compoundSlug": "xt100u",
+    "strength": "100u",
+    "sku": "100iu"
+  },
+  "kisspeptin-10-fragment-ks5": {
+    "compoundSlug": "kisspeptin-10-fragment",
+    "strength": "5mg",
+    "sku": "KS5"
+  },
+  "product-124": {
+    "compoundSlug": "kisspeptin-10-fragment",
+    "strength": "5mg",
+    "sku": "KS5"
+  },
+  "kisspeptin-10-fragment-ks10": {
+    "compoundSlug": "kisspeptin-10-fragment",
+    "strength": "10mg",
+    "sku": "KS10"
+  },
+  "product-125": {
+    "compoundSlug": "kisspeptin-10-fragment",
+    "strength": "10mg",
+    "sku": "KS10"
+  },
+  "thymosin-alpha-1-ta5": {
+    "compoundSlug": "thymosin-alpha-1",
+    "strength": "5mg",
+    "sku": "TA5"
+  },
+  "product-126": {
+    "compoundSlug": "thymosin-alpha-1",
+    "strength": "5mg",
+    "sku": "TA5"
+  },
+  "thymosin-alpha-1-ta10": {
+    "compoundSlug": "thymosin-alpha-1",
+    "strength": "10mg",
+    "sku": "TA10"
+  },
+  "product-127": {
+    "compoundSlug": "thymosin-alpha-1",
+    "strength": "10mg",
+    "sku": "TA10"
+  },
+  "thymosin-alpha-1-ta50": {
+    "compoundSlug": "thymosin-alpha-1",
+    "strength": "50mg",
+    "sku": "TA50"
+  },
+  "product-128": {
+    "compoundSlug": "thymosin-alpha-1",
+    "strength": "50mg",
+    "sku": "TA50"
+  },
+  "hexarelin-hx2": {
+    "compoundSlug": "hexarelin",
+    "strength": "2mg",
+    "sku": "HX2"
+  },
+  "product-129": {
+    "compoundSlug": "hexarelin",
+    "strength": "2mg",
+    "sku": "HX2"
+  },
+  "hexarelin-hx5": {
+    "compoundSlug": "hexarelin",
+    "strength": "5mg",
+    "sku": "HX5"
+  },
+  "product-130": {
+    "compoundSlug": "hexarelin",
+    "strength": "5mg",
+    "sku": "HX5"
+  },
+  "hexarelin-hx10": {
+    "compoundSlug": "hexarelin",
+    "strength": "10mg",
+    "sku": "HX10"
+  },
+  "product-131": {
+    "compoundSlug": "hexarelin",
+    "strength": "10mg",
+    "sku": "HX10"
+  },
+  "adipotide-ap2": {
+    "compoundSlug": "adipotide",
+    "strength": "2mg",
+    "sku": "AP2"
+  },
+  "product-132": {
+    "compoundSlug": "adipotide",
+    "strength": "2mg",
+    "sku": "AP2"
+  },
+  "adipotide-ap5": {
+    "compoundSlug": "adipotide",
+    "strength": "5mg",
+    "sku": "AP5"
+  },
+  "product-133": {
+    "compoundSlug": "adipotide",
+    "strength": "5mg",
+    "sku": "AP5"
+  },
+  "sermorelin-acetate-smo-5": {
+    "compoundSlug": "sermorelin-acetate",
+    "strength": "5mg",
+    "sku": "SMO-5"
+  },
+  "product-134": {
+    "compoundSlug": "sermorelin-acetate",
+    "strength": "5mg",
+    "sku": "SMO-5"
+  },
+  "sermorelin-acetate-smo-10": {
+    "compoundSlug": "sermorelin-acetate",
+    "strength": "10mg",
+    "sku": "SMO-10"
+  },
+  "product-135": {
+    "compoundSlug": "sermorelin-acetate",
+    "strength": "10mg",
+    "sku": "SMO-10"
+  },
+  "snap-8-np810": {
+    "compoundSlug": "snap-8",
+    "strength": "10mg",
+    "sku": "NP810"
+  },
+  "product-136": {
+    "compoundSlug": "snap-8",
+    "strength": "10mg",
+    "sku": "NP810"
+  },
+  "thymalin-ty10": {
+    "compoundSlug": "thymalin",
+    "strength": "10mg",
+    "sku": "TY10"
+  },
+  "product-137": {
+    "compoundSlug": "thymalin",
+    "strength": "10mg",
+    "sku": "TY10"
+  },
+  "foxo4-dri-f410": {
+    "compoundSlug": "foxo4-dri",
+    "strength": "10mg",
+    "sku": "F410"
+  },
+  "product-138": {
+    "compoundSlug": "foxo4-dri",
+    "strength": "10mg",
+    "sku": "F410"
+  },
+  "ll37-375": {
+    "compoundSlug": "ll37",
+    "strength": "5mg",
+    "sku": "375"
+  },
+  "product-139": {
+    "compoundSlug": "ll37",
+    "strength": "5mg",
+    "sku": "375"
+  },
+  "survodutide-sur10": {
+    "compoundSlug": "survodutide",
+    "strength": "10mg",
+    "sku": "SUR10"
+  },
+  "product-140": {
+    "compoundSlug": "survodutide",
+    "strength": "10mg",
+    "sku": "SUR10"
+  },
+  "ara-290-ra10": {
+    "compoundSlug": "ara-290",
+    "strength": "10mg",
+    "sku": "RA10"
+  },
+  "product-141": {
+    "compoundSlug": "ara-290",
+    "strength": "10mg",
+    "sku": "RA10"
+  },
+  "dermorphin-dr5": {
+    "compoundSlug": "dermorphin",
+    "strength": "5mg",
+    "sku": "DR5"
+  },
+  "product-142": {
+    "compoundSlug": "dermorphin",
+    "strength": "5mg",
+    "sku": "DR5"
+  },
+  "vip-vp10": {
+    "compoundSlug": "vip",
+    "strength": "10mg",
+    "sku": "VP10"
+  },
+  "product-143": {
+    "compoundSlug": "vip",
+    "strength": "10mg",
+    "sku": "VP10"
+  },
+  "cagrilintide-5mg-semaglutide-5mg-cs10": {
+    "compoundSlug": "cagrilintide-5mg-semaglutide-5mg",
+    "strength": "(5mg+5mg)",
+    "sku": "CS10"
+  },
+  "product-144": {
+    "compoundSlug": "cagrilintide-5mg-semaglutide-5mg",
+    "strength": "(5mg+5mg)",
+    "sku": "CS10"
+  },
+  "gonadorrlin-acetate-gnd2": {
+    "compoundSlug": "gonadorrlin-acetate",
+    "strength": "2mg",
+    "sku": "GND2"
+  },
+  "product-145": {
+    "compoundSlug": "gonadorrlin-acetate",
+    "strength": "2mg",
+    "sku": "GND2"
+  },
+  "oxytocin-acetate-ot2": {
+    "compoundSlug": "oxytocin-acetate",
+    "strength": "2mg",
+    "sku": "OT2"
+  },
+  "product-146": {
+    "compoundSlug": "oxytocin-acetate",
+    "strength": "2mg",
+    "sku": "OT2"
+  },
+  "oxytocin-acetate-ot5": {
+    "compoundSlug": "oxytocin-acetate",
+    "strength": "5mg",
+    "sku": "OT5"
+  },
+  "product-147": {
+    "compoundSlug": "oxytocin-acetate",
+    "strength": "5mg",
+    "sku": "OT5"
+  },
+  "oxytocin-acetate-ot10": {
+    "compoundSlug": "oxytocin-acetate",
+    "strength": "10mg",
+    "sku": "OT10"
+  },
+  "product-148": {
+    "compoundSlug": "oxytocin-acetate",
+    "strength": "10mg",
+    "sku": "OT10"
+  },
+  "hgh-fragment-176-191-fr5": {
+    "compoundSlug": "hgh-fragment-176-191",
+    "strength": "5mg",
+    "sku": "FR5"
+  },
+  "product-149": {
+    "compoundSlug": "hgh-fragment-176-191",
+    "strength": "5mg",
+    "sku": "FR5"
+  },
+  "mgf-fm2": {
+    "compoundSlug": "mgf",
+    "strength": "2mg",
+    "sku": "FM2"
+  },
+  "product-150": {
+    "compoundSlug": "mgf",
+    "strength": "2mg",
+    "sku": "FM2"
+  },
+  "peg-mgf-fmp2": {
+    "compoundSlug": "peg-mgf",
+    "strength": "2mg",
+    "sku": "FMP2"
+  },
+  "product-151": {
+    "compoundSlug": "peg-mgf",
+    "strength": "2mg",
+    "sku": "FMP2"
+  }
+}

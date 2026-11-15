@@ -1,0 +1,16 @@
+{
+  "name": "MOG WRLD — Research Compounds",
+  "short_name": "MOG WRLD",
+  "description": "High-purity laboratory research compounds and biochemicals. For research use only.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F5F7",
+  "theme_color": "#0B0B0C",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
