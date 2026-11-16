@@ -1,1 +1,7 @@
-/*    /index.html   200
+/api/create-order            /.netlify/functions/create-order   200!
+/api/verify-payment          /.netlify/functions/verify-payment 200!
+/api/razorpay-webhook        /.netlify/functions/webhook        200!
+/api/razorpay/create-order   /.netlify/functions/create-order   200!
+/api/razorpay/verify-payment /.netlify/functions/verify-payment 200!
+/api/razorpay/webhook        /.netlify/functions/webhook        200!
+/*                           /index.html                        200

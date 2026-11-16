@@ -75,8 +75,8 @@ exports.handler = async (event, context) => {
     };
   }
 
-  const keyId = process.env.RAZORPAY_KEY_ID;
-  const keySecret = process.env.RAZORPAY_KEY_SECRET;
+  const keyId = process.env.RAZORPAY_KEY_ID || 'rzp_test_U0afxjnWzj28fr';
+  const keySecret = process.env.RAZORPAY_KEY_SECRET || 'jZ9hZFCoX7260vzb4e2UqnCe';
 
   // Diagnostic log (never print secret values)
   console.log('[Netlify Function: create-order] Invoked');

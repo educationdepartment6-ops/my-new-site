@@ -79,8 +79,11 @@ export async function openRazorpayCheckout({
   };
 
   try {
-    // Try /api/create-order first
-    let res = await fetch('/api/create-order', {
+    const isNetlify = typeof window !== 'undefined' && window.location.hostname.includes('netlify.app');
+    const primaryUrl = isNetlify ? '/.netlify/functions/create-order' : '/api/create-order';
+    const fallbackUrl = isNetlify ? '/api/create-order' : '/.netlify/functions/create-order';
+
+    let res = await fetch(primaryUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,12 +92,12 @@ export async function openRazorpayCheckout({
       body: JSON.stringify(orderPayload)
     });
 
-    const contentType = res.headers.get('content-type') || '';
+    let contentType = (res.headers.get('content-type') || '').toLowerCase();
 
-    // If server returned HTML (e.g. Netlify fallback or unmapped proxy), try direct function route
-    if (!res.ok || contentType.toLowerCase().includes('text/html')) {
-      console.warn('[Razorpay Checkout] /api/create-order returned non-JSON/status', res.status, '- attempting /.netlify/functions/create-order fallback');
-      const fallbackRes = await fetch('/.netlify/functions/create-order', {
+    // If primary returned non-JSON (HTML 404/fallback), try the alternate endpoint
+    if (!contentType.includes('application/json')) {
+      console.warn(`[Razorpay Checkout] ${primaryUrl} returned non-JSON (${contentType}). Trying ${fallbackUrl}...`);
+      const fallbackRes = await fetch(fallbackUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -103,13 +106,14 @@ export async function openRazorpayCheckout({
         body: JSON.stringify(orderPayload)
       });
 
-      if (fallbackRes.ok && (fallbackRes.headers.get('content-type') || '').toLowerCase().includes('application/json')) {
+      const fallbackContentType = (fallbackRes.headers.get('content-type') || '').toLowerCase();
+      if (fallbackContentType.includes('application/json')) {
         res = fallbackRes;
+        contentType = fallbackContentType;
       }
     }
 
-    const finalContentType = res.headers.get('content-type') || '';
-    if (finalContentType.toLowerCase().includes('text/html')) {
+    if (!contentType.includes('application/json')) {
       throw new Error('Payment server could not be reached (server returned HTML). Please ensure the backend is running.');
     }
 
@@ -131,8 +135,8 @@ export async function openRazorpayCheckout({
     return;
   }
 
-  // Use Key ID from server response or environment variable (never Key Secret)
-  const keyId = orderData.keyId || orderData.key_id || import.meta.env.VITE_RAZORPAY_KEY_ID;
+  // Use Key ID from server response, environment variable, or test fallback
+  const keyId = orderData.keyId || orderData.key_id || import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_U0afxjnWzj28fr';
 
   if (keyId && keyId.startsWith('rzp_test_')) {
     console.log('[Razorpay Checkout] Initializing in TEST mode with key:', keyId);
@@ -171,7 +175,11 @@ export async function openRazorpayCheckout({
           items: orderPayload.items
         };
 
-        let vRes = await fetch('/api/verify-payment', {
+        const isNetlify = typeof window !== 'undefined' && window.location.hostname.includes('netlify.app');
+        const primaryVerifyUrl = isNetlify ? '/.netlify/functions/verify-payment' : '/api/verify-payment';
+        const fallbackVerifyUrl = isNetlify ? '/api/verify-payment' : '/.netlify/functions/verify-payment';
+
+        let vRes = await fetch(primaryVerifyUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -180,9 +188,9 @@ export async function openRazorpayCheckout({
           body: JSON.stringify(verifyPayload)
         });
 
-        const vContentType = vRes.headers.get('content-type') || '';
-        if (!vRes.ok || vContentType.toLowerCase().includes('text/html')) {
-          const fallbackVRes = await fetch('/.netlify/functions/verify-payment', {
+        let vContentType = (vRes.headers.get('content-type') || '').toLowerCase();
+        if (!vContentType.includes('application/json')) {
+          const fallbackVRes = await fetch(fallbackVerifyUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -190,9 +198,15 @@ export async function openRazorpayCheckout({
             },
             body: JSON.stringify(verifyPayload)
           });
-          if (fallbackVRes.ok && (fallbackVRes.headers.get('content-type') || '').toLowerCase().includes('application/json')) {
+          const fbVContentType = (fallbackVRes.headers.get('content-type') || '').toLowerCase();
+          if (fbVContentType.includes('application/json')) {
             vRes = fallbackVRes;
+            vContentType = fbVContentType;
           }
+        }
+
+        if (!vContentType.includes('application/json')) {
+          throw new Error('Payment verification endpoint returned non-JSON. Please contact support.');
         }
 
         const verifyResult = await vRes.json();

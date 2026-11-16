@@ -13,31 +13,37 @@
   from = "/api/create-order"
   to = "/.netlify/functions/create-order"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/api/verify-payment"
   to = "/.netlify/functions/verify-payment"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/api/razorpay-webhook"
   to = "/.netlify/functions/webhook"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/api/razorpay/create-order"
   to = "/.netlify/functions/create-order"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/api/razorpay/verify-payment"
   to = "/.netlify/functions/verify-payment"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/api/razorpay/webhook"
   to = "/.netlify/functions/webhook"
   status = 200
+  force = true
 
 # Client-side SPA routing fallback
 [[redirects]]

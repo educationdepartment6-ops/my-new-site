@@ -18,7 +18,7 @@ exports.handler = async (event, context) => {
     };
   }
 
-  const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET || process.env.RAZORPAY_KEY_SECRET;
+  const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET || process.env.RAZORPAY_KEY_SECRET || 'jZ9hZFCoX7260vzb4e2UqnCe';
   const signature = event.headers['x-razorpay-signature'] || event.headers['X-Razorpay-Signature'];
 
   console.log('[Netlify Function: webhook] Received webhook event');
