@@ -135,8 +135,8 @@ export async function openRazorpayCheckout({
     return;
   }
 
-  // Use Key ID from server response, environment variable, or test fallback
-  const keyId = orderData.keyId || orderData.key_id || import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_U0afxjnWzj28fr';
+  // Use Key ID from server response, environment variable, or live fallback
+  const keyId = orderData.keyId || orderData.key_id || import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_U0p4uE1A1W2QRO';
 
   if (keyId && keyId.startsWith('rzp_test_')) {
     console.log('[Razorpay Checkout] Initializing in TEST mode with key:', keyId);

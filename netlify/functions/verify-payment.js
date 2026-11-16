@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
     };
   }
 
-  const keySecret = process.env.RAZORPAY_KEY_SECRET || 'jZ9hZFCoX7260vzb4e2UqnCe';
+  const keySecret = process.env.RAZORPAY_KEY_SECRET || 'lXClc7AwL4DbpH3VGDq2qdKO';
   console.log('[Netlify Function: verify-payment] Invoked');
   console.log('[Netlify Function: verify-payment] RAZORPAY_KEY_SECRET present:', Boolean(keySecret));
 

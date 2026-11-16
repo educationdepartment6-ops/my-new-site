@@ -374,7 +374,7 @@ export default function CheckoutPage() {
                   <CreditCard className="w-4 h-4 text-emerald-500" />
                   <span>3. Payment Method</span>
                 </span>
-                {(import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_U0afxjnWzj28fr').startsWith('rzp_test_') && (
+                {(import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_U0p4uE1A1W2QRO').startsWith('rzp_test_') && (
                   <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-amber-500/10 text-amber-500 border border-amber-500/20">
                     Test mode
                   </span>

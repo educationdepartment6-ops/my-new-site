@@ -8,8 +8,8 @@ const router = express.Router();
 
 // Initialize Razorpay client with environment variables
 function getRazorpayInstance() {
-  const keyId = process.env.RAZORPAY_KEY_ID;
-  const keySecret = process.env.RAZORPAY_KEY_SECRET;
+  const keyId = process.env.RAZORPAY_KEY_ID || 'rzp_live_U0p4uE1A1W2QRO';
+  const keySecret = process.env.RAZORPAY_KEY_SECRET || 'lXClc7AwL4DbpH3VGDq2qdKO';
 
   console.log('[Server Razorpay] Initializing client...');
   console.log('[Server Razorpay] RAZORPAY_KEY_ID present:', Boolean(keyId));
@@ -125,7 +125,7 @@ async function verifyPaymentHandler(req, res) {
       });
     }
 
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET || 'lXClc7AwL4DbpH3VGDq2qdKO';
     if (!keySecret) {
       return res.status(500).json({
         success: false,
