@@ -168,6 +168,16 @@ db.exec(`
   );
 `);
 
+// Ensure customer_id column exists on orders table
+try {
+  const orderColumns = db.prepare('PRAGMA table_info(orders)').all();
+  if (!orderColumns.some(c => c.name === 'customer_id')) {
+    db.prepare('ALTER TABLE orders ADD COLUMN customer_id TEXT').run();
+  }
+} catch (e) {
+  console.warn('[DB Migration] orders.customer_id check:', e.message);
+}
+
 // Auto-seed from JSON files if database is empty
 function seedDatabase() {
   const countRow = db.prepare('SELECT COUNT(*) as count FROM products').get();

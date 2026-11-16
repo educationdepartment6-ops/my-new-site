@@ -138,18 +138,16 @@ export default function CheckoutPage() {
     }
     const customerData = { ...data, phone: normalizedPhone };
 
-    // Calculate total amount in paise (minimum 100 paise)
-    const totalPaise = Math.max(100, Math.round((currency === 'INR' ? subtotal : subtotal * 86.5) * 100));
     const receiptId = `rcpt_${Date.now().toString().slice(-8)}`;
 
     try {
       await openRazorpayCheckout({
-        amountPaise: totalPaise,
+        items,
         currency: 'INR',
         receipt: receiptId,
         customer: customerData,
         onSuccess: async (paymentResult) => {
-          let orderId = `MW-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 900 + 100)}`;
+          let orderId = paymentResult.orderNumber || `MW-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 900 + 100)}`;
           try {
             const result = await safeApiFetch('/api/orders', {
               method: 'POST',
@@ -178,9 +176,16 @@ export default function CheckoutPage() {
             total: subtotal,
             currency,
             paymentId: paymentResult.payment_id,
-            paymentStatus: 'Paid (Razorpay Standard Web Checkout)',
+            paymentStatus: 'Paid (Razorpay)',
             timestamp: new Date().toISOString(),
           };
+
+          // Also persist to customer's browser orders list for offline/client view in /account
+          try {
+            const existingOrders = JSON.parse(localStorage.getItem('mogwrld_client_orders') || '[]');
+            existingOrders.unshift(orderSummary);
+            localStorage.setItem('mogwrld_client_orders', JSON.stringify(existingOrders));
+          } catch (_) {}
 
           clearCart();
           navigate('/order-confirmation', { state: { order: orderSummary } });
@@ -192,12 +197,12 @@ export default function CheckoutPage() {
         },
         onDismiss: () => {
           setIsSubmitting(false);
-          setPaymentError('Payment window was closed. Your transaction was not completed.');
+          setPaymentError('Payment window was closed. You can try again when you are ready.');
         }
       });
     } catch (err) {
       setIsSubmitting(false);
-      setPaymentError(err.message || 'Unable to initialize Razorpay checkout.');
+      setPaymentError(err.message || 'Payment could not be started. Please try again.');
     }
   };
 
@@ -362,21 +367,21 @@ export default function CheckoutPage() {
               )}
             </div>
 
-            {/* Payment Gateway Placeholder Abstraction */}
+            {/* Payment Method Section */}
             <div className="p-6 rounded-2xl glass-panel bg-white/70 dark:bg-[#141517]/70 border border-[var(--border)] space-y-3">
               <div className="flex items-center justify-between">
                 <span className="font-heading font-bold text-sm text-[var(--ink)] flex items-center gap-2">
-                  <CreditCard className="w-4 h-4 text-[var(--chrome)]" />
+                  <CreditCard className="w-4 h-4 text-emerald-500" />
                   <span>3. Payment Method</span>
                 </span>
-                <span className="text-[11px] font-mono text-[var(--chrome)]">SSL 256-BIT ENCRYPTED</span>
+                {(import.meta.env.VITE_RAZORPAY_KEY_ID || '').startsWith('rzp_test_') && (
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-medium bg-amber-500/10 text-amber-500 border border-amber-500/20">
+                    Test mode
+                  </span>
+                )}
               </div>
-              <div className="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] text-xs text-[var(--ink-muted)] flex items-center justify-between">
-                <span>Credit Card / Secure Payment Gateway</span>
-                <span className="badge-ruo">SANDBOX READY</span>
-              </div>
-              <p className="text-[11px] text-[var(--ink-muted)]">
-                Order data is routed securely through environmental webhooks without storing sensitive payment secrets on-site.
+              <p className="text-xs text-[var(--ink-muted)] leading-relaxed">
+                Pay securely with UPI, cards, netbanking or wallets. You choose the method in the next step.
               </p>
             </div>
           </div>
@@ -431,9 +436,23 @@ export default function CheckoutPage() {
               </div>
 
               {paymentError && (
-                <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-start gap-2 animate-fade-in">
-                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
-                  <span className="leading-relaxed">{paymentError}</span>
+                <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex flex-col gap-2.5 animate-fade-in">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
+                    <span className="leading-relaxed">{paymentError}</span>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentError('');
+                        handleSubmit(onSubmit)();
+                      }}
+                      className="px-3 py-1 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 font-semibold text-xs transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                    >
+                      <span>Try again</span>
+                    </button>
+                  </div>
                 </div>
               )}
 

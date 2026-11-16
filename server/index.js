@@ -68,6 +68,7 @@ app.use('/api/coa', adminCOARoutes);
 app.use('/api/razorpay', razorpayRoutes.router);
 app.post('/api/create-order', razorpayRoutes.createOrderHandler);
 app.post('/api/verify-payment', razorpayRoutes.verifyPaymentHandler);
+app.post('/api/razorpay-webhook', razorpayRoutes.webhookHandler);
 
 // Static assets
 const distDir = path.join(__dirname, '..', 'dist');

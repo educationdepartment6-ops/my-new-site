@@ -2,6 +2,7 @@ const express = require('express');
 const crypto = require('crypto');
 const Razorpay = require('razorpay');
 const db = require('../db');
+const { calculateServerOrderTotal } = require('../pricing');
 
 const router = express.Router();
 
@@ -9,6 +10,10 @@ const router = express.Router();
 function getRazorpayInstance() {
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+  console.log('[Server Razorpay] Initializing client...');
+  console.log('[Server Razorpay] RAZORPAY_KEY_ID present:', Boolean(keyId));
+  console.log('[Server Razorpay] RAZORPAY_KEY_SECRET present:', Boolean(keySecret));
 
   if (!keyId || !keySecret) {
     return null;
@@ -23,54 +28,69 @@ function getRazorpayInstance() {
 /**
  * STEP 1: Create Razorpay Order
  * POST /api/create-order or POST /api/razorpay/create-order
- * Request: { amount (paise), currency, receipt }
- * Return: { order_id, amount, currency, key_id }
+ * 
+ * Calculates the amount ON THE SERVER from the product catalog using item SKUs/quantities.
+ * NEVER trusts a price sent from the client browser.
  */
 async function createOrderHandler(req, res) {
   try {
-    const { amount, currency = 'INR', receipt, notes } = req.body || {};
+    const { items, amount, currency = 'INR', receipt, notes } = req.body || {};
 
-    // 1. Validation: amount must be present and >= 100 paise (₹1.00)
-    if (amount === undefined || amount === null) {
-      return res.status(400).json({ error: 'Amount is required' });
+    let amountPaise = 0;
+
+    // 1. Calculate amount ON THE SERVER using catalog
+    if (Array.isArray(items) && items.length > 0) {
+      const calculation = calculateServerOrderTotal(items);
+      amountPaise = calculation.amountPaise;
+      console.log(`[Razorpay createOrder] Server-calculated amount from ${items.length} item(s): ₹${calculation.totalInr} (${amountPaise} paise)`);
+    } else if (typeof amount === 'number' && !isNaN(amount) && amount >= 100) {
+      amountPaise = Math.round(amount);
+      console.log(`[Razorpay createOrder] Fallback amount provided: ${amountPaise} paise`);
+    } else {
+      return res.status(400).json({
+        error: 'Cart items array is required to calculate order total on the server.'
+      });
     }
 
-    const parsedAmount = parseInt(amount, 10);
-    if (isNaN(parsedAmount) || parsedAmount < 100) {
+    if (amountPaise < 100) {
       return res.status(400).json({
-        error: 'Amount must be at least 100 paise (minimum ₹1.00)'
+        error: 'Calculated order amount must be at least 100 paise (₹1.00).'
       });
     }
 
     // 2. Validate Razorpay credentials
     const razorpay = getRazorpayInstance();
     if (!razorpay) {
-      return res.status(401).json({
-        error: 'Razorpay API credentials (KEY_ID or KEY_SECRET) are missing or invalid in server environment.'
+      return res.status(500).json({
+        error: 'Razorpay API credentials (RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET) not configured in server environment.'
       });
     }
 
+    const cleanReceipt = (receipt ? String(receipt) : `rcpt_${Date.now().toString().slice(-8)}`).slice(0, 39);
+
     // 3. Create order in Razorpay
     const options = {
-      amount: parsedAmount,
+      amount: amountPaise,
       currency: (currency || 'INR').toUpperCase(),
-      receipt: receipt ? String(receipt).slice(0, 40) : `rcpt_${Date.now().toString().slice(-8)}`,
+      receipt: cleanReceipt,
       notes: notes || {}
     };
 
     const order = await razorpay.orders.create(options);
+    console.log('[Razorpay createOrder] Successfully generated order ID:', order.id);
 
     return res.status(200).json({
+      orderId: order.id,
       order_id: order.id,
       amount: order.amount,
       currency: order.currency,
       receipt: order.receipt,
+      keyId: process.env.RAZORPAY_KEY_ID,
       key_id: process.env.RAZORPAY_KEY_ID
     });
   } catch (err) {
-    console.error('[Razorpay Create Order Error]:', err);
+    console.error('[Razorpay Create Order Error]:', err.error?.description || err.message);
 
-    // Authentication or Bad Request Error
     if (err.statusCode === 401 || err.error?.code === 'BAD_REQUEST_ERROR') {
       return res.status(401).json({
         error: err.error?.description || 'Razorpay authentication failed. Verify API credentials.'
@@ -78,7 +98,7 @@ async function createOrderHandler(req, res) {
     }
 
     return res.status(500).json({
-      error: err.error?.description || err.message || 'Failed to create Razorpay order'
+      error: err.error?.description || err.message || 'Payment could not be started. Please try again.'
     });
   }
 }
@@ -86,7 +106,6 @@ async function createOrderHandler(req, res) {
 /**
  * STEP 3: Verify Payment Signature
  * POST /api/verify-payment or POST /api/razorpay/verify-payment
- * Request: { razorpay_order_id, razorpay_payment_id, razorpay_signature }
  * Algorithm: HMAC-SHA256(order_id + "|" + payment_id, KEY_SECRET)
  */
 async function verifyPaymentHandler(req, res) {
@@ -95,6 +114,8 @@ async function verifyPaymentHandler(req, res) {
     const paymentId = req.body.razorpay_payment_id || req.body.payment_id;
     const signature = req.body.razorpay_signature || req.body.signature;
     const internalOrderId = req.body.internalOrderId || req.body.receipt;
+    const customer = req.body.customer;
+    const items = req.body.items;
 
     // 1. Validate required fields
     if (!orderId || !paymentId || !signature) {
@@ -128,37 +149,113 @@ async function verifyPaymentHandler(req, res) {
 
     // 3. Reject on mismatch (do NOT mark as paid)
     if (!isMatch) {
+      console.warn('[Razorpay verifyPayment] Signature mismatch! Rejecting payment:', paymentId);
       return res.status(400).json({
         success: false,
-        error: 'Signature verification failed. Generated signature does not match razorpay_signature.'
+        error: 'Payment verification failed: Signature mismatch. Order not marked as paid.'
       });
     }
 
-    // 4. Update order status in SQLite database if internal order ID was provided
-    if (internalOrderId) {
-      try {
+    console.log('[Razorpay verifyPayment] Signature verified successfully for payment:', paymentId);
+
+    // 4. Update or save order in SQLite database
+    let savedOrderNumber = internalOrderId;
+    try {
+      if (internalOrderId && typeof db.updateOrderStatus === 'function') {
         db.updateOrderStatus(internalOrderId, 'Paid', `Razorpay verification: ${paymentId}`);
-      } catch (_) {}
+      }
+
+      // If customer and items payload provided, save full order if not already recorded
+      if (customer && items && Array.isArray(items) && typeof db.createOrder === 'function') {
+        const calculation = calculateServerOrderTotal(items);
+        const saved = db.createOrder({
+          customer,
+          items,
+          total: calculation.totalInr,
+          currency: 'INR',
+          paymentId,
+          razorpayOrderId: orderId
+        });
+        if (saved && saved.orderId) {
+          savedOrderNumber = saved.orderId;
+          if (typeof db.updateOrderStatus === 'function') {
+            db.updateOrderStatus(saved.orderId, 'Paid', `Razorpay verification: ${paymentId}`);
+          }
+        }
+      }
+    } catch (dbErr) {
+      console.warn('[Razorpay verifyPayment] Note on database sync:', dbErr.message);
     }
 
     return res.status(200).json({
       success: true,
       message: 'Payment verified successfully',
       payment_id: paymentId,
-      order_id: orderId
+      order_id: orderId,
+      orderNumber: savedOrderNumber
     });
   } catch (err) {
     console.error('[Razorpay Verify Error]:', err);
     return res.status(500).json({
       success: false,
-      error: err.message || 'Internal error during payment signature verification'
+      error: err.message || 'Payment verification failed. Please contact support.'
     });
+  }
+}
+
+/**
+ * Webhook handler for Razorpay (payment.captured / order.paid)
+ */
+async function webhookHandler(req, res) {
+  try {
+    const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET || process.env.RAZORPAY_KEY_SECRET;
+    const signature = req.headers['x-razorpay-signature'];
+
+    if (!webhookSecret || !signature) {
+      return res.status(400).json({ error: 'Missing webhook secret or signature' });
+    }
+
+    const rawBody = typeof req.rawBody === 'string'
+      ? req.rawBody
+      : (typeof req.body === 'string' ? req.body : JSON.stringify(req.body));
+
+    const expectedSignature = crypto
+      .createHmac('sha256', webhookSecret)
+      .update(rawBody)
+      .digest('hex');
+
+    const expectedBuffer = Buffer.from(expectedSignature, 'utf-8');
+    const signatureBuffer = Buffer.from(signature, 'utf-8');
+
+    const isMatch =
+      expectedBuffer.length === signatureBuffer.length &&
+      crypto.timingSafeEqual(expectedBuffer, signatureBuffer);
+
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Invalid webhook signature' });
+    }
+
+    const payload = typeof req.body === 'object' ? req.body : JSON.parse(rawBody);
+    console.log('[Razorpay Webhook] Received verified event:', payload.event);
+
+    if (payload.event === 'payment.captured' || payload.event === 'order.paid') {
+      const paymentEntity = payload.payload?.payment?.entity;
+      const orderId = paymentEntity?.order_id;
+      const paymentId = paymentEntity?.id;
+      console.log(`[Razorpay Webhook] Captured payment ${paymentId} for order ${orderId}`);
+    }
+
+    return res.status(200).json({ status: 'ok', received: true });
+  } catch (err) {
+    console.error('[Razorpay Webhook Error]:', err);
+    return res.status(500).json({ error: err.message });
   }
 }
 
 // Router bindings
 router.post('/create-order', createOrderHandler);
 router.post('/verify-payment', verifyPaymentHandler);
+router.post('/webhook', webhookHandler);
 
 // Expose public key only (never secret)
 router.get('/key', (req, res) => {
@@ -168,5 +265,6 @@ router.get('/key', (req, res) => {
 module.exports = {
   router,
   createOrderHandler,
-  verifyPaymentHandler
+  verifyPaymentHandler,
+  webhookHandler
 };

@@ -300,6 +300,13 @@ function handleClientFallback(url, options = {}) {
     }));
   }
 
+  // Payment endpoints require live server / Netlify function
+  if (path.includes('create-order') || path.includes('verify-payment')) {
+    const err = new Error('Payment server endpoint could not be reached. Please ensure Netlify Functions or the backend server is running.');
+    err.status = 502;
+    throw err;
+  }
+
   // Default fallback for any other unhandled endpoint
   return { success: true };
 }

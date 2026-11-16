@@ -1,14 +1,45 @@
-
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  directory = "netlify/functions"
+  included_files = ["src/data/**"]
+
+
+# Razorpay Netlify Serverless Functions
+[[redirects]]
+  from = "/api/create-order"
+  to = "/.netlify/functions/create-order"
+  status = 200
 
 [[redirects]]
-  from = "/api/*"
-  to = "https://zshops-intake-atlas-finding.trycloudflare.com/api/:splat"
+  from = "/api/verify-payment"
+  to = "/.netlify/functions/verify-payment"
   status = 200
-  force = true
 
+[[redirects]]
+  from = "/api/razorpay-webhook"
+  to = "/.netlify/functions/webhook"
+  status = 200
+
+[[redirects]]
+  from = "/api/razorpay/create-order"
+  to = "/.netlify/functions/create-order"
+  status = 200
+
+[[redirects]]
+  from = "/api/razorpay/verify-payment"
+  to = "/.netlify/functions/verify-payment"
+  status = 200
+
+[[redirects]]
+  from = "/api/razorpay/webhook"
+  to = "/.netlify/functions/webhook"
+  status = 200
+
+# Client-side SPA routing fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
