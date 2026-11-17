@@ -168,14 +168,20 @@ db.exec(`
   );
 `);
 
-// Ensure customer_id column exists on orders table
+// Ensure customer_id, payment_id, and razorpay_order_id columns exist on orders table
 try {
   const orderColumns = db.prepare('PRAGMA table_info(orders)').all();
   if (!orderColumns.some(c => c.name === 'customer_id')) {
     db.prepare('ALTER TABLE orders ADD COLUMN customer_id TEXT').run();
   }
+  if (!orderColumns.some(c => c.name === 'payment_id')) {
+    db.prepare('ALTER TABLE orders ADD COLUMN payment_id TEXT').run();
+  }
+  if (!orderColumns.some(c => c.name === 'razorpay_order_id')) {
+    db.prepare('ALTER TABLE orders ADD COLUMN razorpay_order_id TEXT').run();
+  }
 } catch (e) {
-  console.warn('[DB Migration] orders.customer_id check:', e.message);
+  console.warn('[DB Migration] orders columns check:', e.message);
 }
 
 // Auto-seed from JSON files if database is empty
@@ -499,31 +505,48 @@ function moveProductCategory(productId, newCategorySlug, adminEmail) {
 
 // Orders
 function createOrder(data, customerId = null) {
-  const orderId = `MW-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 900 + 100)}`;
-  const now = new Date().toISOString();
+  const orderId = data.orderId || data.order_number || data.id || `MW-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 900 + 100)}`;
+  const now = data.created_at || data.createdAt || new Date().toISOString();
+  const customerName = data.customer?.fullName || data.customer?.name || data.customerName || data.customer_name || 'Customer';
+  const email = (data.customer?.email || data.email || '').toLowerCase().trim();
+  const phone = data.customer?.phone || data.phone || '';
+  const institution = data.customer?.institution || data.institution || '';
+  const address = data.customer?.address || data.address || '';
+  const city = data.customer?.city || data.city || '';
+  const postalCode = data.customer?.postalCode || data.customer?.postal_code || data.postal_code || data.postalCode || '';
+  const country = data.customer?.country || data.country || 'India';
+  const total = parseInt(data.total || data.total_inr || data.totalInr || 0, 10);
+  const status = data.status || 'Pending';
+  const currency = data.currency || 'INR';
+  const paymentId = data.paymentId || data.payment_id || null;
+  const razorpayOrderId = data.razorpayOrderId || data.razorpay_order_id || null;
+
   db.prepare(`
-    INSERT INTO orders (
+    INSERT OR REPLACE INTO orders (
       id, order_number, customer_id, customer_name, email, phone, institution, address, city, postal_code, country,
-      items_json, total_inr, currency, status, created_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', ?)
+      items_json, total_inr, currency, status, created_at, payment_id, razorpay_order_id
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     orderId,
     orderId,
     customerId || data.customerId || null,
-    data.customer?.fullName || data.customerName,
-    (data.customer?.email || data.email || '').toLowerCase().trim(),
-    data.customer?.phone || data.phone || '',
-    data.customer?.institution || data.institution || '',
-    data.customer?.address || data.address || '',
-    data.customer?.city || data.city || '',
-    data.customer?.postalCode || data.postalCode || '',
-    data.customer?.country || data.country || 'United States',
+    customerName,
+    email,
+    phone,
+    institution,
+    address,
+    city,
+    postalCode,
+    country,
     JSON.stringify(data.items || []),
-    parseInt(data.total || 0, 10),
-    data.currency || 'INR',
-    now
+    total,
+    currency,
+    status,
+    now,
+    paymentId,
+    razorpayOrderId
   );
-  return { orderId, status: 'Pending', createdAt: now };
+  return { orderId, status, createdAt: now };
 }
 
 function getAllOrders() {
@@ -871,19 +894,155 @@ function saveCustomerCart(userId, items) {
 // Admin Customer Listing & Controls
 function getAllCustomersForAdmin() {
   const users = db.prepare("SELECT id, name, email, phone, role, email_verified, disabled, created_at, last_login_at FROM users WHERE role = 'customer' ORDER BY created_at DESC").all();
-  const orderCountStmt = db.prepare('SELECT COUNT(*) as count FROM orders WHERE LOWER(email) = ?');
-  return users.map(u => ({
-    id: u.id,
-    name: u.name,
-    email: u.email,
-    phone: u.phone,
-    role: u.role,
-    emailVerified: Boolean(u.email_verified),
-    disabled: Boolean(u.disabled),
-    createdAt: u.created_at,
-    lastLoginAt: u.last_login_at,
-    orderCount: orderCountStmt.get(u.email.toLowerCase()).count
-  }));
+  const orderStatsStmt = db.prepare('SELECT COUNT(*) as count, COALESCE(SUM(total_inr), 0) as totalSpent FROM orders WHERE LOWER(email) = ?');
+  const addressStmt = db.prepare('SELECT * FROM user_addresses WHERE user_id = ? ORDER BY is_default DESC, created_at DESC LIMIT 1');
+
+  return users.map(u => {
+    const stats = orderStatsStmt.get(u.email.toLowerCase()) || { count: 0, totalSpent: 0 };
+    const defaultAddr = addressStmt.get(u.id);
+    return {
+      id: u.id,
+      name: u.name,
+      email: u.email,
+      phone: u.phone,
+      role: u.role,
+      emailVerified: Boolean(u.email_verified),
+      disabled: Boolean(u.disabled),
+      createdAt: u.created_at,
+      lastLoginAt: u.last_login_at,
+      orderCount: stats.count,
+      totalSpentInr: stats.totalSpent,
+      defaultAddress: defaultAddr ? {
+        addressLine1: defaultAddr.address_line1,
+        addressLine2: defaultAddr.address_line2,
+        city: defaultAddr.city,
+        postalCode: defaultAddr.postal_code,
+        country: defaultAddr.country
+      } : null
+    };
+  });
+}
+
+function getAdminActivityFeed() {
+  const customers = getAllCustomersForAdmin();
+  const orders = getAllOrders();
+
+  // Metrics calculation
+  const totalCustomers = customers.length;
+  const totalOrders = orders.length;
+  const paidOrders = orders.filter(o => (o.status || '').toLowerCase() === 'paid');
+  const totalRevenueInr = paidOrders.reduce((sum, o) => sum + (Number(o.total_inr) || 0), 0);
+  const pendingOrders = orders.filter(o => ['pending', 'processing'].includes((o.status || '').toLowerCase())).length;
+
+  const feed = [];
+
+  for (const c of customers) {
+    feed.push({
+      type: 'registration',
+      id: 'reg_' + c.id,
+      timestamp: c.createdAt || new Date().toISOString(),
+      customer: {
+        id: c.id,
+        name: c.name,
+        email: c.email,
+        phone: c.phone,
+        emailVerified: c.emailVerified,
+        disabled: c.disabled,
+        orderCount: c.orderCount,
+        totalSpentInr: c.totalSpentInr,
+        defaultAddress: c.defaultAddress,
+        lastLoginAt: c.lastLoginAt
+      }
+    });
+  }
+
+  for (const o of orders) {
+    feed.push({
+      type: 'order',
+      id: 'ord_' + o.id,
+      timestamp: o.created_at || new Date().toISOString(),
+      order: {
+        id: o.id,
+        orderNumber: o.order_number,
+        customerId: o.customer_id,
+        customerName: o.customer_name,
+        email: o.email,
+        phone: o.phone,
+        institution: o.institution,
+        address: o.address,
+        city: o.city,
+        postalCode: o.postal_code,
+        country: o.country,
+        items: o.items || [],
+        totalInr: o.total_inr,
+        currency: o.currency || 'INR',
+        status: o.status,
+        paymentId: o.payment_id,
+        razorpayOrderId: o.razorpay_order_id,
+        createdAt: o.created_at
+      }
+    });
+  }
+
+  feed.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+  return {
+    metrics: {
+      totalCustomers,
+      totalOrders,
+      totalRevenueInr,
+      pendingOrders
+    },
+    customers,
+    orders,
+    feed
+  };
+}
+
+function syncAllAdminRecords(clientUsers = [], clientOrders = []) {
+  let addedUsers = 0;
+  let addedOrders = 0;
+
+  if (Array.isArray(clientUsers)) {
+    for (const u of clientUsers) {
+      if (!u || !u.email) continue;
+      const cleanEmail = u.email.trim().toLowerCase();
+      const existing = getUserByEmail(cleanEmail);
+      if (!existing) {
+        try {
+          createCustomer({
+            name: u.name || cleanEmail.split('@')[0],
+            email: cleanEmail,
+            phone: u.phone || null,
+            password: u._password || ('Cust_' + Math.random().toString(36).slice(2, 10))
+          });
+          addedUsers++;
+        } catch (_) {}
+      }
+    }
+  }
+
+  if (Array.isArray(clientOrders)) {
+    for (const o of clientOrders) {
+      if (!o) continue;
+      const orderNum = o.orderNumber || o.orderId || o.id;
+      if (!orderNum) continue;
+      const existing = db.prepare('SELECT id FROM orders WHERE id = ? OR order_number = ?').get(orderNum, orderNum);
+      if (!existing) {
+        try {
+          createOrder(o);
+          addedOrders++;
+        } catch (_) {}
+      }
+    }
+  }
+
+  return {
+    success: true,
+    addedUsers,
+    addedOrders,
+    feed: getAdminActivityFeed()
+  };
 }
 
 function setCustomerDisabledStatus(userId, disabled, adminEmail) {
@@ -1106,6 +1265,9 @@ module.exports = {
   createCustomerFromAdmin,
   updateCustomerFromAdmin,
   normalizeIndianPhone,
+  // Activity and Submissions
+  getAdminActivityFeed,
+  syncAllAdminRecords,
   // COA functions
   getAllCOARecords,
   getCOARecordById,

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
+  Activity,
   Package,
   Layers,
   Image as ImageIcon,
@@ -55,6 +56,7 @@ export default function AdminLayout() {
   }
 
   const navItems = [
+    { name: 'Live Feed', path: '/admin/activity', icon: Activity },
     { name: 'Products', path: '/admin/products', icon: Package },
     { name: 'Categories', path: '/admin/categories', icon: Layers },
     { name: 'COA Reports', path: '/admin/coa', icon: FileCheck },

@@ -40,6 +40,7 @@ const AccountPage = lazy(() => import('./pages/account/AccountPage'));
 // Admin Routes (Lazy loaded, noindex, authenticated)
 const AdminLogin = lazy(() => import('./admin/AdminLogin'));
 const AdminLayout = lazy(() => import('./admin/AdminLayout'));
+const AdminActivity = lazy(() => import('./admin/AdminActivity'));
 const AdminProducts = lazy(() => import('./admin/AdminProducts'));
 const AdminCategories = lazy(() => import('./admin/AdminCategories'));
 const AdminImages = lazy(() => import('./admin/AdminImages'));
@@ -80,7 +81,8 @@ export default function App() {
         <Routes>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Navigate to="/admin/products" replace />} />
+            <Route index element={<Navigate to="/admin/activity" replace />} />
+            <Route path="activity" element={<AdminActivity />} />
             <Route path="products" element={<AdminProducts />} />
             <Route path="categories" element={<AdminCategories />} />
             <Route path="images" element={<AdminImages />} />

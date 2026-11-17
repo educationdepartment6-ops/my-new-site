@@ -17,6 +17,7 @@ const customerAuthRoutes = require('./routes/customerAuth');
 const customerAccountRoutes = require('./routes/customerAccount');
 const adminCustomerRoutes = require('./routes/adminCustomers');
 const adminCOARoutes = require('./routes/adminCOA');
+const adminActivityRoutes = require('./routes/adminActivity');
 const razorpayRoutes = require('./routes/razorpay');
 const { csrfProtection } = require('./auth');
 
@@ -57,6 +58,7 @@ app.use('/api/admin/images', imageRoutes);
 app.use('/api/admin/logs', logRoutes);
 app.use('/api/admin/customers', adminCustomerRoutes);
 app.use('/api/admin/coa', adminCOARoutes);
+app.use('/api/admin/activity', adminActivityRoutes);
 
 // Public API Routes
 app.use('/api/products', productRoutes);
