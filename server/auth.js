@@ -83,10 +83,16 @@ function csrfProtection(req, res, next) {
   // Origin / Referer check
   const origin = req.headers['origin'];
   const host = req.headers['host'];
+  const forwardedHost = req.headers['x-forwarded-host'];
   if (origin && host) {
     try {
-      const originHost = new URL(origin).host;
-      if (originHost !== host) {
+      const originUrl = new URL(origin);
+      const originHostname = originUrl.hostname;
+      const hostHostname = host.split(':')[0];
+      const isLocalhost = (originHostname === 'localhost' || originHostname === '127.0.0.1') &&
+                          (hostHostname === 'localhost' || hostHostname === '127.0.0.1');
+
+      if (!isLocalhost && originUrl.host !== host && originUrl.host !== forwardedHost) {
         return res.status(403).json({ error: 'CSRF verification failed: Origin mismatch' });
       }
     } catch (_) {}
