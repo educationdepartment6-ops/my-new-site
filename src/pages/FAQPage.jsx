@@ -7,7 +7,7 @@ export default function FAQPage() {
   const faqList = [
     {
       q: 'How do I place an order?',
-      a: 'Browse our shop, pick your product and strength option, add it to your cart, and head to checkout. You can sign in or create an account during checkout.'
+      a: 'Ordering takes 4 simple steps: 1. Select your research compounds and quantities from our catalogue. 2. Fill the compliance checkout form with your delivery address. 3. Click "Send order on WhatsApp" to open WhatsApp with your pre-filled requisition. 4. Our team confirms availability, final total, shipping and payment details with you directly on WhatsApp.'
     },
     {
       q: 'What does "per vial" mean?',

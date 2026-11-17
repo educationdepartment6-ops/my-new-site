@@ -611,6 +611,12 @@ export default function AccountPage() {
                         <span>Total:</span>
                         <span className="text-emerald-400">₹{ord.total_inr?.toLocaleString()}</span>
                       </div>
+                      {(ord.tracking_number || ord.trackingNumber) && (
+                        <div className="pt-1.5 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                          <span>Courier Tracking:</span>
+                          <span className="text-emerald-400 font-semibold">{ord.tracking_number || ord.trackingNumber}</span>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

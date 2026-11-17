@@ -58,7 +58,7 @@ async function getOrders() {
 async function saveOrder(order) {
   const list = await getOrders();
   const id = order.orderNumber || order.order_number || order.id;
-  const index = list.findIndex(o => (o.orderNumber || o.order_number || o.id) ==: id);
+  const index = list.findIndex(o => (o.orderNumber || o.order_number || o.id) === id);
   if (index >= 0) {
     list[index] = { ...list[index], ...order };
   } else {

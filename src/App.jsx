@@ -8,6 +8,7 @@ import ScrollToTop from './components/common/ScrollToTop';
 import LoadingScreen from './components/common/LoadingScreen';
 import { useCustomerAuthStore } from './store/useCustomerAuthStore';
 import PhoneVerificationGate from './components/auth/PhoneVerificationGate';
+import WhatsAppFloatingButton from './components/common/WhatsAppFloatingButton';
 
 // Direct import for homepage to ensure zero-CLS hydration
 import HomePage from './pages/HomePage';
@@ -137,6 +138,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <WhatsAppFloatingButton />
     </div>
   );
 }

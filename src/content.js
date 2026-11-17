@@ -42,22 +42,27 @@ export const siteContent = {
     },
     howToOrder: {
       title: 'How to order',
-      subtitle: 'Ordering from MOG WRLD takes just 3 simple steps:',
+      subtitle: 'Ordering from MOG WRLD takes just 4 simple steps:',
       steps: [
         {
           number: '1',
-          title: 'Choose your product and strength',
-          description: 'Pick the product you need from our catalogue and select your strength option.',
+          title: 'Select your compounds',
+          description: 'Select your research compounds and quantities from our catalogue.',
         },
         {
           number: '2',
-          title: 'Add to cart and sign in',
-          description: 'Add items to your cart, then sign in or create an account in a few seconds.',
+          title: 'Enter delivery address',
+          description: 'Fill the compliance checkout form with your delivery address.',
         },
         {
           number: '3',
-          title: 'Checkout and we ship to you',
-          description: 'Review your order, enter your address, and checkout. We pack and ship directly to you.',
+          title: 'Send order on WhatsApp',
+          description: 'Click "Send order on WhatsApp" to open WhatsApp with your pre-filled requisition.',
+        },
+        {
+          number: '4',
+          title: 'Confirm and complete payment',
+          description: 'Our team confirms availability, final total, shipping and payment details with you directly on WhatsApp.',
         },
       ],
     },
@@ -98,7 +103,7 @@ export const siteContent = {
       items: [
         {
           q: 'How do I order?',
-          a: 'Choose your product and strength from our shop, add it to your cart, and head to checkout. Sign in or create a customer account to enter your delivery address and complete your order.',
+          a: 'Ordering takes 4 simple steps: 1. Select your research compounds and quantities. 2. Fill the compliance checkout form with your delivery address. 3. Click "Send order on WhatsApp" to open WhatsApp with your pre-filled requisition. 4. Our team confirms availability, final total, shipping and payment details with you directly on WhatsApp.',
         },
         {
           q: "What does 'per vial' mean?",

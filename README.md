@@ -128,4 +128,4 @@ npm.cmd run preview
    - `src/components/common/Footer.jsx`
    - `src/pages/AboutPage.jsx`
    - `src/pages/legal/ResearchUsePolicyPage.jsx`
-4. **Payment Gateway**: Connect your preferred merchant provider (Stripe, Medusa, Razorpay, or institutional bank transfer) in `src/pages/CheckoutPage.jsx` using environment variables.
+4. **Order Processing**: Orders are placed via the automated WhatsApp order confirmation flow (+91 9270465829) with manual settlement.

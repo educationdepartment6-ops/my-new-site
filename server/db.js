@@ -1,6 +1,7 @@
 const { DatabaseSync } = require('node:sqlite');
 const path = require('path');
 const fs = require('fs');
+const { calculateServerOrderTotal } = require('./pricing');
 
 const dbPath = path.join(__dirname, '..', 'data.db');
 const db = new DatabaseSync(dbPath);
@@ -63,12 +64,15 @@ db.exec(`
     institution TEXT,
     address TEXT NOT NULL,
     city TEXT,
+    state TEXT,
     postal_code TEXT,
     country TEXT,
     items_json TEXT NOT NULL,
     total_inr INTEGER NOT NULL,
     currency TEXT NOT NULL DEFAULT 'INR',
-    status TEXT NOT NULL DEFAULT 'Pending',
+    status TEXT NOT NULL DEFAULT 'New - awaiting WhatsApp confirmation',
+    notes TEXT,
+    tracking_number TEXT,
     created_at TEXT NOT NULL
   );
 
@@ -168,17 +172,20 @@ db.exec(`
   );
 `);
 
-// Ensure customer_id, payment_id, and razorpay_order_id columns exist on orders table
+// Ensure customer_id, state, notes, and tracking_number columns exist on orders table
 try {
   const orderColumns = db.prepare('PRAGMA table_info(orders)').all();
   if (!orderColumns.some(c => c.name === 'customer_id')) {
     db.prepare('ALTER TABLE orders ADD COLUMN customer_id TEXT').run();
   }
-  if (!orderColumns.some(c => c.name === 'payment_id')) {
-    db.prepare('ALTER TABLE orders ADD COLUMN payment_id TEXT').run();
+  if (!orderColumns.some(c => c.name === 'state')) {
+    db.prepare('ALTER TABLE orders ADD COLUMN state TEXT').run();
   }
-  if (!orderColumns.some(c => c.name === 'razorpay_order_id')) {
-    db.prepare('ALTER TABLE orders ADD COLUMN razorpay_order_id TEXT').run();
+  if (!orderColumns.some(c => c.name === 'notes')) {
+    db.prepare('ALTER TABLE orders ADD COLUMN notes TEXT').run();
+  }
+  if (!orderColumns.some(c => c.name === 'tracking_number')) {
+    db.prepare('ALTER TABLE orders ADD COLUMN tracking_number TEXT').run();
   }
 } catch (e) {
   console.warn('[DB Migration] orders columns check:', e.message);
@@ -504,8 +511,23 @@ function moveProductCategory(productId, newCategorySlug, adminEmail) {
 }
 
 // Orders
+function generateOrderNumber() {
+  const countRow = db.prepare('SELECT COUNT(*) as count FROM orders').get();
+  let candidate = `MW-${String((countRow?.count || 0) + 1).padStart(6, '0')}`;
+  let exists = db.prepare('SELECT id FROM orders WHERE id = ? OR order_number = ?').get(candidate, candidate);
+  while (exists) {
+    const rand = Math.floor(100000 + Math.random() * 900000);
+    candidate = `MW-${rand}`;
+    exists = db.prepare('SELECT id FROM orders WHERE id = ? OR order_number = ?').get(candidate, candidate);
+  }
+  return candidate;
+}
+
 function createOrder(data, customerId = null) {
-  const orderId = data.orderId || data.order_number || data.id || `MW-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 900 + 100)}`;
+  let orderId = data.orderId || data.order_number || data.id;
+  if (!orderId || !/^MW-\d+$/i.test(orderId)) {
+    orderId = generateOrderNumber();
+  }
   const now = data.created_at || data.createdAt || new Date().toISOString();
   const customerName = data.customer?.fullName || data.customer?.name || data.customerName || data.customer_name || 'Customer';
   const email = (data.customer?.email || data.email || '').toLowerCase().trim();
@@ -513,19 +535,36 @@ function createOrder(data, customerId = null) {
   const institution = data.customer?.institution || data.institution || '';
   const address = data.customer?.address || data.address || '';
   const city = data.customer?.city || data.city || '';
+  const state = data.customer?.state || data.state || '';
   const postalCode = data.customer?.postalCode || data.customer?.postal_code || data.postal_code || data.postalCode || '';
   const country = data.customer?.country || data.country || 'India';
-  const total = parseInt(data.total || data.total_inr || data.totalInr || 0, 10);
-  const status = data.status || 'Pending';
+  const notes = data.notes || '';
+  const trackingNumber = data.trackingNumber || data.tracking_number || '';
+
+  // Server-authoritative calculation: NEVER trust client prices
+  let total = 0;
+  let verifiedItems = data.items || [];
+  try {
+    if (Array.isArray(data.items) && data.items.length > 0) {
+      const pricing = calculateServerOrderTotal(data.items);
+      total = pricing.totalInr;
+      verifiedItems = pricing.verifiedItems;
+    } else {
+      total = parseInt(data.total || data.total_inr || data.totalInr || 0, 10);
+    }
+  } catch (err) {
+    console.warn('[DB createOrder] Error calculating order total with pricing engine:', err.message);
+    total = parseInt(data.total || data.total_inr || data.totalInr || 0, 10);
+  }
+
+  const status = data.status || 'New - awaiting WhatsApp confirmation';
   const currency = data.currency || 'INR';
-  const paymentId = data.paymentId || data.payment_id || null;
-  const razorpayOrderId = data.razorpayOrderId || data.razorpay_order_id || null;
 
   db.prepare(`
     INSERT OR REPLACE INTO orders (
-      id, order_number, customer_id, customer_name, email, phone, institution, address, city, postal_code, country,
-      items_json, total_inr, currency, status, created_at, payment_id, razorpay_order_id
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      id, order_number, customer_id, customer_name, email, phone, institution, address, city, state, postal_code, country,
+      items_json, total_inr, currency, status, notes, tracking_number, created_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     orderId,
     orderId,
@@ -536,30 +575,61 @@ function createOrder(data, customerId = null) {
     institution,
     address,
     city,
+    state,
     postalCode,
     country,
-    JSON.stringify(data.items || []),
+    JSON.stringify(verifiedItems),
     total,
     currency,
     status,
-    now,
-    paymentId,
-    razorpayOrderId
+    notes,
+    trackingNumber,
+    now
   );
-  return { orderId, status, createdAt: now };
+  return {
+    orderId,
+    orderNumber: orderId,
+    status,
+    totalInr: total,
+    currency,
+    items: verifiedItems,
+    createdAt: now
+  };
 }
 
 function getAllOrders() {
   const orders = db.prepare('SELECT * FROM orders ORDER BY created_at DESC').all();
   return orders.map(o => ({
     ...o,
+    orderNumber: o.order_number || o.id,
+    customerName: o.customer_name,
+    postalCode: o.postal_code,
+    totalInr: o.total_inr,
+    trackingNumber: o.tracking_number,
     items: JSON.parse(o.items_json || '[]')
   }));
 }
 
 function updateOrderStatus(id, status, adminEmail) {
   db.prepare('UPDATE orders SET status = ? WHERE id = ?').run(status, id);
-  logActivity(adminEmail, 'UPDATE_ORDER', `Changed order #${id} status to '${status}'`);
+  logActivity(adminEmail, 'UPDATE_ORDER_STATUS', `Changed order #${id} status to '${status}'`);
+  return db.prepare('SELECT * FROM orders WHERE id = ?').get(id);
+}
+
+function updateOrderNotesAndTracking(id, { notes, trackingNumber }, adminEmail) {
+  const existing = db.prepare('SELECT * FROM orders WHERE id = ?').get(id);
+  if (!existing) throw new Error('Order not found');
+
+  const updatedNotes = notes !== undefined ? notes : (existing.notes || '');
+  const updatedTracking = trackingNumber !== undefined ? trackingNumber : (existing.tracking_number || '');
+
+  db.prepare('UPDATE orders SET notes = ?, tracking_number = ? WHERE id = ?').run(
+    updatedNotes,
+    updatedTracking,
+    id
+  );
+  logActivity(adminEmail, 'UPDATE_ORDER_DETAILS', `Updated notes/tracking for order #${id}`);
+  return { ...existing, notes: updatedNotes, tracking_number: updatedTracking };
 }
 
 // Activity Logs
@@ -930,9 +1000,9 @@ function getAdminActivityFeed() {
   // Metrics calculation
   const totalCustomers = customers.length;
   const totalOrders = orders.length;
-  const paidOrders = orders.filter(o => (o.status || '').toLowerCase() === 'paid');
+  const paidOrders = orders.filter(o => ['paid', 'payment received', 'confirmed on whatsapp', 'shipped', 'delivered'].includes((o.status || '').toLowerCase()));
   const totalRevenueInr = paidOrders.reduce((sum, o) => sum + (Number(o.total_inr) || 0), 0);
-  const pendingOrders = orders.filter(o => ['pending', 'processing'].includes((o.status || '').toLowerCase())).length;
+  const pendingOrders = orders.filter(o => ['pending', 'processing', 'new', 'new - awaiting whatsapp confirmation'].includes((o.status || '').toLowerCase())).length;
 
   const feed = [];
 
@@ -963,7 +1033,7 @@ function getAdminActivityFeed() {
       timestamp: o.created_at || new Date().toISOString(),
       order: {
         id: o.id,
-        orderNumber: o.order_number,
+        orderNumber: o.order_number || o.id,
         customerId: o.customer_id,
         customerName: o.customer_name,
         email: o.email,
@@ -971,14 +1041,15 @@ function getAdminActivityFeed() {
         institution: o.institution,
         address: o.address,
         city: o.city,
+        state: o.state || '',
         postalCode: o.postal_code,
         country: o.country,
         items: o.items || [],
         totalInr: o.total_inr,
         currency: o.currency || 'INR',
         status: o.status,
-        paymentId: o.payment_id,
-        razorpayOrderId: o.razorpay_order_id,
+        notes: o.notes || '',
+        trackingNumber: o.tracking_number || '',
         createdAt: o.created_at
       }
     });
@@ -1231,6 +1302,7 @@ module.exports = {
   createOrder,
   getAllOrders,
   updateOrderStatus,
+  updateOrderNotesAndTracking,
   logActivity,
   getActivityLogs,
   createSession,

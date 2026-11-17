@@ -26,30 +26,47 @@ export default function TermsPage() {
 
         <div className="space-y-8 text-xs sm:text-sm text-[var(--ink-muted)] leading-relaxed">
           <section className="space-y-3">
-            <h2 className="text-lg font-heading font-bold text-[var(--ink)]">1. Purchaser Eligibility & Representations</h2>
+            <h2 className="text-lg font-heading font-bold text-[var(--ink)]">1. Legal Entity & Eligibility</h2>
             <p>
-              By accessing this site or requisitioning materials, you confirm you are at least 18 years old and represent an authorized laboratory, institution, or academic research department. You warrant that all materials will be handled strictly in compliance with applicable chemical safety regulations.
+              This website is operated by [FILL IN: Your registered business entity name], a company organized and existing under the laws of [FILL IN: Registered business jurisdiction, e.g. Maharashtra, India] ("MOG WRLD"). By accessing this site or submitting an order request, you confirm you are at least 18 years old and represent an authorized laboratory, institution, or academic research department.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-heading font-bold text-[var(--ink)]">2. Research Use Only Limitation</h2>
             <p>
-              Materials sold by MOG WRLD are for laboratory chemical research only. They are not approved for food, drug, device, or cosmetic purposes. Purchaser assumes all responsibility and liability for laboratory hazards, handling, storage, and disposal.
+              Materials sold by MOG WRLD are strictly for laboratory in vitro chemical research only. They are not approved for human, clinical, food, drug, device, or veterinary usage. The purchaser assumes all responsibility and liability for laboratory handling, protective equipment, storage, and chemical disposal.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-heading font-bold text-[var(--ink)]">3. Orders, Pricing & Modifications</h2>
+            <h2 className="text-lg font-heading font-bold text-[var(--ink)]">3. Order Requests, WhatsApp Confirmation & Payment</h2>
             <p>
-              All prices are quoted in USD (with optional INR preview). MOG WRLD reserves the right to reject orders, alter product specifications, or correct pricing discrepancies prior to fulfillment.
+              Submitting an order on this website constitutes a purchase requisition / request. Online automated payment is not taken through this website. Order requests are reviewed by our team and confirmed directly with you on WhatsApp at +91 9270465829.
+            </p>
+            <p>
+              Final availability, verified totals, shipping details, and payment arrangements (including bank transfer, UPI, or manual invoice as mutually agreed) will be communicated directly on WhatsApp. An order is binding only once confirmed by our team and payment has been received and acknowledged.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-lg font-heading font-bold text-[var(--ink)]">4. Limitation of Liability</h2>
+            <h2 className="text-lg font-heading font-bold text-[var(--ink)]">4. Pricing & Catalogue Specifications</h2>
             <p>
-              In no event shall MOG WRLD, its officers, or manufacturing partners be liable for incidental, indirect, or consequential damages resulting from chemical handling, unauthorized usage, or regulatory non-compliance by the purchaser.
+              Prices listed on the website are displayed per vial in Indian Rupees (INR). MOG WRLD reserves the right to correct typographical or calculation errors, adjust compound specifications, or decline order requests prior to manual confirmation.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-lg font-heading font-bold text-[var(--ink)]">5. Limitation of Liability</h2>
+            <p>
+              In no event shall MOG WRLD, [FILL IN: Your registered business entity name], its officers, or laboratory partners be liable for incidental, indirect, or consequential damages resulting from chemical handling, unauthorized usage, or regulatory non-compliance by the purchaser.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-lg font-heading font-bold text-[var(--ink)]">6. Contact & Inquiries</h2>
+            <p>
+              For legal inquiries, contact [FILL IN: Legal inquiry email address] or reach our representative on WhatsApp at +91 9270465829.
             </p>
           </section>
         </div>

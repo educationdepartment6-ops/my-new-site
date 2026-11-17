@@ -480,7 +480,7 @@ export default function AdminActivity() {
             ₹{data.metrics.totalRevenueInr.toLocaleString()}
           </div>
           <div className="text-[11px] text-zinc-500 mt-1">
-            Settled via Razorpay
+            Confirmed & WhatsApp Orders
           </div>
         </div>
 
@@ -565,9 +565,9 @@ export default function AdminActivity() {
             className="px-3 py-1.5 rounded-xl bg-zinc-950 border border-zinc-800 text-xs text-zinc-300 font-mono focus:outline-none"
           >
             <option value="all">All Status</option>
-            <option value="Paid">Paid</option>
-            <option value="Pending">Pending</option>
-            <option value="Processing">Processing</option>
+            <option value="New - awaiting WhatsApp confirmation">New (Awaiting WhatsApp)</option>
+            <option value="Confirmed on WhatsApp">Confirmed on WhatsApp</option>
+            <option value="Payment received">Payment received</option>
             <option value="Shipped">Shipped</option>
             <option value="Delivered">Delivered</option>
             <option value="Cancelled">Cancelled</option>
@@ -773,7 +773,7 @@ export default function AdminActivity() {
                         ₹{(selectedItem.item.totalInr || 0).toLocaleString()} {selectedItem.item.currency || 'INR'}
                       </div>
                       <div className="text-[11px] text-zinc-400 font-mono mt-1">
-                        Gateway: Razorpay Standard Web Checkout
+                        Channel: WhatsApp Order Flow
                       </div>
                     </div>
 
@@ -960,24 +960,34 @@ export default function AdminActivity() {
                     </div>
                   </div>
 
-                  {/* Payment Gateway Trace */}
-                  {(selectedItem.item.paymentId || selectedItem.item.razorpayOrderId) && (
-                    <div className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800/80 font-mono text-[11px] space-y-1">
-                      <span className="text-zinc-500 block uppercase font-bold">Razorpay Transaction Verification:</span>
-                      {selectedItem.item.paymentId && (
-                        <div className="flex items-center justify-between text-zinc-300">
-                          <span>Payment ID:</span>
-                          <span className="text-emerald-400">{selectedItem.item.paymentId}</span>
-                        </div>
-                      )}
-                      {selectedItem.item.razorpayOrderId && (
-                        <div className="flex items-center justify-between text-zinc-300">
-                          <span>Razorpay Order ID:</span>
-                          <span>{selectedItem.item.razorpayOrderId}</span>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                  {/* WhatsApp Communication & Notes Trace */}
+                  <div className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800/80 font-mono text-[11px] space-y-2">
+                    <span className="text-zinc-500 block uppercase font-bold">WhatsApp Order Status & Notes:</span>
+                    {selectedItem.item.notes && (
+                      <div className="text-zinc-300">
+                        <span className="text-zinc-500">Internal Notes: </span>
+                        <span>{selectedItem.item.notes}</span>
+                      </div>
+                    )}
+                    {selectedItem.item.trackingNumber && (
+                      <div className="text-zinc-300">
+                        <span className="text-zinc-500">Tracking Number: </span>
+                        <span className="text-emerald-400 font-bold">{selectedItem.item.trackingNumber}</span>
+                      </div>
+                    )}
+                    {selectedItem.item.phone && (
+                      <div className="pt-1">
+                        <a
+                          href={`https://wa.me/${String(selectedItem.item.phone).replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${selectedItem.item.customerName || selectedItem.item.customer?.fullName || 'Customer'}, regarding your order request ${selectedItem.item.orderNumber || selectedItem.item.id}...`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366] text-white text-xs font-semibold hover:bg-[#20ba59] transition-colors"
+                        >
+                          <span>Chat on WhatsApp</span>
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </>
               ) : (
                 /* Registration Inspector View */

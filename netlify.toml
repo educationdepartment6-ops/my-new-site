@@ -8,42 +8,13 @@
   included_files = ["src/data/**"]
 
 
-# Razorpay Netlify Serverless Functions
+# Orders Netlify Functions
 [[redirects]]
-  from = "/api/create-order"
-  to = "/.netlify/functions/create-order"
+  from = "/api/orders"
+  to = "/.netlify/functions/orders"
   status = 200
   force = true
 
-[[redirects]]
-  from = "/api/verify-payment"
-  to = "/.netlify/functions/verify-payment"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/razorpay-webhook"
-  to = "/.netlify/functions/webhook"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/razorpay/create-order"
-  to = "/.netlify/functions/create-order"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/razorpay/verify-payment"
-  to = "/.netlify/functions/verify-payment"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/razorpay/webhook"
-  to = "/.netlify/functions/webhook"
-  status = 200
-  force = true
 
 # Customer Registration & Auth Netlify Functions
 [[redirects]]
