@@ -62,13 +62,18 @@ export default function AdminActivity() {
   const loadActivityData = async (showRefreshSpinner = false) => {
     if (showRefreshSpinner) setRefreshing(true);
     try {
-      // Collect any client-side registrations/orders stored on this browser to guarantee 100% sync
-      const clientUsersRaw = localStorage.getItem('mogwrld_client_users');
-      const clientOrdersRaw = localStorage.getItem('mogwrld_client_orders');
-      const clientUsers = clientUsersRaw ? JSON.parse(clientUsersRaw) : [];
-      const clientOrders = clientOrdersRaw ? JSON.parse(clientOrdersRaw) : [];
+      // 1. Collect any client-side registrations/orders stored on this browser
+      let clientUsers = [];
+      let clientOrders = [];
+      try {
+        const clientUsersRaw = localStorage.getItem('mogwrld_client_users');
+        const clientOrdersRaw = localStorage.getItem('mogwrld_client_orders');
+        clientUsers = clientUsersRaw ? JSON.parse(clientUsersRaw) : [];
+        clientOrders = clientOrdersRaw ? JSON.parse(clientOrdersRaw) : [];
+      } catch (_) {}
 
-      if ((clientUsers.length > 0 || clientOrders.length > 0) && showRefreshSpinner) {
+      // 2. Automatically push client-stored records to server database/blobs
+      if (clientUsers.length > 0 || clientOrders.length > 0) {
         try {
           await fetch('/api/admin/activity/sync', {
             method: 'POST',
@@ -78,11 +83,77 @@ export default function AdminActivity() {
         } catch (_) {}
       }
 
-      const res = await fetch('/api/admin/activity');
-      if (res.ok) {
-        const json = await res.json();
-        setData(json);
+      // 3. Fetch server records
+      let json = null;
+      try {
+        const res = await fetch('/api/admin/activity');
+        if (res.ok) {
+          json = await res.json();
+        }
+      } catch (_) {}
+
+      if (!json || !Array.isArray(json.customers)) {
+        json = { metrics: { totalCustomers: 0, totalOrders: 0, totalRevenueInr: 0, pendingOrders: 0 }, customers: [], orders: [], feed: [] };
       }
+
+      // 4. Guarantee any client users/orders stored in this browser are merged into view
+      const mergedCustomers = [...(json.customers || [])];
+      for (const cu of clientUsers) {
+        if (cu && cu.email && !mergedCustomers.some((ec) => ec.email?.toLowerCase() === cu.email.toLowerCase())) {
+          mergedCustomers.unshift({
+            id: cu.id || ('usr_' + Date.now()),
+            name: cu.name || cu.email.split('@')[0],
+            email: cu.email,
+            phone: cu.phone || null,
+            role: cu.role || 'customer',
+            emailVerified: true,
+            disabled: false,
+            orderCount: 0,
+            totalSpentInr: 0,
+            createdAt: cu.created_at || new Date().toISOString()
+          });
+        }
+      }
+
+      const mergedOrders = [...(json.orders || [])];
+      for (const co of clientOrders) {
+        const coId = co.orderId || co.orderNumber || co.id;
+        if (coId && !mergedOrders.some((eo) => (eo.orderNumber || eo.id) === coId)) {
+          mergedOrders.unshift(co);
+        }
+      }
+
+      // 5. Reconstruct combined chronological feed
+      const feed = [];
+      for (const c of mergedCustomers) {
+        feed.push({
+          type: 'registration',
+          id: 'reg_' + (c.id || c.email),
+          timestamp: c.createdAt || c.created_at || new Date().toISOString(),
+          customer: c
+        });
+      }
+      for (const o of mergedOrders) {
+        feed.push({
+          type: 'order',
+          id: 'ord_' + (o.orderNumber || o.order_number || o.id),
+          timestamp: o.createdAt || o.created_at || new Date().toISOString(),
+          order: o
+        });
+      }
+      feed.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+      setData({
+        metrics: {
+          totalCustomers: mergedCustomers.length,
+          totalOrders: mergedOrders.length,
+          totalRevenueInr: mergedOrders.reduce((sum, o) => sum + (Number(o.totalInr || o.total_inr || o.total) || 0), 0),
+          pendingOrders: mergedOrders.filter((o) => (o.status || 'Pending') === 'Pending').length
+        },
+        customers: mergedCustomers,
+        orders: mergedOrders,
+        feed
+      });
     } catch (err) {
       console.error('[Admin Activity] Load error:', err);
     } finally {

@@ -6,8 +6,23 @@ const router = express.Router();
 router.use(requireAdmin);
 
 // GET /api/admin/activity - Retrieve complete activity feed & metrics
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
+    // Attempt remote sync from live Netlify deployment
+    try {
+      const netlifyRes = await fetch('https://mogwrld.netlify.app/.netlify/functions/admin-activity', {
+        signal: AbortSignal.timeout(3000)
+      });
+      if (netlifyRes.ok) {
+        const netlifyData = await netlifyRes.json();
+        if (Array.isArray(netlifyData.customers) || Array.isArray(netlifyData.orders)) {
+          db.syncAllAdminRecords(netlifyData.customers || [], netlifyData.orders || []);
+        }
+      }
+    } catch (_) {
+      // Gracefully continue with SQLite if Netlify is offline
+    }
+
     const data = db.getAdminActivityFeed();
     res.json(data);
   } catch (err) {

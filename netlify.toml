@@ -45,6 +45,44 @@
   status = 200
   force = true
 
+# Customer Registration & Auth Netlify Functions
+[[redirects]]
+  from = "/api/auth/register"
+  to = "/.netlify/functions/auth-register"
+  status = 200
+  force = true
+
+# Admin Activity & Sync Netlify Functions
+[[redirects]]
+  from = "/api/admin/activity"
+  to = "/.netlify/functions/admin-activity"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/admin/activity/sync"
+  to = "/.netlify/functions/admin-activity"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/auth/sync-client-users"
+  to = "/.netlify/functions/admin-activity"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/admin/customers"
+  to = "/.netlify/functions/admin-activity"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/orders/admin"
+  to = "/.netlify/functions/admin-activity"
+  status = 200
+  force = true
+
 # Client-side SPA routing fallback
 [[redirects]]
   from = "/*"

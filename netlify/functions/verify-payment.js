@@ -87,6 +87,32 @@ exports.handler = async (event, context) => {
 
   console.log('[Netlify Function: verify-payment] Payment verified successfully for order:', orderId, 'payment:', paymentId);
 
+  try {
+    const { saveOrder } = require('./utils/blobStore');
+    await saveOrder({
+      id: 'ord_' + orderId,
+      orderNumber: body.order_number || body.orderNumber || ('MW-' + Date.now().toString().slice(-6)),
+      customerId: body.customer?.id || null,
+      customerName: body.customer?.fullName || body.customer_name || 'Verified Customer',
+      email: body.customer?.email || body.email || '',
+      phone: body.customer?.phone || body.phone || '',
+      institution: body.customer?.institution || '',
+      address: body.customer?.address || body.address || '',
+      city: body.customer?.city || body.city || '',
+      postalCode: body.customer?.postalCode || body.postal_code || '',
+      country: body.customer?.country || body.country || 'India',
+      items: body.items || [],
+      totalInr: body.amount ? body.amount / 100 : 3999,
+      currency: 'INR',
+      status: 'Paid',
+      paymentId: paymentId,
+      razorpayOrderId: orderId,
+      createdAt: new Date().toISOString()
+    });
+  } catch (err) {
+    console.warn('[Netlify Function: verify-payment] Could not persist order to blobStore:', err.message);
+  }
+
   return {
     statusCode: 200,
     headers,
